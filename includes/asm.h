@@ -54,4 +54,8 @@ typedef struct  s_asm
 	t_header	header;
 }				t_asm;
 
+
+int		read_file(t_asm *asmb, char *file_name);
+
+
 #endif

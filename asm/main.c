@@ -10,19 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/asm.h"
+#include "../includes/asm.h"
 
 int     main(int argc, char **argv)
 {
+    t_asm	asmb;
+
     if (argc != 2)
     {
         write(2, "Usage: ./asm [file.s]\n", 23);
+        return (1);
     }
-    check_file_name();
-    read_file();
-    // check_symbols();
-    find_name_comment();
-    parse_commands();
-    create_file();
-    write_to_file();
+	ft_memset(&asmb, 0, sizeof(asmb));
+    // check_file_name();
+    read_file(&asmb, argv[1]);
+    // check_symbols();///////
+    // find_name_comment();
+    // parse_commands();
+    // create_file();
+    // write_to_file();
+    return (0);
 }
