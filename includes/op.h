@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/04 16:47:47 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/04 18:15:37 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
 
-#define LABEL_CHARS				".abcdefghijklmnopqrstuvwxyz_0123456789"
+#define LABEL_CHARS				".\"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 #define NAME_CMD_STRING			".name"
 #define COMMENT_CMD_STRING		".comment"
