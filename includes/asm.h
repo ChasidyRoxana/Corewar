@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/04 16:47:13 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/04 16:54:02 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h> // удалить в конце
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include "op.h"
 
 typedef struct  	s_gnl
