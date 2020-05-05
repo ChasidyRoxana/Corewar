@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/05 13:36:50 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/05 21:42:25 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 # include "../libft/libft.h"
 # include "op.h"
 
-# define ERR_OPEN_FILE	1
-# define ERR_MALLOC		2
-# define ERR_DOT		3
-# define ERR_FILE_NAME	4
+# define ERR_OPEN_FILE		1
+# define ERR_MALLOC			2
+# define ERR_DOT			3
+# define ERR_FILE_NAME		4
+# define ERR_NAME_LENGTH	5
+# define ERR_COMMENT_LENGTH	6
+# define ERR_NAME			7
+# define ERR_COMMENT		8
+
 
 typedef struct  	s_gnl
 {
@@ -68,9 +73,8 @@ int		read_file(t_asm *asmb, char *file_name);
 /*
 ** error.c
 */
-int			error_line(int error, t_gnl *gnl, int return_num);
+int		error_line(int error, t_gnl *gnl, int return_num);
 int		length_error(int index, int length);
-int     error_name_comment(char *message, int nb_line);
 
 /*
 ** find_name_comment.c

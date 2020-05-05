@@ -1,5 +1,4 @@
-    .name      "Hello"
+    .name      "Hello hello"
         .comment "Prive
 t....."
-"
-.name "Hi"
+#name "Hi"

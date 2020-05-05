@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/05 14:16:05 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/05 21:41:56 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,14 +165,14 @@ int		find_name_comment(t_asm *asmb)
 				// проверяем имя в отдельной функции - отправляем туда строку без .name
                 if (!find_name(tmp->line + i + ft_strlen(NAME_CMD_STRING), asmb, &tmp))
                     // если что-то не так с именем - выводим ошибку и строку, в которой была эта ошибка
-                    return(error_name_comment(NAME_CMD_STRING, tmp->nb_line));
+                    return(error_line(ERR_NAME, tmp, 0));
             }
 			else if (ft_strcmp(tmp->line + i, COMMENT_CMD_STRING) > 0) // ? проверяем .comment (не знаю какой функцией лучше)
             {
                 // проверяем имя в отдельной функции - отправляем туда строку без .comment
 				if (!find_comment(tmp->line + i + ft_strlen(COMMENT_CMD_STRING), asmb, &tmp))
                     // если что-то не так с комментом - выводим ошибку и строку, в которой была эта ошибка
-                    return(error_name_comment(COMMENT_CMD_STRING, tmp->nb_line));
+                    return(error_line(ERR_COMMENT, tmp, 0));
             }
             else // если есть точка, но это не .name и не .comment
                 return (0);
@@ -186,5 +186,3 @@ int		find_name_comment(t_asm *asmb)
 	}
 	return(0);
 }
-
-// если два имени/два коммента
