@@ -29,6 +29,8 @@
 // 	return (1);
 // }
 
+/* пустая строка не добавляется в список; есть ошибка только с malloc
+*/
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	t_gnl	*gnl;
@@ -36,12 +38,10 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 	gnl = asmb->gnl;
 	if (ft_strlen(line) == 0)
 		return (1);
-	// if (!is_correct(line))
-	// 	return (0);
 	if (gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (0);
+			return (error_line(ERR_MALLOC, NULL, 0));
 		gnl = asmb->gnl;
 	}
 	else
@@ -49,7 +49,7 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 		while (gnl->next != NULL)
 			gnl = gnl->next;
 		if (!(gnl->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (0);
+			return (error_line(ERR_MALLOC, NULL, 0));
 		gnl = gnl->next;
 	}
 	gnl->line = line;
@@ -90,26 +90,22 @@ int		read_file(t_asm *asmb, char *file_name)
 	int		fd;
 	char	*line;
 	int		nb_line;
-	int		dots; //
+	int		dots;
 
 	nb_line = 1;
-	dots = 0; //
+	dots = 0;
 	if ((fd = open(file_name, O_RDONLY)) < 0)
-	{
-		return (0); //ошибка открытия файла
-	}
+		return (error_line(ERR_OPEN_FILE, NULL, 0));
 	while (get_next_line(fd, &line) > 0)
 	{
-		// проверка на количество '.' - должно быть ровно две точки (.name и .comment)
-		// лучше сразу все чекнуть, а то потом придется снова по всем строкам проходиться
-		if (check_dots(line)) //
-			dots++; //
+		if (check_dots(line))
+			dots++;
 		if (!gnl_add_line(asmb, nb_line, line))
-			return (0); //ошибка со строкой вывести строку и её номер
+			return (0);
 		nb_line++;
 	}
-	if (dots != 2) // 
-		return (0); //
+	if (dots != 2)
+		return (error_line(ERR_DOT, NULL, 0));
 	close(fd);
 	print_gnl(asmb->gnl);
 	return (1);

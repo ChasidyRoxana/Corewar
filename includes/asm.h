@@ -18,6 +18,11 @@
 # include "../libft/libft.h"
 # include "op.h"
 
+# define ERR_OPEN_FILE	1
+# define ERR_MALLOC		2
+# define ERR_DOT		3
+# define ERR_FILE_NAME	4
+
 typedef struct  	s_gnl
 {
 	int				nb_line;
@@ -55,8 +60,17 @@ typedef struct  s_asm
 	char		*filename;
 }				t_asm;
 
-
+/*
+** read file.c
+*/
 int		read_file(t_asm *asmb, char *file_name);
+
+/*
+** error.c
+*/
+int			error_line(int error, t_gnl *gnl, int return_num);
+int		length_error(int index, int length);
+int     error_name_comment(char *message, int nb_line);
 
 /*
 ** find_name_comment.c
@@ -69,9 +83,7 @@ int		find_name_comment(t_asm *asmb);
 /*
 ** name_comment_utils.c
 */
-int		length_error(int index, int length);
 int		check_end_space(char *line);
-int     error_name_comment(char *message, int nb_line);
 int     skip_first_spaces(char *line);
 
 #endif
