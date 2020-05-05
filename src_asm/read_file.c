@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/04 18:37:24 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/05 13:26:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,46 @@ void print_gnl(t_gnl *gnl)
 	}
 }
 
+// функция скипает пробелы и табы в начале строки и
+// возвращает 1, если первый символ - точка, 0 - если не точка
+int		check_dots(char *line)
+{
+	int i;
+
+	i = 0;
+	// line[i] == 10 (?)
+	while (line[i] == 32 || line[i] == 10 || line[i] == '\t')
+		i++;
+	if (line[i] == '.')
+		return (1);
+	return (0);
+}
+
 int		read_file(t_asm *asmb, char *file_name)
 {
 	int		fd;
 	char	*line;
 	int		nb_line;
+	int		dots; //
 
 	nb_line = 1;
+	dots = 0; //
 	if ((fd = open(file_name, O_RDONLY)) < 0)
 	{
 		return (0); //ошибка открытия файла
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
+		// проверка на количество '.' - должно быть ровно две точки (.name и .comment)
+		// лучше сразу все чекнуть, а то потом придется снова по всем строкам проходиться
+		if (check_dots(line)) //
+			dots++; //
 		if (!gnl_add_line(asmb, nb_line, line))
 			return (0); //ошибка со строкой вывести строку и её номер
 		nb_line++;
 	}
+	if (dots != 2) // 
+		return (0); //
 	close(fd);
 	print_gnl(asmb->gnl);
 	return (1);
