@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/06 22:38:10 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 23:16:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct  s_asm
 	t_gnl		*gnl;
 	t_gnl		*gnl_last;
 	t_command	*commands;
-	t_command	*op_last; // последняя команда
+	t_command	*op_last; // последняя команда (типа operation)
 	t_header	header;
 	char		*filename;
 	int			flag_name;//
@@ -106,7 +106,7 @@ int		malloc_command(t_asm *asmb);
 /*
 ** find_label.c
 */
-int		malloc_label(t_command **command);
+int		malloc_label(t_command *command);
 int		find_label(t_gnl **gnl_last, t_command *op);
 
 #endif
