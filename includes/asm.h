@@ -60,6 +60,7 @@ typedef struct  		s_command
 typedef struct  s_asm
 {
 	t_gnl		*gnl;
+	t_gnl		*gnl_last;
 	t_command	*commands;
 	t_header	header;
 	char		*filename;
@@ -89,5 +90,10 @@ int		find_name_comment(t_asm *asmb);
 */
 int		check_end_space(char *line);
 int     skip_first_spaces(char *line);
+
+/*
+** parse_commands.c
+*/
+int			parse_commands(t_asm *asmb);
 
 #endif

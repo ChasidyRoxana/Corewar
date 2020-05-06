@@ -12,6 +12,81 @@
 
 #include "../includes/asm.h"
 
+/* фришит строку, зануляет указатель на неё и возвращает ret_nb
+*/
+int			free_str(char **str, int ret_nb)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (ret_nb);
+}
+
+/* пустая строка не добавляется в список, пробелы в начале строки скипаются;
+** есть ошибка только с malloc(фришит line и выводит ошибку)
+*/
+static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
+{
+	if (ft_strlen(line) == 0)
+		return (free_str(&line, 1));
+	if (asmb->gnl == NULL)
+	{
+		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
+			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+		asmb->gnl_last = asmb->gnl;
+	}
+	else
+	{
+		if (!(asmb->gnl_last->next = (t_gnl*)malloc(sizeof(t_gnl))))
+			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+		asmb->gnl_last = asmb->gnl_last->next;
+	}
+	asmb->gnl_last->line = line;
+	asmb->gnl_last->nb_line = nb_line;
+	asmb->gnl_last->next = NULL;
+	return (free_str(&line, 1));
+}
+
+void print_gnl(t_gnl *gnl)
+{
+	t_gnl *tmp;
+	
+	tmp = gnl;
+	while (tmp)
+	{
+		printf("[%d]:%s\n", tmp->nb_line, tmp->line);
+		tmp = tmp->next;
+	}
+}
+
+int		read_file(t_asm *asmb, char *file_name)
+{
+	int		fd;
+	char	*line;
+	int		nb_line;
+	int		dots;
+
+	nb_line = 1;
+	dots = 0;
+	if ((fd = open(file_name, O_RDONLY)) < 0)
+		return (error_line(ERR_OPEN_FILE, NULL, 0));
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (line[skip_first_spaces(line)] == '.')
+			dots++;
+		if (!gnl_add_line(asmb, nb_line, line))
+			return (0);
+		if (dots > 2)
+			break ;
+		nb_line++;
+	}
+	close(fd);
+	print_gnl(asmb->gnl);
+	return (dots != 2 ? error_line(ERR_DOT, NULL, 0) : 1);
+}
+
 // static int	is_correct(char *line)
 // {
 // 	int		i;
@@ -29,84 +104,17 @@
 // 	return (1);
 // }
 
-/* пустая строка не добавляется в список; есть ошибка только с malloc
-*/
-static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
-{
-	t_gnl	*gnl;
-
-	gnl = asmb->gnl;
-	if (ft_strlen(line) == 0)
-		return (1);
-	if (gnl == NULL)
-	{
-		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
-		gnl = asmb->gnl;
-	}
-	else
-	{
-		while (gnl->next != NULL)
-			gnl = gnl->next;
-		if (!(gnl->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
-		gnl = gnl->next;
-	}
-	gnl->line = line;
-	gnl->nb_line = nb_line;
-	gnl->next = NULL;
-	return (1);
-}
-
-void print_gnl(t_gnl *gnl)
-{
-	t_gnl *tmp;
-	
-	tmp = gnl;
-	while (tmp)
-	{
-		printf("[%d]:%s\n", tmp->nb_line, tmp->line);
-		tmp = tmp->next;
-	}
-}
-
 // функция скипает пробелы и табы в начале строки и
 // возвращает 1, если первый символ - точка, 0 - если не точка
-int		check_dots(char *line)
-{
-	int i;
+// int		check_dots(char *line)
+// {
+// 	int i;
 
-	i = 0;
-	// line[i] == 10 (?)
-	while (line[i] == 32 || line[i] == 10 || line[i] == '\t')
-		i++;
-	if (line[i] == '.')
-		return (1);
-	return (0);
-}
-
-int		read_file(t_asm *asmb, char *file_name)
-{
-	int		fd;
-	char	*line;
-	int		nb_line;
-	int		dots;
-
-	nb_line = 1;
-	dots = 0;
-	if ((fd = open(file_name, O_RDONLY)) < 0)
-		return (error_line(ERR_OPEN_FILE, NULL, 0));
-	while (get_next_line(fd, &line) > 0)
-	{
-		if (check_dots(line))
-			dots++;
-		if (!gnl_add_line(asmb, nb_line, line))
-			return (0);
-		nb_line++;
-	}
-	if (dots != 2)
-		return (error_line(ERR_DOT, NULL, 0));
-	close(fd);
-	print_gnl(asmb->gnl);
-	return (1);
-}
+// 	i = 0;
+// 	// line[i] == 10 (?)
+// 	while (line[i] == 32 || line[i] == 10 || line[i] == '\t')
+// 		i++;
+// 	if (line[i] == '.')
+// 		return (1);
+// 	return (0);
+// }

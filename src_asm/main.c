@@ -42,15 +42,15 @@ int			main(int argc, char **argv)
         write(2, "Usage: ./asm [file.s]\n", 23);
         return (1);
     }
-	// обработать все ошибки и return'ы
 	ft_memset(&asmb, 0, sizeof(asmb));
-    check_filename(argv[1], &asmb);
+    if (!check_filename(argv[1], &asmb))
+		return (1);
     if (!read_file(&asmb, argv[1]))
 		return (1);
-    // check_symbols();///////
-    find_name_comment(&asmb);
-    // parse_commands();
-    // create_file();
-    // write_to_file();
+    if (!find_name_comment(&asmb))
+		return (1);
+    if (!parse_commands(&asmb))
+		return (1);
+    // write_to_file(); // create_file() перед записью и создадим
     return (0);
 }
