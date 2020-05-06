@@ -25,6 +25,7 @@ int			check_filename(char *name, t_asm *asmb)
 	{
 		asmb->filename = ft_strnew(length - 2); // ???  // ?
 		ft_strncpy(asmb->filename, name, (length - 2));
+		
 	}
 	else
 		return (error_line(ERR_FILE_NAME, NULL, 0));
