@@ -12,13 +12,9 @@
 
 #include "../includes/asm.h"
 
-/* принимает номер ошибки (предлагаю ошибки задефайнить, чтобы отправлять не 
-** непонятные цифры); лист, из которго берёт строку и её номер; число, которое
-** вернёт функция
-*/
-int			error_line(int error, t_gnl *gnl, int return_num)
+static int	error_without_gnl(int error, int return_num)
 {
-	write(2, "Error\n", 7); // дважды error
+	write(2, "Error: ", 8);
 	if (error == ERR_OPEN_FILE)
 		write(2, "Сould not open file\n", 22);// Помогите гугл-переводчику сделать его работу
 	else if (error == ERR_MALLOC)
@@ -31,6 +27,17 @@ int			error_line(int error, t_gnl *gnl, int return_num)
 		write(2, "The name of the champeon is too long\n", 38);
 	else if (error == ERR_COMMENT_LENGTH)
 		write(2, "The comment is too long\n", 25);
+	return (return_num);
+}
+
+/* принимает номер ошибки (предлагаю ошибки задефайнить, чтобы отправлять не 
+** непонятные цифры); лист, из которго берёт строку и её номер; число, которое
+** вернёт функция
+*/
+int			error_line(int error, t_gnl *gnl, int return_num)
+{
+	if (!gnl)
+		return (error_without_gnl(error, return_num));
 	else if (error == ERR_NAME)
 		write(2, "Error in name of the champeon in line: ", 40);
 	else if (error == ERR_COMMENT)

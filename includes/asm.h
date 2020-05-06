@@ -91,4 +91,9 @@ int		find_name_comment(t_asm *asmb);
 int		check_end_space(char *line);
 int     skip_first_spaces(char *line);
 
+/*
+** parse_commands.c
+*/
+int			parse_commands(t_asm *asmb);
+
 #endif
