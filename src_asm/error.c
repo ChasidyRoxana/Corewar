@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/05 21:48:07 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 17:54:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static int	error_without_gnl(int error, int return_num)
 		write(2, "Slishkom mnogo .command\n", 25);
 	else if (error == ERR_FILE_NAME)
 		write(2, "Nujen [filename].s\n", 20);
-	else if (error == ERR_NAME_LENGTH)
-		write(2, "The name of the champeon is too long\n", 38);
-	else if (error == ERR_COMMENT_LENGTH)
-		write(2, "The comment is too long\n", 25);
+	// else if (error == ERR_NAME_LENGTH)
+	// 	write(2, "The name of the champeon is too long\n", 38);
+	// else if (error == ERR_COMMENT_LENGTH)
+	// 	write(2, "The comment is too long\n", 25);
 	return (return_num);
 }
 
@@ -43,7 +43,7 @@ int			error_line(int error, t_gnl *gnl, int return_num)
 	else if (error == ERR_COMMENT)
 		write(2, "Error in comment in line: ", 27);
 	// if (gnl)
-	// 	printf("[%d]: %s\n", gnl->nb_line, gnl->line);
+		// printf("[%d]: %s\n", gnl->nb_line, gnl->line);
 	return (return_num);
 }
 
