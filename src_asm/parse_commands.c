@@ -16,5 +16,7 @@
 */
 int			parse_commands(t_asm *asmb)
 {
+	// t_gnl	*tmp_gnl;
+
 	return (1);
 }
