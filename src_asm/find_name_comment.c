@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/06 21:09:36 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 21:21:01 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,7 @@ int		find_name_comment(t_asm *asmb)
 		}
 		else if (tmp->line[i] && tmp->line[i] != COMMENT_CHAR 
 			&& tmp->line[i] != COMMENT_CHAR_2)
-			{
-				printf("char %c %d\n", tmp->line[i], tmp->nb_line);
 				return (error_line(ERR_NO_NAME_COMMENT, NULL, 0));
-			}
 		tmp = tmp->next;
 	}
 	return(0);
