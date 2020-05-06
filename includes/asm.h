@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/06 17:53:34 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 20:43:21 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@
 # include "../libft/libft.h"
 # include "op.h"
 
-# define ERR_OPEN_FILE		1
-# define ERR_MALLOC			2
-# define ERR_DOT			3
-# define ERR_FILE_NAME		4
-// # define ERR_NAME_LENGTH	5
-// # define ERR_COMMENT_LENGTH	6
-# define ERR_NAME			7
-# define ERR_COMMENT		8
+# define ERR_OPEN_FILE			1
+# define ERR_MALLOC				2
+# define ERR_DOT				3
+# define ERR_FILE_NAME			4
+# define ERR_NAME_LENGTH		5
+# define ERR_COMMENT_LENGTH		6
+# define ERR_NAME				7
+# define ERR_COMMENT			8
+# define ERR_NO_NAME_COMMENT	9
+# define ERR_NOT_COMMAND		10
 
 
 typedef struct  	s_gnl
@@ -65,6 +67,8 @@ typedef struct  s_asm
 	t_command	*commands;
 	t_header	header;
 	char		*filename;
+	int				flag_name;//
+	int				flag_comment;//
 }				t_asm;
 
 /*
@@ -81,9 +85,9 @@ int		length_error(int index, int length);
 /*
 ** find_name_comment.c
 */
-int		check_next_line(t_asm *asmb, int j, t_gnl **tmp, int length);
-int		find_name(char *name, t_asm *asmb, t_gnl **tmp);
-int		find_comment(char *comment, t_asm *asmb, t_gnl **tmp);
+int		check_next_line(char *line, int j, t_gnl **tmp, int length);
+int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length);
+int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb);
 int		find_name_comment(t_asm *asmb);
 
 /*
