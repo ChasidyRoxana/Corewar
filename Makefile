@@ -14,7 +14,7 @@
 
 ASM = asm
 
-RES = main.c read_file.c find_name_comment.c name_comment_utils.c error.c
+RES = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c
 # op.c
 
 SRC = $(addprefix src_asm/,$(RES))
