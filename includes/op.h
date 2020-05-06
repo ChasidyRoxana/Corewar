@@ -79,21 +79,18 @@ typedef struct		s_header
   char				comment[COMMENT_LENGTH + 1];
 }					t_header;
 
-
-
 typedef struct					s_op
 {
 	char						*name;
 	unsigned char				nb_arg;
 	t_arg_type					args[3];
-	unsigned char				opcode;
+	unsigned char				op_code;
 	unsigned int				cycle;
 	char						*description;
-	unsigned char				octal;
-	unsigned char				label;
-	// void						(*f)(t_vm *v, t_list *process);
+	unsigned char				type_arg_code;
+	unsigned char				t_dir_size;
 }								t_op;
 
-extern t_op						g_op_tab[17];
+//extern t_op						g_op_tab[17];
 
 #endif
