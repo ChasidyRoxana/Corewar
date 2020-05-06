@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/06 22:35:44 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 23:22:55 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		parse_commands(t_asm *asmb)
 		// create_command();
 		
 		asmb->gnl_last = asmb->gnl_last->next;
+		// asmb->op_last = asmb->op_last->next;
 	}
 	// printf("%d\n", asmb->gnl->nb_line);
 	return (1);
