@@ -49,7 +49,6 @@ int			main(int argc, char **argv)
 		return (1);
     if (!find_name_comment(&asmb))
 		return (1);
-	printf("GNL_LAST: %s\n", asmb.gnl_last->line);
     if (!parse_commands(&asmb))
 		return (1);
     // write_to_file(); // create_file() перед записью и создадим

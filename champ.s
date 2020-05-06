@@ -4,6 +4,6 @@
     .comment "Prive
 t....."
 
-
-
+yellow: sdi 0
+blue: live 0
 #name "Hi"
