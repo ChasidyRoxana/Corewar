@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/05 21:42:25 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 17:53:34 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define ERR_MALLOC			2
 # define ERR_DOT			3
 # define ERR_FILE_NAME		4
-# define ERR_NAME_LENGTH	5
-# define ERR_COMMENT_LENGTH	6
+// # define ERR_NAME_LENGTH	5
+// # define ERR_COMMENT_LENGTH	6
 # define ERR_NAME			7
 # define ERR_COMMENT		8
 
@@ -44,6 +44,7 @@ typedef struct 		s_label
 typedef struct 		s_args
 {
 	int 			arg;
+	char			*arg_name;
 	struct s_args 	*next;
 }					t_args;
 

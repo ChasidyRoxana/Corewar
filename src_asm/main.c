@@ -19,13 +19,13 @@ int			check_filename(char *name, t_asm *asmb)
 
     length = ft_strlen(name);
 	i = length - 1;
-	if (i < 2)
+	if (i < 1)
 		return (error_line(ERR_FILE_NAME, NULL, 0));
 	if (name[i] == 's' && name[i - 1] == '.')
 	{
-		asmb->filename = ft_strnew(length - 2); // ???  // ?
+		asmb->filename = ft_strnew(length + 2);
 		ft_strncpy(asmb->filename, name, (length - 2));
-		
+		ft_strcat(asmb->filename, ".cor");
 	}
 	else
 		return (error_line(ERR_FILE_NAME, NULL, 0));

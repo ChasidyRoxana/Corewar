@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/05 13:26:53 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/06 16:56:29 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ int			free_str(char **str, int ret_nb)
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0)
-		return (free_str(&line, 1));
+		return (1);
 	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0));
 		asmb->gnl_last = asmb->gnl;
 	}
 	else
 	{
 		if (!(asmb->gnl_last->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0));
 		asmb->gnl_last = asmb->gnl_last->next;
 	}
 	asmb->gnl_last->line = line;
 	asmb->gnl_last->nb_line = nb_line;
 	asmb->gnl_last->next = NULL;
-	return (free_str(&line, 1));
+	return (1);
 }
 
 void print_gnl(t_gnl *gnl)
