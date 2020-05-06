@@ -60,6 +60,7 @@ typedef struct  		s_command
 typedef struct  s_asm
 {
 	t_gnl		*gnl;
+	t_gnl		*gnl_last;
 	t_command	*commands;
 	t_header	header;
 	char		*filename;

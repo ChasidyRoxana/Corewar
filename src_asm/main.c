@@ -41,7 +41,6 @@ int			main(int argc, char **argv)
         write(2, "Usage: ./asm [file.s]\n", 23);
         return (1);
     }
-	// обработать все ошибки и return'ы
 	ft_memset(&asmb, 0, sizeof(asmb));
     check_filename(argv[1], &asmb);
     if (!read_file(&asmb, argv[1]))

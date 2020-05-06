@@ -29,33 +29,42 @@
 // 	return (1);
 // }
 
-/* пустая строка не добавляется в список; есть ошибка только с malloc
+/* фришит строку, зануляет указатель на неё и возвращает ret_nb
+*/
+int			free_str(char **str, int ret_nb)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (ret_nb);
+}
+
+/* пустая строка не добавляется в список, пробелы в начале строки скипаются;
+** есть ошибка только с malloc(фришит line и выводит ошибку)
 */
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
-	t_gnl	*gnl;
-
-	gnl = asmb->gnl;
-	if (ft_strlen(line) == 0)
-		return (1);
-	if (gnl == NULL)
+	if (line[skip_first_spaces(line)] == '\0')
+		return (free_str(&line, 1));
+	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
-		gnl = asmb->gnl;
+			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+		asmb->gnl_last = asmb->gnl;
 	}
 	else
 	{
-		while (gnl->next != NULL)
-			gnl = gnl->next;
-		if (!(gnl->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
-		gnl = gnl->next;
+		if (!(asmb->gnl_last->next = (t_gnl*)malloc(sizeof(t_gnl))))
+			return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+		asmb->gnl_last = asmb->gnl_last->next;
 	}
-	gnl->line = line;
-	gnl->nb_line = nb_line;
-	gnl->next = NULL;
-	return (1);
+	if (!(asmb->gnl_last->line = ft_strdup(&line[skip_first_spaces(line)])))
+		return (free_str(&line, 1) && error_line(ERR_MALLOC, NULL, 0));
+	asmb->gnl_last->nb_line = nb_line;
+	asmb->gnl_last->next = NULL;
+	return (free_str(&line, 1));
 }
 
 void print_gnl(t_gnl *gnl)
@@ -102,11 +111,11 @@ int		read_file(t_asm *asmb, char *file_name)
 			dots++;
 		if (!gnl_add_line(asmb, nb_line, line))
 			return (0);
+		if (dots > 2)
+			break ;
 		nb_line++;
 	}
-	if (dots != 2)
-		return (error_line(ERR_DOT, NULL, 0));
 	close(fd);
 	print_gnl(asmb->gnl);
-	return (1);
+	return (dots != 2 ? error_line(ERR_DOT, NULL, 0) : 1);
 }
