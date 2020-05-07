@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/05/06 22:20:55 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/05/07 16:39:56 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 ASM = asm
 
 RES = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c \
-	find_label.c
+	find_label.c check_command.c
 # op.c
 
 SRC = $(addprefix src_asm/,$(RES))

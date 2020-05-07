@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/07 13:25:40 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/07 18:22:12 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-int			find_command(t_asm *asmb)
-{
-	return (1);
-}
+// int			find_command(t_asm *asmb)
+// {
+// 	return (1);
+// }
 
 int			check_command(t_asm *asmb)
 {
@@ -30,18 +30,10 @@ int			check_command(t_asm *asmb)
 		return (0);
 	if (!find_label(asmb))
 		return (0);
-	if (!find_command(asmb))
-		return (0);
+	
+	// if (!find_command(asmb))
+	// 	return (0);
 
-
-// for check
-	// int j = 0;
-	// t_command *tmp = asmb->comm;
-	// while(tmp){
-	// 	j++;
-	// 	tmp = tmp->next;
-	// }
-	// printf("%d command\n", j);
 
 	return (1);
 }

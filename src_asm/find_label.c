@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:09:02 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/06 23:31:30 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/07 18:16:59 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		malloc_label(t_command *command)
 			return (error_line(ERR_MALLOC, NULL, 0));
         tmp = tmp->next;
 	}
+    tmp->line = NULL;
     tmp->next = NULL;
 	return (1);
 }
@@ -40,29 +41,33 @@ int		find_label(t_asm *asmb)
 	int		i;
 	int		length;
 	t_gnl	*tmp;
+    t_label *tmp_label;
     
-	while (asmb->gnl_last)// ищем label'ы
+	while (asmb->gnl_last)
 	{
 		tmp = asmb->gnl_last;
 		i = skip_first_spaces(tmp->line);
 		while (ft_strchr(LABEL_CHARS, tmp->line[i]))
 			i++;
 		if (tmp->line[i] == LABEL_CHAR)
-		{// записать label
-			if (!malloc_label(asmb->comm_last))
+		{
+            if (!malloc_label(asmb->comm_last))
 				return (0);
 			length = i - skip_first_spaces(tmp->line);
-			if (!(asmb->comm_last->label->line = ft_strnew(length)))
-				return (0);
-			ft_strncpy(asmb->comm_last->label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
-			// ft_strncpy(op->label->line, "violet", 6);
-			printf("\nLABEL: .%s.\n", asmb->comm_last->label->line);
+            // добавила проход до конца label'ов, чтобы записать новую метку
+            tmp_label = asmb->comm_last->label;
+            while (tmp_label->next)
+		        tmp_label = tmp_label->next; 
+			if (!(tmp_label->line = ft_strnew(length)))
+				return (error_line(ERR_MALLOC, NULL, 0)); // добавила ERR_MALLOC для вывода ошибки
+            ft_strncpy(tmp_label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
+			// printf("\nLABEL: .%s.\n", tmp_label->line);
 			if (check_end_space(&(tmp->line)[i + 1]))
 				asmb->gnl_last = asmb->gnl_last->next;
 			else
 				return (1);//если дальше команда
 		}
-		else if (is_space(tmp->line[i]))// или может быть '%'
+		else if (is_space(tmp->line[i]))// или может быть '%' или ',' (sti9,%8 например)
 			return (1);// если команда(' ')
 		else
 			return (0);// ошибка - символ не из LABEL_CHAR
