@@ -35,47 +35,37 @@ int		malloc_label(t_command *command)
 	return (1);
 }
 
-int		find_label(t_gnl **gnl_last, t_command *op) 
+int		find_label(t_asm *asmb)
 {
 	int		i;
 	int		length;
 	t_gnl	*tmp;
     
-	tmp = *gnl_last;
-	// ищем label'ы
-    while (tmp)
+	while (asmb->gnl_last)// ищем label'ы
 	{
-        // выделить память на список label'ов   
-        // op->label = NULL;
-        if (!malloc_label(op))//
-            return (0);
-        // op->label = (t_label*)malloc(sizeof(t_label));
+		tmp = asmb->gnl_last;
 		i = skip_first_spaces(tmp->line);
-		while (tmp->line[i])
-		{
-            if (ft_strchr(LABEL_CHARS, tmp->line[i]))
-				i++;
-			else if (tmp->line[i] == LABEL_CHAR)
-			{
-                
-                // записать label
-				length = i - skip_first_spaces(tmp->line);
-                op->label->line = ft_strnew(length);
-				ft_strncpy(op->label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
-                // ft_strncpy(op->label->line, "violet", 6);
-				printf("\nLABEL: .%s.\n", op->label->line);
-                
-                // прочекать строку - если она пустая, перейти дальше и прочекать есть ли label:
-				// - есть: записываем, идем дальше
-				// - нет: переставляем указатель гнл-ласт, ставим i на 0 и возвращаем его
-				return (i);
-			}
-			else if (tmp->line[i] == COMMENT_CHAR || tmp->line[i] == COMMENT_CHAR)
-				break ; // ? нужно перейти на след строку
-			else 
-				return (i); // ошибка - символ не из LABEL_CHAR или там команда и надо чекать
+		while (ft_strchr(LABEL_CHARS, tmp->line[i]))
+			i++;
+		if (tmp->line[i] == LABEL_CHAR)
+		{// записать label
+			if (!malloc_label(asmb->comm_last))
+				return (0);
+			length = i - skip_first_spaces(tmp->line);
+			if (!(asmb->comm_last->label->line = ft_strnew(length)))
+				return (0);
+			ft_strncpy(asmb->comm_last->label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
+			// ft_strncpy(op->label->line, "violet", 6);
+			printf("\nLABEL: .%s.\n", asmb->comm_last->label->line);
+			if (check_end_space(&(tmp->line)[i + 1]))
+				asmb->gnl_last = asmb->gnl_last->next;
+			else
+				return (1);//если дальше команда
 		}
-		tmp = tmp->next;
+		else if (is_space(tmp->line[i]))// или может быть '%'
+			return (1);// если команда(' ')
+		else
+			return (0);// ошибка - символ не из LABEL_CHAR
 	}
-	return (i); //
+	return (1);
 }

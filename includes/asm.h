@@ -95,6 +95,7 @@ int		find_name_comment(t_asm *asmb);
 /*
 ** name_comment_utils.c
 */
+int		is_space(char c);
 int		check_end_space(char *line);
 int     skip_first_spaces(char *line);
 
@@ -108,6 +109,13 @@ int		parse_commands(t_asm *asmb);
 ** find_label.c
 */
 int		malloc_label(t_command *command);
-int		find_label(t_gnl **gnl_last, t_command *op);
+int		find_label(t_asm *asmb);
+
+/*
+** check_command.c
+*/
+int			find_command(t_asm *asmb);
+int			check_command(t_asm *asmb);
+
 
 #endif
