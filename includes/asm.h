@@ -57,6 +57,7 @@ typedef struct  		s_command
 	unsigned char		op;
 	unsigned char		args_type;
 	t_args				*args;
+	struct s_command	*prev;
 	struct s_command	*next;
 }						t_command;
 
@@ -64,8 +65,8 @@ typedef struct  s_asm
 {
 	t_gnl		*gnl;
 	t_gnl		*gnl_last;
-	t_command	*commands;
-	t_command	*op_last; // последняя команда (типа operation)
+	t_command	*comm;
+	t_command	*comm_last;
 	t_header	header;
 	char		*filename;
 	int			flag_name;//
@@ -94,19 +95,27 @@ int		find_name_comment(t_asm *asmb);
 /*
 ** name_comment_utils.c
 */
+int		is_space(char c);
 int		check_end_space(char *line);
 int     skip_first_spaces(char *line);
 
 /*
 ** parse_commands.c
 */
+int		new_command(t_asm *asmb);
 int		parse_commands(t_asm *asmb);
-int		malloc_command(t_asm *asmb);
 
 /*
 ** find_label.c
 */
 int		malloc_label(t_command *command);
-int		find_label(t_gnl **gnl_last, t_command *op);
+int		find_label(t_asm *asmb);
+
+/*
+** check_command.c
+*/
+int			find_command(t_asm *asmb);
+int			check_command(t_asm *asmb);
+
 
 #endif
