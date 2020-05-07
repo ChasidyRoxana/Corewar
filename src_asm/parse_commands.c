@@ -46,17 +46,12 @@ int		parse_commands(t_asm *asmb)
 
 	while (asmb->gnl_last)
 	{
-		// выделяем память на новую команду только когда находим команду или метку
-		// if (!malloc_command(asmb))
-		// 	return (-1);
-		find_label(&asmb->gnl_last, asmb->comm_last);
-		
-		// check_command(); // find_first_word();
-		// create_command();
+		if (!check_command(asmb))//(!find_label(asmb))
+			return (0);
 		
 		asmb->gnl_last = asmb->gnl_last->next;
-		// asmb->op_last = asmb->op_last->next;
 	}
+		// create_command();
 	// printf("%d\n", asmb->gnl->nb_line);
 	return (1);
 }
