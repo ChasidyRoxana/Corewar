@@ -55,6 +55,7 @@ typedef struct  		s_command
 	unsigned char		op;
 	unsigned char		args_type;
 	t_args				*args;
+	struct s_command	*prev;
 	struct s_command	*next;
 }						t_command;
 
@@ -62,7 +63,8 @@ typedef struct  s_asm
 {
 	t_gnl		*gnl;
 	t_gnl		*gnl_last;
-	t_command	*commands;
+	t_command	*comm;
+	t_command	*comm_last;
 	t_header	header;
 	char		*filename;
 }				t_asm;
