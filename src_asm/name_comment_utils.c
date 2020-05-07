@@ -12,13 +12,18 @@
 
 #include "../includes/asm.h"
 
+int		is_space(char c)
+{
+	return (c == 32 || (c >= 9 && c <= 13));
+}
+
 // return (1) - все ок, (0) - ошибка (есть символы помимо таба и пробелов)
 int		check_end_space(char *line)
 {
 	int i;
 
 	i = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
+	while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
 		i++;
 	if (!line[i] || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2) // чекнуть в конце, нужно ли это везде, где вызывается эта функция
 		return (1);
@@ -32,7 +37,7 @@ int     skip_first_spaces(char *line)
     int i;
 
     i = 0;
-    while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
+    while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
 			i++;
     return(i);
 }
