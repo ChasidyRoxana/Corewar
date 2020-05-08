@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 15:38:18 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 22:46:15 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,17 @@ int		find_label(t_asm *asmb);
 /*
 ** check_command.c
 */
-int		find_command(t_asm *asmb);
+int			check_op_name(char *com);
+int			find_command(t_asm *asmb, char *line);
 int		check_command(t_asm *asmb);
 
 /*
 ** find_args.c
 */
 int		new_args(t_command *command);
-int		write_arg(t_asm *asmb, t_args *tmp, int *i);
+int		write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int		double_check_args(t_asm *asmb, int *i);
-int		proceed_args(t_asm *asmb, t_args *tmp, int *i);
-int		find_args(t_asm *asmb);
+int		proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
+int		find_args(t_asm *asmb, int i, int index_op);
 
 #endif
