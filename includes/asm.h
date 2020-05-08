@@ -30,6 +30,9 @@
 # define ERR_NOT_COMMAND		10
 
 
+# define OP(index)	g_op_tab[index] // ne ebu
+
+
 typedef struct  	s_gnl
 {
 	int				nb_line;
