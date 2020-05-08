@@ -141,13 +141,13 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i)
     return (1);
 }
 
-int			find_args(t_asm *asmb)
+int			find_args(t_asm *asmb, int i)
 {
-	int 	i;
+	// int 	i;
 	t_args	*tmp;
 	int		check;
 	
-	i = 0;
+	// i = 0;
 	tmp = NULL;
 	check = -1;
     // можно будет убрать, если функция будет получать индекс первого символа аргумента

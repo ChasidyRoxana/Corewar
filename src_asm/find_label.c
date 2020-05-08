@@ -47,6 +47,9 @@ int		find_label(t_asm *asmb)
 	{
 		tmp = asmb->gnl_last;
 		i = skip_first_spaces(tmp->line);
+		// если после строки с меткой будут пустые строки надо их скипать
+		// if (tmp->line[i] == '\0')
+		// 	asmb->gnl_last = asmb->gnl_last->next;
 		// добавила пока tmp->line[i], иначе какая-то хня
 		while (tmp->line[i] && ft_strchr(LABEL_CHARS, tmp->line[i]))
 			i++;
