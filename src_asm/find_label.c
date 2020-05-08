@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:09:02 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/07 18:16:59 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 14:55:46 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ int		find_label(t_asm *asmb)
 	{
 		tmp = asmb->gnl_last;
 		i = skip_first_spaces(tmp->line);
-		while (ft_strchr(LABEL_CHARS, tmp->line[i]))
+		// добавила пока tmp->line[i], иначе какая-то хня
+		while (tmp->line[i] && ft_strchr(LABEL_CHARS, tmp->line[i]))
 			i++;
 		if (tmp->line[i] == LABEL_CHAR)
 		{
             if (!malloc_label(asmb->comm_last))
-				return (0);
+				return (error_line(ERR_MALLOC, NULL, 0));
 			length = i - skip_first_spaces(tmp->line);
             // добавила проход до конца label'ов, чтобы записать новую метку
             tmp_label = asmb->comm_last->label;
@@ -67,7 +68,8 @@ int		find_label(t_asm *asmb)
 			else
 				return (1);//если дальше команда
 		}
-		else if (is_space(tmp->line[i]))// или может быть '%' или ',' (sti9,%8 например)
+		else if (is_space(tmp->line[i]) || tmp->line[i] == '%' 
+			|| tmp->line[i] == ',' || tmp->line[i] == '\0')// или может быть '%' или ',' (sti9,%8 например) или '\0'
 			return (1);// если команда(' ')
 		else
 			return (0);// ошибка - символ не из LABEL_CHAR

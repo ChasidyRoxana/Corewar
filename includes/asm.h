@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/07 18:04:06 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 15:38:18 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct  		s_command
 	int					size;
 	unsigned char		op;
 	unsigned char		args_type;
+	int					num_args;
 	t_args				*args;
 	struct s_command	*prev;
 	struct s_command	*next;
@@ -98,6 +99,8 @@ int		find_name_comment(t_asm *asmb);
 /*
 ** name_comment_utils.c
 */
+int		is_separator(char c);
+int		is_args(char c);
 int		is_space(char c);
 int		check_end_space(char *line);
 int     skip_first_spaces(char *line);
@@ -117,8 +120,16 @@ int		find_label(t_asm *asmb);
 /*
 ** check_command.c
 */
-int			find_command(t_asm *asmb);
-int			check_command(t_asm *asmb);
+int		find_command(t_asm *asmb);
+int		check_command(t_asm *asmb);
 
+/*
+** find_args.c
+*/
+int		new_args(t_command *command);
+int		write_arg(t_asm *asmb, t_args *tmp, int *i);
+int		double_check_args(t_asm *asmb, int *i);
+int		proceed_args(t_asm *asmb, t_args *tmp, int *i);
+int		find_args(t_asm *asmb);
 
 #endif

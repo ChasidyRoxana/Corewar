@@ -6,11 +6,22 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/07 16:43:18 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 15:22:20 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
+
+int			is_separator(char c)
+{
+	return(c == ' ' || c == '\0' || c == ',');
+}
+
+int			is_args(char c)
+{
+	return(c == '%' || c == 'r' || c == ':' 
+		|| (c >= '0' && c <= '9'));
+}
 
 int		is_space(char c)
 {
