@@ -6,16 +6,17 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/08 15:55:55 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 16:28:14 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-// int			find_command(t_asm *asmb)
-// {
-// 	return (1);
-// }
+int			find_command(t_asm *asmb)
+{
+	printf("%s\n", asmb->filename);
+	return (1);
+}
 
 int			check_args(t_asm *asmb)
 {
@@ -62,8 +63,8 @@ int			check_command(t_asm *asmb)
 		return (0);
 	if (!find_label(asmb))
 		return (0);
-	// if (!find_command(asmb))
-	// 	return (0);
+	if (!find_command(asmb))
+		return (0);
 	if (!find_args(asmb))
 		return (0);
 	if (!check_args(asmb))
