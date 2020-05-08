@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/08 15:53:56 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 16:14:14 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ typedef struct					s_op
 	unsigned char				t_dir_size;
 }								t_op;
 
-extern t_op						g_op_tab[17]; // ne ebu
+extern t_op						g_op_tab[17];
 
 #endif
