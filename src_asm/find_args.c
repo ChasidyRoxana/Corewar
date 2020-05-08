@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 15:43:39 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/08 22:53:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ int		new_args(t_command *command)
 	return (1);
 }
 
-int			write_arg(t_asm *asmb, t_args *tmp, int *i)
+int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 {
 	int last;
 	
-	// будем записывать число, если оно больше 16?
+    // проверяем тип аргумента
+    if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->arg) == 0)
+    {
+        printf("Wrong arg type\n");
+        return (0);
+    }
+	// будем записывать число (в регистр), если оно больше 16?
 	last =  *i;
 	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
@@ -73,7 +79,7 @@ int			double_check_args(t_asm *asmb, int *i)
 	// 2. если строка закончилась - все ок, выходим
 	// 3. если знак комментария - все ок, выходим
 	// 4. если запятая - надо проверить, что после нее есть аргумент, иначе - ошибка
-	while(is_space(asmb->gnl_last->line[*i]))
+    while(is_space(asmb->gnl_last->line[*i]))
 		(*i)++;
 	if (asmb->comm_last->num_args > 3) 
 	{
@@ -104,15 +110,15 @@ int			double_check_args(t_asm *asmb, int *i)
 	return (-1);
 }
 
-int         proceed_args(t_asm *asmb, t_args *tmp, int *i)
-{
+int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
+{   
     // чекаем регистр
     if (asmb->gnl_last->line[*i] == 'r') 
     {
         (*i)++;
         // записываю код из дефайна T_REG в op.h
         tmp->arg = 1;
-        if(!write_arg(asmb, tmp, i))
+        if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("REG: %s\n", tmp->arg_name);
     }
@@ -123,7 +129,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i)
         // tmp->arg = 10;
         // записываю код из дефайна T_DIR в op.h
         tmp->arg = 2;
-        if(!write_arg(asmb, tmp, i))
+        if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("DIR: %s\n", tmp->arg_name);
     } 
@@ -134,27 +140,29 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i)
         // tmp->arg = 11;
         // записываю код из дефайна T_DIR в op.h
         tmp->arg = 4;
-        if(!write_arg(asmb, tmp, i))
+        if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("IND: %s\n", tmp->arg_name);
     }
     return (1);
 }
 
-int			find_args(t_asm *asmb)
+int			find_args(t_asm *asmb, int i, int index_op)
 {
-	int 	i;
 	t_args	*tmp;
 	int		check;
 	
-	i = 0;
 	tmp = NULL;
 	check = -1;
-    // можно будет убрать, если функция будет получать индекс первого символа аргумента
 	while(is_space(asmb->gnl_last->line[i]))
 		i++;
 	while (asmb->gnl_last->line[i])
 	{
+        if (asmb->comm_last->num_args == OP(index_op).nb_arg)
+        {
+            printf("SLISHKOM MNOGO ARGS\n");
+            return (0);
+        }
         // выделяем память на новый аргумент
 		if (!new_args(asmb->comm_last))
 			return(error_line(ERR_MALLOC, NULL, 0));
@@ -164,7 +172,7 @@ int			find_args(t_asm *asmb)
 		if (is_args(asmb->gnl_last->line[i]))
 		{
             // чекаем аргумент и записываем его
-            if (!proceed_args(asmb, tmp, &i))
+            if (!proceed_args(asmb, tmp, &i, index_op))
                 return (0);
 			// чекаем символы после записанного аргумента
 			check = double_check_args(asmb, &i);

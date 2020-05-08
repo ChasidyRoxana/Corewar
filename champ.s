@@ -5,7 +5,9 @@
 t....."
 
 yellow:
-    :hey, %0, r4
+st r1, r4
+
+ldi r5, %:live, r3, r6
 #blue: live %0
 #green: live %0
 #name "Hi"

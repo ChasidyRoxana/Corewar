@@ -20,7 +20,7 @@ int			is_separator(char c)
 int			is_args(char c)
 {
 	return(c == '%' || c == 'r' || c == ':' 
-		|| (c >= '0' && c <= '9'));
+		|| (c >= '0' && c <= '9'));//ещё минус может быть у числа (?)
 }
 
 int		is_space(char c)
