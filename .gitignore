@@ -1,0 +1,9 @@
+# Includes
+includes/*.gch
+
+# Lib
+libft/*.o
+libft/*.a
+
+*.exe
+*.out
