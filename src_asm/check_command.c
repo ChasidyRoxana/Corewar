@@ -26,43 +26,42 @@ int			check_op_name(char *com)
 	return (-1);
 }
 
+static void	check_label_in_str(char *line, int *i, t_label *label)
+{
+	int		j;
+	t_label	*l_tmp;
+
+	j = 0;
+	l_tmp = label;
+	while (l_tmp->next)
+		l_tmp = l_tmp->next;
+	while (line[*i] && l_tmp->line[j] && line[*i] == l_tmp->line[j++])
+		(*i)++;
+	if (line[*i] == LABEL_CHAR && !l_tmp->line[j])
+		while (is_space(line[++(*i)]))
+			;
+	else
+		*i = skip_first_spaces(line);
+}
+
 int			find_command(t_asm *asmb, char *line)
 {
-	t_label	*l_tmp;
 	int		i;
 	int		j;
-	// char	*line;
 	char	com[6];
 
-	ft_memset((void*)com, 0, 6);
-	// line = asmb->gnl_last->line;
-	// printf("Line: .%s.\n", line);
 	i = 0;
 	j = 0;
+	ft_memset((void*)com, 0, 6);
 	while (is_space(line[i]))
 		i++;
 	if (asmb->comm_last->label)// если у команды есть метка, будем искать её в строке
-	{
-		l_tmp = asmb->comm_last->label;
-		while (l_tmp->next)
-			l_tmp = l_tmp->next;
-		while (line[i] && l_tmp->line[j] && line[i] == l_tmp->line[j++])
-			i++;
-		if (line[i] == LABEL_CHAR && !l_tmp->line[j])
-		{
-			while (is_space(line[++i]))
-				;
-		}
-		else
-			i = skip_first_spaces(line);
-	}
-	j = 0;
+		check_label_in_str(line, &i, asmb->comm_last->label);
 	while (line[i] >= 'a' && line[i] <= 'z')
 		com[j++] = line[i++];
 	printf("COM: .%s.\n", com);
 	if ((j = check_op_name(com)) == -1)
-		return (0);
-	// printf("OP_CODE: %d\n", j);
+		return (0);// обработать ошибку, что такой команды нет
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);

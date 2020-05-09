@@ -165,7 +165,7 @@ int			find_args(t_asm *asmb, int i, int index_op)
         }
         // выделяем память на новый аргумент
 		if (!new_args(asmb->comm_last))
-			return(error_line(ERR_MALLOC, NULL, 0));
+			return (0);//error_line(ERR_MALLOC, NULL, 0));// new_args уже вывел ошибку
 		tmp = asmb->comm_last->args;
 		while (tmp->next)
 			tmp = tmp->next;
