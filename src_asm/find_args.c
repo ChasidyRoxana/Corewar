@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 22:53:53 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/09 12:17:29 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,22 @@ int		new_args(t_command *command)
 int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 {
 	int last;
-	
-    // проверяем тип аргумента
+
     if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->arg) == 0)
     {
         printf("Wrong arg type\n");
         return (0);
     }
-	// будем записывать число (в регистр), если оно больше 16?
 	last =  *i;
+    if (asmb->gnl_last->line[*i] == '-')
+    {
+        (*i)++;
+        if (!(asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9'))
+        {
+            printf("POSLE '-' NET CIFR\n");
+            return(0);
+        }
+    }
 	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 			(*i)++;
@@ -58,8 +65,6 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		while (asmb->gnl_last->line[*i] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			(*i)++;
 	}
-	// ошибка, если после r не было цифр или если после цифр у нас
-	// какие-то неправильные символы
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])))
 	{
 		printf("ERROR ERROR ERROR\n");
@@ -90,7 +95,7 @@ int			double_check_args(t_asm *asmb, int *i)
 		return (1);
 	if (asmb->gnl_last->line[*i] == COMMENT_CHAR 
 		|| asmb->gnl_last->line[*i] == COMMENT_CHAR_2)
-		return (1); // сдвигать указатель gnl_last? (везде)
+		return (1);
 	else if (asmb->gnl_last->line[*i] == ',')
 	{
 		(*i)++;
@@ -111,34 +116,26 @@ int			double_check_args(t_asm *asmb, int *i)
 }
 
 int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
-{   
-    // чекаем регистр
+{
     if (asmb->gnl_last->line[*i] == 'r') 
     {
         (*i)++;
-        // записываю код из дефайна T_REG в op.h
         tmp->arg = 1;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("REG: %s\n", tmp->arg_name);
     }
-    // чекаем аргумент типа DIR
     else if (asmb->gnl_last->line[*i] == '%')
     {
         (*i)++;
-        // tmp->arg = 10;
-        // записываю код из дефайна T_DIR в op.h
         tmp->arg = 2;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("DIR: %s\n", tmp->arg_name);
-    } 
-    // чекаем аргумент типа IND
+    }
     else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
-        && asmb->gnl_last->line[*i] <= '9'))
+        && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-') // обработка минуса
     {
-        // tmp->arg = 11;
-        // записываю код из дефайна T_DIR в op.h
         tmp->arg = 4;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
@@ -163,25 +160,28 @@ int			find_args(t_asm *asmb, int i, int index_op)
             printf("SLISHKOM MNOGO ARGS\n");
             return (0);
         }
-        // выделяем память на новый аргумент
 		if (!new_args(asmb->comm_last))
-			return (0);//error_line(ERR_MALLOC, NULL, 0));// new_args уже вывел ошибку
+			return (error_line(ERR_MALLOC, NULL, 0));
 		tmp = asmb->comm_last->args;
 		while (tmp->next)
 			tmp = tmp->next;
 		if (is_args(asmb->gnl_last->line[i]))
 		{
-            // чекаем аргумент и записываем его
             if (!proceed_args(asmb, tmp, &i, index_op))
                 return (0);
-			// чекаем символы после записанного аргумента
 			check = double_check_args(asmb, &i);
 			if (check == 0)
 				return (0);
 			else if (check == 1)
+            {
+                if (asmb->comm_last->num_args != OP(index_op).nb_arg)
+                {
+                    printf("SLISHKOM MALO ARGS\n");
+                    return (0);
+                }
 				return (1);
+            }
 		}
-		// если у нас какие-то левые символы, которых не может быть в команде
 		else
 			return (0);
 	}
