@@ -14,12 +14,12 @@
 
 int			is_separator(char c)
 {
-	return(c == ' ' || c == '\0' || c == ',');
+	return(c == ' ' || c == '\0' || c == SEPARATOR_CHAR);
 }
 
 int			is_args(char c)
 {
-	return(c == '%' || c == 'r' || c == ':' 
+	return(c == '%' || c == 'r' || c == LABEL_CHAR
 		|| (c >= '0' && c <= '9'));//ещё минус может быть у числа (?)
 }
 

@@ -38,8 +38,11 @@ static void	check_label_in_str(char *line, int *i, t_label *label)
 	while (line[*i] && l_tmp->line[j] && line[*i] == l_tmp->line[j++])
 		(*i)++;
 	if (line[*i] == LABEL_CHAR && !l_tmp->line[j])
-		while (is_space(line[++(*i)]))
-			;
+	{
+		(*i)++;
+		while (is_space(line[*i]))
+			(*i)++;
+	}
 	else
 		*i = skip_first_spaces(line);
 }
@@ -57,11 +60,13 @@ int			find_command(t_asm *asmb, char *line)
 		i++;
 	if (asmb->comm_last->label)// если у команды есть метка, будем искать её в строке
 		check_label_in_str(line, &i, asmb->comm_last->label);
-	while (line[i] >= 'a' && line[i] <= 'z')
+	while (line[i] >= 'a' && line[i] <= 'z' && j < 6)
 		com[j++] = line[i++];
+	if (j == 6)
+		return (0); // команда слишком длинная; com[j==5] должен быть концом строки
 	printf("COM: .%s.\n", com);
 	if ((j = check_op_name(com)) == -1)
-		return (0);// обработать ошибку, что такой команды нет
+		return (0); // обработать ошибку, что такой команды нет
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);
