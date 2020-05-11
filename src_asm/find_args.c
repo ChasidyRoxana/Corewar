@@ -96,7 +96,7 @@ int			double_check_args(t_asm *asmb, int *i)
 	if (asmb->gnl_last->line[*i] == COMMENT_CHAR 
 		|| asmb->gnl_last->line[*i] == COMMENT_CHAR_2)
 		return (1);
-	else if (asmb->gnl_last->line[*i] == ',')
+	else if (asmb->gnl_last->line[*i] == SEPARATOR_CHAR)
 	{
 		(*i)++;
 		while(is_space(asmb->gnl_last->line[*i]))
@@ -156,12 +156,12 @@ int			find_args(t_asm *asmb, int i, int index_op)
 	while (asmb->gnl_last->line[i])
 	{
         if (asmb->comm_last->num_args == OP(index_op).nb_arg)
-        {
+        {// почему тут равно и это зачит, что аргументов больше, чем должно быть?
             printf("SLISHKOM MNOGO ARGS\n");
             return (0);
         }
 		if (!new_args(asmb->comm_last))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (0);//error_line(ERR_MALLOC, NULL, 0)); двойной вывод ошибки
 		tmp = asmb->comm_last->args;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -169,8 +169,7 @@ int			find_args(t_asm *asmb, int i, int index_op)
 		{
             if (!proceed_args(asmb, tmp, &i, index_op))
                 return (0);
-			check = double_check_args(asmb, &i);
-			if (check == 0)
+			if ((check = double_check_args(asmb, &i)) == 0)
 				return (0);
 			else if (check == 1)
             {
