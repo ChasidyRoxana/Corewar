@@ -57,6 +57,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
             return(0);
         }
     }
+	// можно оставить только цикл, без if (?)
+	// надо подумать над этим блоком
 	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 			(*i)++;
@@ -121,7 +123,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     if (asmb->gnl_last->line[*i] == 'r') 
     {
         (*i)++;
-        tmp->type = 1;
+        tmp->type = T_REG;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("REG: %s\n", tmp->arg_name);
@@ -129,7 +131,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     else if (asmb->gnl_last->line[*i] == '%')
     {
         (*i)++;
-        tmp->type = 2;
+        tmp->type = T_DIR;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("DIR: %s\n", tmp->arg_name);
@@ -137,7 +139,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
         && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-') // обработка минуса
     {
-        tmp->type = 4;
+        tmp->type = T_IND;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("IND: %s\n", tmp->arg_name);
@@ -157,12 +159,12 @@ int			find_args(t_asm *asmb, int i, int index_op)
 	while (asmb->gnl_last->line[i])
 	{
         if (asmb->comm_last->num_args == OP(index_op).nb_arg)
-        {// почему тут равно и это зачит, что аргументов больше, чем должно быть?
+        {
             printf("SLISHKOM MNOGO ARGS\n");
             return (0);
         }
 		if (!new_args(asmb->comm_last))
-			return (0);//error_line(ERR_MALLOC, NULL, 0)); двойной вывод ошибки
+			return (0);
 		tmp = asmb->comm_last->args;
 		while (tmp->next)
 			tmp = tmp->next;

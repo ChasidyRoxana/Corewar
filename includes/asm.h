@@ -134,4 +134,9 @@ int		double_check_args(t_asm *asmb, int *i);
 int		proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int		find_args(t_asm *asmb, int i, int index_op);
 
+/*
+** check_comm_list.c
+*/
+int			check_comm_list(t_asm *asmb);
+
 #endif
