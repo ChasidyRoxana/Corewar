@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 			if (k2 <= 0)
 				break;
 			buf2[k2] = '\0';
-			for (int i = 0; i < buf_size; i++)
+			for (int i = 0; i < k2; i++)
 				printf("%d ", buf2[i]);
 			printf("\n");
 		}
