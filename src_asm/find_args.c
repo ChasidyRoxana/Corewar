@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/09 12:17:29 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/12 12:48:49 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		new_args(t_command *command)
 			return (error_line(ERR_MALLOC, NULL, 0));
         tmp = tmp->next;
 	}
-	tmp->arg = -1; //
+	tmp->type = 0;
+	tmp->arg = 0; //
     tmp->arg_name = NULL;
     tmp->next = NULL;
 	return (1);
@@ -41,7 +42,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 {
 	int last;
 
-    if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->arg) == 0)
+    if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->type) == 0)
     {
         printf("Wrong arg type\n");
         return (0);
@@ -120,7 +121,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     if (asmb->gnl_last->line[*i] == 'r') 
     {
         (*i)++;
-        tmp->arg = 1;
+        tmp->type = 1;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("REG: %s\n", tmp->arg_name);
@@ -128,7 +129,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     else if (asmb->gnl_last->line[*i] == '%')
     {
         (*i)++;
-        tmp->arg = 2;
+        tmp->type = 2;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("DIR: %s\n", tmp->arg_name);
@@ -136,7 +137,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
         && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-') // обработка минуса
     {
-        tmp->arg = 4;
+        tmp->type = 4;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
         printf("IND: %s\n", tmp->arg_name);

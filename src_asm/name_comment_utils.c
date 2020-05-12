@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 15:22:20 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/12 12:43:59 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			is_separator(char c)
 int			is_args(char c)
 {
 	return(c == '%' || c == 'r' || c == LABEL_CHAR
-		|| (c >= '0' && c <= '9'));//ещё минус может быть у числа (?)
+		|| (c >= '0' && c <= '9') || c == '-');//ещё минус может быть у числа (?)
 }
 
 int		is_space(char c)

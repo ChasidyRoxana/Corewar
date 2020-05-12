@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 22:46:15 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/12 12:47:18 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct 		s_label
 
 typedef struct 		s_args
 {
+	int				type;
 	int 			arg;
 	char			*arg_name;
 	struct s_args 	*next;
