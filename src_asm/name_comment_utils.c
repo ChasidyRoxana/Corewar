@@ -20,7 +20,7 @@ int			is_separator(char c)
 int			is_args(char c)
 {
 	return(c == '%' || c == 'r' || c == LABEL_CHAR
-		|| (c >= '0' && c <= '9') || c == '-');//ещё минус может быть у числа (?)
+		|| (c >= '0' && c <= '9') || c == '-');
 }
 
 int		is_space(char c)
@@ -34,7 +34,7 @@ int		check_end_space(char *line)
 	int i;
 
 	i = 0;
-	while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
+	while (is_space(line[i]))
 		i++;
 	if (!line[i] || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2) // чекнуть в конце, нужно ли это везде, где вызывается эта функция
 		return (1);
@@ -48,7 +48,7 @@ int     skip_first_spaces(char *line)
     int i;
 
     i = 0;
-    while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
+    while (is_space(line[i]))
 			i++;
     return(i);
 }
