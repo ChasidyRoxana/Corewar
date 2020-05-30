@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/30 19:16:56 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:22:12 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int		new_args(t_command *command)
 			return (error_line(ERR_MALLOC, NULL, 0));
         tmp = tmp->next;
 	}
-	tmp->arg = -1; //
+	tmp->type = 0;
+	tmp->arg = 0; //
     tmp->arg_name = NULL;
     tmp->next = NULL;
 	return (1);
@@ -41,7 +42,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 {
 	int last;
 
-    if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->arg) == 0)
+    if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->type) == 0)
     {
         printf("Wrong arg type\n");
         return (0);
@@ -56,6 +57,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
             return(0);
         }
     }
+	// можно оставить только цикл, без if (?)
+	// надо подумать над этим блоком
 	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 			(*i)++;
@@ -97,7 +100,7 @@ int			double_check_args(t_asm *asmb, int *i)
 	if (asmb->gnl_last->line[*i] == COMMENT_CHAR 
 		|| asmb->gnl_last->line[*i] == COMMENT_CHAR_2)
 		return (1);
-	else if (asmb->gnl_last->line[*i] == ',')
+	else if (asmb->gnl_last->line[*i] == SEPARATOR_CHAR)
 	{
 		(*i)++;
 		while(is_space(asmb->gnl_last->line[*i]))
@@ -121,7 +124,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
     if (asmb->gnl_last->line[*i] == 'r') 
     {
         (*i)++;
-        tmp->arg = 1;
+        tmp->type = T_REG;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
 		// проверяем, что r >= 1 && r <= REG_NUMBER
@@ -159,6 +162,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 // обработать ошибки
 // что записываем - 1/2/4? - размер T_DIR
 // \n проверить в конце файла (после команд)
+// добавить тип аргумента?
 int			find_args(t_asm *asmb, int i, int index_op)
 {
 	t_args	*tmp;
@@ -176,7 +180,7 @@ int			find_args(t_asm *asmb, int i, int index_op)
             return (0);
         }
 		if (!new_args(asmb->comm_last))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (0);
 		tmp = asmb->comm_last->args;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -184,8 +188,7 @@ int			find_args(t_asm *asmb, int i, int index_op)
 		{
             if (!proceed_args(asmb, tmp, &i, index_op))
                 return (0);
-			check = double_check_args(asmb, &i);
-			if (check == 0)
+			if ((check = double_check_args(asmb, &i)) == 0)
 				return (0);
 			else if (check == 1)
             {

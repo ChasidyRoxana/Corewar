@@ -43,37 +43,38 @@ int			new_command(t_asm *asmb)
 */
 int		parse_commands(t_asm *asmb)
 {
-	// t_gnl	*tmp_gnl;
-
 	while (asmb->gnl_last)
 	{
-		if (!check_command(asmb))//(!find_label(asmb))
+		if (!check_command(asmb))
 			return (0);
-		
 		asmb->gnl_last = asmb->gnl_last->next;
 	}
-	while (asmb->comm_last->label)
-	{
-		printf("\nCheckLabel: .%s.\n", asmb->comm_last->label->line);
-		asmb->comm_last->label = asmb->comm_last->label->next; 
-	}
+	if (!check_comm_list(asmb))
+		return (0);
+
+	// для чего это?
+	// while (asmb->comm_last->label)
+	// {
+	// 	printf("\nCheckLabel: .%s.\n", asmb->comm_last->label->line);
+	// 	asmb->comm_last->label = asmb->comm_last->label->next; 
+	// }
 		// create_command();
 	// printf("%d\n", asmb->gnl->nb_line);
 	
 	// for check
-	int j = 0;
-	t_label	*temp;
-	t_command *tmp = asmb->comm;
-	while(tmp){
-		j++;
-		temp = tmp->label;
-		while(temp)
-		{
-			printf("%s\n", temp->line);
-			temp = temp->next;
-		}
-		tmp = tmp->next;
-	}
-	printf("%d command\n", j);
+	// int j = 0;
+	// t_label	*temp;
+	// t_command *tmp = asmb->comm;
+	// while(tmp){
+	// 	j++;
+	// 	temp = tmp->label;
+	// 	while(temp)
+	// 	{
+	// 		printf("%s\n", temp->line);
+	// 		temp = temp->next;
+	// 	}
+	// 	tmp = tmp->next;
+	// }
+	// printf("%d command\n", j);
 	return (1);
 }
