@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/07 18:25:10 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:01:04 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			new_command(t_asm *asmb)
 	}
 	ft_memset((void*)asmb->comm_last, 0, sizeof(t_command));
 	asmb->comm_last->prev = tmp;
+	asmb->comm_last->label_line = NULL; // на всякий случай (?)
 	return (1);
 }
 
