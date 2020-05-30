@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/30 19:00:53 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:19:32 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct 		s_label
 
 typedef struct 		s_args
 {
+	int				type;
 	int 			arg;
 	char			*arg_name;
 	struct s_args 	*next;
@@ -133,5 +134,10 @@ int		write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int		double_check_args(t_asm *asmb, int *i);
 int		proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int		find_args(t_asm *asmb, int i, int index_op);
+
+/*
+** check_comm_list.c
+*/
+int			check_comm_list(t_asm *asmb);
 
 #endif

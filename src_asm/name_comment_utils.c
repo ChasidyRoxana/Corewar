@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 15:22:20 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/12 12:43:59 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int			is_separator(char c)
 {
-	return(c == ' ' || c == '\0' || c == ',');
+	return(c == ' ' || c == '\0' || c == SEPARATOR_CHAR);
 }
 
 int			is_args(char c)
 {
-	return(c == '%' || c == 'r' || c == ':' 
-		|| (c >= '0' && c <= '9'));//ещё минус может быть у числа (?)
+	return(c == '%' || c == 'r' || c == LABEL_CHAR
+		|| (c >= '0' && c <= '9') || c == '-');
 }
 
 int		is_space(char c)
@@ -34,7 +34,7 @@ int		check_end_space(char *line)
 	int i;
 
 	i = 0;
-	while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
+	while (is_space(line[i]))
 		i++;
 	if (!line[i] || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2) // чекнуть в конце, нужно ли это везде, где вызывается эта функция
 		return (1);
@@ -48,7 +48,7 @@ int     skip_first_spaces(char *line)
     int i;
 
     i = 0;
-    while (is_space(line[i]))// == 32 || (line[i] >= 9 && line[i] <= 13))
+    while (is_space(line[i]))
 			i++;
     return(i);
 }

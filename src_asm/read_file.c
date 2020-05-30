@@ -66,41 +66,17 @@ int		read_file(t_asm *asmb, char *file_name)
 	int		fd;
 	char	*line;
 	int		nb_line;
-	// int		dots;
 
 	nb_line = 1;
-	// dots = 0;
 	if ((fd = open(file_name, O_RDONLY)) < 0)
 		return (error_line(ERR_OPEN_FILE, NULL, 0));
 	while (get_next_line(fd, &line) > 0)
 	{
-		// if (line[skip_first_spaces(line)] == '.')
-		// 	dots++;
 		if (!gnl_add_line(asmb, nb_line, line))
 			return (0);
-		// if (dots > 2)
-		// 	break ;
 		nb_line++;
 	}
 	close(fd);
 	// print_gnl(asmb->gnl);
 	return (1);
-	//return (dots != 2 ? error_line(ERR_DOT, NULL, 0) : 1);
 }
-
-// static int	is_correct(char *line)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		if (ft_strchr(LABEL_CHARS, line[i]) ||
-// 		line[i] == SEPARATOR_CHAR || line[i] == DIRECT_CHAR ||
-// 		line[i] == LABEL_CHAR || line[i] == COMMENT_CHAR)
-// 			i++;
-// 		else
-// 			return (0);
-// 	}
-// 	return (1);
-// }
