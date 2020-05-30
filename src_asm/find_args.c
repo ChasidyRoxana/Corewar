@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/30 19:22:12 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:25:38 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,29 +140,28 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	{
 		if (asmb->gnl_last->line[*i] == '%')
 		{
-			tmp->arg = 2;
+			tmp->type = T_DIR;
 			(*i)++;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
         && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
-			tmp->arg = 4;
+			tmp->arg = T_IND;
 		// если метка - запоминаем строку с этой командой, чтобы потом вывести ошибку, если нужно
 		if (asmb->gnl_last->line[*i] == ':')
 			asmb->comm_last->label_line = asmb->gnl_last;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
     }
-	if (tmp->arg == 2)
-		printf("IND: %s\n", tmp->arg_name);
-	else if (tmp->arg == 4)
+	if (tmp->arg == T_DIR)
 		printf("DIR: %s\n", tmp->arg_name);
+	else if (tmp->arg == T_IND)
+		printf("IND: %s\n", tmp->arg_name);
     return (1);
 }
 
 // обработать ошибки
 // что записываем - 1/2/4? - размер T_DIR
 // \n проверить в конце файла (после команд)
-// добавить тип аргумента?
 int			find_args(t_asm *asmb, int i, int index_op)
 {
 	t_args	*tmp;
