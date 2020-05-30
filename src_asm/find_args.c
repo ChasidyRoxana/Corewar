@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/09 12:17:29 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:16:56 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		while (asmb->gnl_last->line[*i] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			(*i)++;
 	}
+	// + чекает вместо атои что на конце, например: "1s5" -> "ERROR ERROR ERROR"
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])))
 	{
 		printf("ERROR ERROR ERROR\n");
@@ -123,27 +124,41 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
         tmp->arg = 1;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
-        printf("REG: %s\n", tmp->arg_name);
+		// проверяем, что r >= 1 && r <= REG_NUMBER
+		tmp->arg = ft_atoi(tmp->arg_name); // ft_atoi_check (?) - чекать, чтобы только цифры были
+		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER))
+		{
+			printf("\nWRONG REG NUMBER\n");
+			return (0);
+		}
+        printf("REG: %d\n", tmp->arg);
     }
-    else if (asmb->gnl_last->line[*i] == '%')
-    {
-        (*i)++;
-        tmp->arg = 2;
+    else
+	{
+		if (asmb->gnl_last->line[*i] == '%')
+		{
+			tmp->arg = 2;
+			(*i)++;
+		}
+		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
+        && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
+			tmp->arg = 4;
+		// если метка - запоминаем строку с этой командой, чтобы потом вывести ошибку, если нужно
+		if (asmb->gnl_last->line[*i] == ':')
+			asmb->comm_last->label_line = asmb->gnl_last;
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
-        printf("DIR: %s\n", tmp->arg_name);
     }
-    else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0' 
-        && asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-') // обработка минуса
-    {
-        tmp->arg = 4;
-        if(!write_arg(asmb, tmp, i, index_op))
-            return (0);
-        printf("IND: %s\n", tmp->arg_name);
-    }
+	if (tmp->arg == 2)
+		printf("IND: %s\n", tmp->arg_name);
+	else if (tmp->arg == 4)
+		printf("DIR: %s\n", tmp->arg_name);
     return (1);
 }
 
+// обработать ошибки
+// что записываем - 1/2/4? - размер T_DIR
+// \n проверить в конце файла (после команд)
 int			find_args(t_asm *asmb, int i, int index_op)
 {
 	t_args	*tmp;

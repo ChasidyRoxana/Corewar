@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/08 22:46:15 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/05/30 19:00:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct  		s_command
 	unsigned char		op;
 	unsigned char		args_type;
 	int					num_args;
+	t_gnl				*label_line;
 	t_args				*args;
 	struct s_command	*prev;
 	struct s_command	*next;
