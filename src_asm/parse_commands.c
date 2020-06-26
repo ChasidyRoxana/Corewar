@@ -39,8 +39,6 @@ int			new_command(t_asm *asmb)
 	return (1);
 }
 
-/* при ошибке возвращает 0
-*/
 int		parse_commands(t_asm *asmb)
 {
 	while (asmb->gnl_last)
