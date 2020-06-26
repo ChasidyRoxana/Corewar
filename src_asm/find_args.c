@@ -134,7 +134,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			printf("\nWRONG REG NUMBER\n");
 			return (0);
 		}
-        printf("REG: %d\n", tmp->arg);
+        // printf("REG: %d\n", tmp->arg);
     }
     else
 	{
@@ -152,10 +152,10 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
     }
-	if (tmp->type == T_DIR)
-		printf("DIR: %s\n", tmp->arg_name);
-	else if (tmp->type == T_IND)
-		printf("IND: %s\n", tmp->arg_name);
+	// if (tmp->type == T_DIR)
+	// 	printf("DIR: %s\n", tmp->arg_name);
+	// else if (tmp->type == T_IND)
+	// 	printf("IND: %s\n", tmp->arg_name);
     return (1);
 }
 

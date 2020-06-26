@@ -96,7 +96,7 @@ int			find_command(t_asm *asmb, char *line)
 		com[j++] = line[i++];
 	if (j == 6)
 		return (0); // команда слишком длинная; com[j==5] должен быть концом строки
-	printf("COM: .%s.\n", com);
+	// printf("COM: .%s.\n", com);
 	if ((j = check_op_name(com)) == -1)
 		return (0); // обработать ошибку, что такой команды нет
 	asmb->comm_last->op = j;

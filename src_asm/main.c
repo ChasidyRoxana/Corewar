@@ -51,6 +51,7 @@ int			main(int argc, char **argv)
 		return (1);
     if (!parse_commands(&asmb))
 		return (1);
-    // write_to_file(); // create_file() перед записью и создадим
+	if (!write_to_file(&asmb))
+		return (1);
     return (0);
 }
