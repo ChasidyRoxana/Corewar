@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/26 15:44:20 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/26 16:57:21 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			(*i)++;
 	else if (asmb->gnl_last->line[*i] == ':')
 	{
-		last = ++(*i);
-		while (asmb->gnl_last->line[*i] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
+		last = *i;
+		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			(*i)++;
 	}
+	printf("%c\n", asmb->gnl_last->line[*i]);
 	// + чекает вместо атои что на конце, например: "1s5" -> "ERROR ERROR ERROR"
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])))
 	{
-		printf("ERROR ERROR ERROR\n");
+		printf("X ERROR ERROR ERROR\n");
 		return (0);
 	}
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
