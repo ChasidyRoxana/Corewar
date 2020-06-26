@@ -56,13 +56,13 @@ typedef struct 		s_args
 
 typedef struct  		s_command
 {
-	t_label				*label;
-	int					size;
-	unsigned char		op;
-	unsigned char		args_type;
-	int					num_args;
-	t_gnl				*label_line;
-	t_args				*args;
+	t_label				*label; //список названий меток для этой команды
+	int					size; //размер команды
+	unsigned char		op; //код команды
+	unsigned char		args_type; //код аргументов 
+	int					num_args; //количетво аргуентов
+	t_gnl				*label_line; //
+	t_args				*args; //аргументы
 	struct s_command	*prev;
 	struct s_command	*next;
 }						t_command;
