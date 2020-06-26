@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/08 16:14:14 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/26 19:10:35 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ typedef struct		s_header
 
 typedef struct					s_op
 {
-	char						*name;
-	unsigned char				nb_arg;
-	t_arg_type					args[3];
-	unsigned char				op_code;
-	unsigned int				cycle;
-	char						*description;
-	unsigned char				type_arg_code;
-	unsigned char				t_dir_size;
+	char						*name; // имя команды
+	unsigned char				nb_arg; // количество аргументов
+	t_arg_type					args[3]; // типы принимаемых аргументов
+	unsigned char				op_code; // код (номер) операции
+	unsigned int				cycle; // количество циклов до исполнения
+	char						*description; // описание команды
+	unsigned char				type_arg_code; // код типов аргументов (1 == есть, 0 == нет)
+	unsigned char				t_dir_size; // размер T_DIR (1 == 2 байта, 0 == 4 байта)
 }								t_op;
 
 extern t_op						g_op_tab[17];
