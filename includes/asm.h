@@ -48,21 +48,21 @@ typedef struct 		s_label
 
 typedef struct 		s_args
 {
-	int				type;
-	int 			arg;
-	char			*arg_name;
+	int				type; //T_REG, T_IND, T_DIR
+	int 			arg; //число, которое потом запишем в файл
+	char			*arg_name; //как было записано в команде
 	struct s_args 	*next;
 }					t_args;
 
 typedef struct  		s_command
 {
-	t_label				*label;
-	int					size;
-	unsigned char		op;
-	unsigned char		args_type;
-	int					num_args;
-	t_gnl				*label_line;
-	t_args				*args;
+	t_label				*label; //список названий меток для этой команды
+	int					size; //размер команды
+	unsigned char		op; //код команды
+	unsigned char		args_type; //код аргументов 
+	int					num_args; //количетво аргуентов
+	t_gnl				*label_line; //
+	t_args				*args; //аргументы
 	struct s_command	*prev;
 	struct s_command	*next;
 }						t_command;
@@ -139,5 +139,10 @@ int		find_args(t_asm *asmb, int i, int index_op);
 ** check_comm_list.c
 */
 int			check_comm_list(t_asm *asmb);
+
+/*
+** write_to_file.c
+*/
+int		write_to_file(t_asm *asmb);
 
 #endif
