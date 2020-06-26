@@ -140,4 +140,9 @@ int		find_args(t_asm *asmb, int i, int index_op);
 */
 int			check_comm_list(t_asm *asmb);
 
+/*
+** write_to_file.c
+*/
+int		write_to_file(t_asm *asmb);
+
 #endif

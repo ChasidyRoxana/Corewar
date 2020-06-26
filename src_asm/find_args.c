@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/26 15:44:20 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/26 16:58:45 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			(*i)++;
 	else if (asmb->gnl_last->line[*i] == ':')
 	{
-		last = ++(*i);
-		while (asmb->gnl_last->line[*i] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
+		last = *i;
+		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			(*i)++;
 	}
 	// + чекает вместо атои что на конце, например: "1s5" -> "ERROR ERROR ERROR"
@@ -134,7 +134,7 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			printf("\nWRONG REG NUMBER\n");
 			return (0);
 		}
-        printf("REG: %d\n", tmp->arg);
+        // printf("REG: %d\n", tmp->arg);
     }
     else
 	{
@@ -152,10 +152,10 @@ int         proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
         if(!write_arg(asmb, tmp, i, index_op))
             return (0);
     }
-	if (tmp->type == T_DIR)
-		printf("DIR: %s\n", tmp->arg_name);
-	else if (tmp->type == T_IND)
-		printf("IND: %s\n", tmp->arg_name);
+	// if (tmp->type == T_DIR)
+	// 	printf("DIR: %s\n", tmp->arg_name);
+	// else if (tmp->type == T_IND)
+	// 	printf("IND: %s\n", tmp->arg_name);
     return (1);
 }
 

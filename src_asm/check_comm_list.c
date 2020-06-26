@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_comm_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 16:49:43 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/12 16:49:43 by marvin           ###   ########.fr       */
+/*   Updated: 2020/06/26 16:12:08 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,51 @@ static void	set_args_type(t_command *comml)
 	// printf("ARGS_TYPE: %d\n", comml->args_type);
 }
 
-static int	check_label(t_command *comml)
+static int	arg_check_label_2(t_command *comml, char *arg_lab)
 {
-	int		size;
+	int			size;
+	t_command	*tmpc;
+	t_label		*tmpl;
+
+	tmpc = comml;
+	size = 0;
+	while (tmpc)
+	{
+		tmpl = tmpc->label;
+		while (tmpl)
+		{
+			if (!ft_strcmp(tmpl->line, arg_lab))
+				return (size);
+			tmpl = tmpl->next;
+		}
+		size += tmpc->size;
+		tmpc = tmpc->next;
+	}
+	return (0);
+}
+
+static int	arg_check_label(t_command *comml, char *arg_lab)
+{
+	int			size;
+	t_command	*tmpc;
+	t_label		*tmpl;
 	
 	size = 0;
-	return (size);
+	tmpc = comml;
+	while (tmpc)
+	{
+		tmpl = tmpc->label;
+		while (tmpl)
+		{
+			if (!ft_strcmp(tmpl->line, arg_lab))
+				return (size);
+			tmpl = tmpl->next;
+		}
+		tmpc = tmpc->prev;
+		if (tmpc)
+			size -= tmpc->size;
+	}
+	return (arg_check_label_2(comml, arg_lab));
 }
 
 static int	set_args(t_command *comml)
@@ -52,7 +91,7 @@ static int	set_args(t_command *comml)
 		if (tmpa->type != T_REG)
 		{
 			if (tmpa->arg_name && tmpa->arg_name[0] == LABEL_CHAR)
-				tmpa->arg = check_label(comml, );
+				tmpa->arg = arg_check_label(comml, &tmpa->arg_name[1]);
 			else
 				tmpa->arg = ft_atoi(tmpa->arg_name);
 		}
