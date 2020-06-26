@@ -1,12 +1,11 @@
 .name "zork
       .lll" #tutu
 .comment "just a basic living prog"
-		
      l1: #comment
      l2:	sti r1, %:live, %9
-	and	r1,%0,r1
-
-ld :live, r08
-live:
-     live	%214748469888823847832478372397932478927888
+	and	r1, %:l1,r1
+ld :live, r1
+live: 
+     live	%2147484698888238478324783723979324789278889999999
 	zjmp %:live
+     
