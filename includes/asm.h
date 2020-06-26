@@ -48,9 +48,9 @@ typedef struct 		s_label
 
 typedef struct 		s_args
 {
-	int				type;
-	int 			arg;
-	char			*arg_name;
+	int				type; //T_REG, T_IND, T_DIR
+	int 			arg; //число, которое потом запишем в файл
+	char			*arg_name; //как было записано в команде
 	struct s_args 	*next;
 }					t_args;
 
