@@ -6,11 +6,43 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/08 22:59:13 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/26 19:46:29 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
+
+void		command_size(t_asm *asmb, t_command *command)
+{
+// 	Код операции — 1 байт
+// 	Код типов аргументов (Нужен не для всех операций) — 1 байт
+// 	Аргументы 
+	int 	command_code;
+	int		type_arg;
+	int 	args_size;
+	t_args 	*tmp;
+
+	command_code = 1;
+	type_arg = OP(command->op - 1).type_arg_code;
+	args_size = 0;
+	tmp = command->args;
+	while (tmp) 
+	{
+		if (tmp->type == T_REG || tmp->type == T_IND)
+			args_size += tmp->type;
+		else if (tmp->type == T_DIR)
+		{
+			if (OP(command->op - 1).t_dir_size == 1)
+				args_size += tmp->type;
+			else
+				args_size += 4;
+		}
+		tmp = tmp->next;
+	}
+	command->size += command_code + type_arg + args_size;
+	asmb->header.prog_size += command->size;
+	printf("Size of command: %d\n", command->size);
+}
 
 int			check_op_name(char *com)
 {
@@ -70,6 +102,7 @@ int			find_command(t_asm *asmb, char *line)
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);
+	command_size(asmb, asmb->comm_last);
 	return (1);
 }
 
