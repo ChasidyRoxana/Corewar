@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 12:01:39 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 19:01:40 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	else if (asmb->gnl_last->line[*i] == ':')
 	{
 		last = *i;
-		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
+		++(*i);
+		while (asmb->gnl_last->line[*i] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			(*i)++;
 	}
 	// + чекает вместо атои что на конце, например: "1s5" -> "ERROR ERROR ERROR"
@@ -131,7 +132,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		tmp->arg = ft_atoi(tmp->arg_name); // ft_atoi_check (?) - чекать, чтобы только цифры были
 		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER))
 		{
-			printf("\nWRONG REG NUMBER\n");
+			printf("WRONG REG NUMBER\n");
 			return (0);
 		}
         // printf("REG: %d\n", tmp->arg);
