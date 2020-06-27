@@ -143,6 +143,7 @@ int			check_comm_list(t_asm *asmb);
 /*
 ** write_to_file.c
 */
-int		write_to_file(t_asm *asmb);
+int			write_to_file(t_asm *asmb);
+void		write_int(int fd, unsigned int num, int byte);
 
 #endif

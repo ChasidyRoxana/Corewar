@@ -41,7 +41,7 @@ void		command_size(t_asm *asmb, t_command *command)
 	}
 	command->size += command_code + type_arg + args_size;
 	asmb->header.prog_size += command->size;
-	printf("Size of command: %d\n", command->size);
+	// printf("Size of command: %d\n", command->size);
 }
 
 int			check_op_name(char *com)
