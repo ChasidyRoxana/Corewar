@@ -21,10 +21,7 @@ static void	set_args_type(t_command *comml)
 	tmp = comml->args;
 	while (tmp)
 	{
-		if (tmp->type == T_IND)
-			comml->args_type |= (IND_CODE << offset);
-		else
-			comml->args_type |= (tmp->type << offset);
+		comml->args_type |= (tmp->type << offset);
 		offset -= 2;
 		tmp = tmp->next;
 	}
