@@ -97,6 +97,10 @@ int main(int argc, char **argv)
 		}
 		if (k1 == 0 && k2 == 0)
 			printf("ALL GOOD C:\n");
+		else if (k1 < k2)
+			printf("error with 1 file");
+		else if (k2 < k1)
+			printf("error with 2 file");
 	}
 	return 0;
 }
