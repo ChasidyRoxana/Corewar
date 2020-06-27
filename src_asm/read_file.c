@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/06 21:48:24 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 11:40:24 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 	return (1);
 }
 
-void print_gnl(t_gnl *gnl)
+void		print_gnl(t_gnl *gnl)
 {
 	t_gnl *tmp;
-	
+
 	tmp = gnl;
 	while (tmp)
 	{
@@ -61,7 +61,7 @@ void print_gnl(t_gnl *gnl)
 	}
 }
 
-int		read_file(t_asm *asmb, char *file_name)
+int			read_file(t_asm *asmb, char *file_name)
 {
 	int		fd;
 	char	*line;

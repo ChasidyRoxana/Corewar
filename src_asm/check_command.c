@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/26 19:46:29 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 12:03:25 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void		command_size(t_asm *asmb, t_command *command)
 {
 // 	Код операции — 1 байт
 // 	Код типов аргументов (Нужен не для всех операций) — 1 байт
-// 	Аргументы 
-	int 	command_code;
+// 	Аргументы
+	int		command_code;
 	int		type_arg;
-	int 	args_size;
-	t_args 	*tmp;
+	int		args_size;
+	t_args	*tmp;
 
 	command_code = 1;
 	type_arg = OP(command->op - 1).type_arg_code;
 	args_size = 0;
 	tmp = command->args;
-	while (tmp) 
+	while (tmp)
 	{
 		if (tmp->type == T_REG || tmp->type == T_IND)
 			args_size += tmp->type;
