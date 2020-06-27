@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/06 20:43:12 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 12:02:16 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int			error_line(int error, t_gnl *gnl, int return_num)
 // проверка на переполнение
 // return (1) - есть length_error, то есть места больше нет
 // return (0) - все ок
-int		length_error(int index, int length) // обработать, чтобы выводилось сколько лишнего
+int			length_error(int index, int length) // обработать, чтобы выводилось сколько лишнего
 {
-    if (index >= length)
+	if (index >= length)
 	{
 		if (length == PROG_NAME_LENGTH)
 			return (error_line(ERR_NAME_LENGTH, NULL, 1));
@@ -63,6 +63,5 @@ int		length_error(int index, int length) // обработать, чтобы в�
 			return (error_line(ERR_COMMENT_LENGTH, NULL, 1));
 		return (1);// на какой случай этот ретёрн?
 	}
-	return(0);
+	return (0);
 }
-

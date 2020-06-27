@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/30 19:01:04 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 11:43:57 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			new_command(t_asm *asmb)
 	return (1);
 }
 
-int		parse_commands(t_asm *asmb)
+int			parse_commands(t_asm *asmb)
 {
 	while (asmb->gnl_last)
 	{
@@ -54,11 +54,11 @@ int		parse_commands(t_asm *asmb)
 	// while (asmb->comm_last->label)
 	// {
 	// 	printf("\nCheckLabel: .%s.\n", asmb->comm_last->label->line);
-	// 	asmb->comm_last->label = asmb->comm_last->label->next; 
+	// 	asmb->comm_last->label = asmb->comm_last->label->next;
 	// }
 		// create_command();
 	// printf("%d\n", asmb->gnl->nb_line);
-	
+
 	// for check
 	// int j = 0;
 	// t_label	*temp;

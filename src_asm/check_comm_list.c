@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 16:49:43 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/26 16:12:08 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 12:04:19 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	arg_check_label(t_command *comml, char *arg_lab)
 	int			size;
 	t_command	*tmpc;
 	t_label		*tmpl;
-	
+
 	size = 0;
 	tmpc = comml;
 	while (tmpc)
@@ -80,7 +80,7 @@ static int	arg_check_label(t_command *comml, char *arg_lab)
 
 static int	set_args(t_command *comml)
 {
-	// пройтись по каждому аргументу, кроме T_REG; 
+	// пройтись по каждому аргументу, кроме T_REG;
 	// если метка, найти растояние до неё;
 	// разобраться с урезанием по модулю;
 	t_args	*tmpa;
