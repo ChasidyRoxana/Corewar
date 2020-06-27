@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 11:47:57 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 18:50:23 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_separator(char c)
 {
-	return (c == ' ' || c == '\0' || c == SEPARATOR_CHAR);
+	return (is_space(c) || c == '\0' || c == SEPARATOR_CHAR);
 }
 
 int		is_args(char c)
