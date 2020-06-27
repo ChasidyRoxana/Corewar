@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 20:10:17 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 20:20:44 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		command_size(t_asm *asmb, t_command *command)
 			args_size += tmp->type;
 		else if (tmp->type == IND_CODE)
 			args_size += IND_SIZE;
-		else if (tmp->type == T_DIR)
+		else if (tmp->type == DIR_CODE)
 		{
 			if (OP(command->op - 1).t_dir_size == 1)
 				args_size += tmp->type;
@@ -105,6 +105,7 @@ int			find_command(t_asm *asmb, char *line)
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);
 	command_size(asmb, asmb->comm_last);
+	// printf("PROG SIZE: %d\n", asmb->header.prog_size);
 	return (1);
 }
 
