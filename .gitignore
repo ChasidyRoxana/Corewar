@@ -7,3 +7,4 @@ libft/*.a
 
 *.exe
 *.out
+.DS_Store
