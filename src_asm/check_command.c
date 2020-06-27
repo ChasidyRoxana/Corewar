@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 12:03:25 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 20:10:17 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void		command_size(t_asm *asmb, t_command *command)
 	tmp = command->args;
 	while (tmp)
 	{
-		if (tmp->type == T_REG || tmp->type == T_IND)
+		if (tmp->type == REG_CODE)
 			args_size += tmp->type;
+		else if (tmp->type == IND_CODE)
+			args_size += IND_SIZE;
 		else if (tmp->type == T_DIR)
 		{
 			if (OP(command->op - 1).t_dir_size == 1)

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 19:01:40 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/27 19:52:34 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	if (asmb->gnl_last->line[*i] == 'r')
 	{
 		(*i)++;
-		tmp->type = T_REG;
+		tmp->type = REG_CODE;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 		// проверяем, что r >= 1 && r <= REG_NUMBER
@@ -141,12 +141,12 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	{
 		if (asmb->gnl_last->line[*i] == '%')
 		{
-			tmp->type = T_DIR;
+			tmp->type = DIR_CODE;
 			(*i)++;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0'
 			&& asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
-			tmp->type = T_IND;
+			tmp->type = IND_CODE;
 		// если метка - запоминаем строку с этой командой, чтобы потом вывести ошибку, если нужно
 		if (asmb->gnl_last->line[*i] == ':')
 			asmb->comm_last->label_line = asmb->gnl_last;
