@@ -115,7 +115,7 @@ torp1:		live	%42
 
 torp2:		live	%42
 		fork	%:back_wall
-		ld	%4294902082,r3		#FF FF 01 42
+		ld	%4294902082,r3		#FF FF 01 42   # tut zakonchil nash asmb
 		ld	%436432902,r6		#1A 03 70 06
 		ld	%0,r15
 		ld	%0,r15

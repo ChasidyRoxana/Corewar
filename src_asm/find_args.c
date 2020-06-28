@@ -125,7 +125,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	if (asmb->gnl_last->line[*i] == 'r')
 	{
 		(*i)++;
-		tmp->type = REG_CODE;
+		tmp->type = T_REG;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 		// проверяем, что r >= 1 && r <= REG_NUMBER
@@ -141,12 +141,12 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	{
 		if (asmb->gnl_last->line[*i] == '%')
 		{
-			tmp->type = DIR_CODE;
+			tmp->type = T_DIR;
 			(*i)++;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0'
 			&& asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
-			tmp->type = IND_CODE;
+			tmp->type = T_IND;
 		// если метка - запоминаем строку с этой командой, чтобы потом вывести ошибку, если нужно
 		if (asmb->gnl_last->line[*i] == ':')
 			asmb->comm_last->gnl_line = asmb->gnl_last;
