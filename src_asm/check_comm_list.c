@@ -25,10 +25,9 @@ static void	set_args_type(t_command *comml)
 		offset -= 2;
 		tmp = tmp->next;
 	}
-	// printf("ARGS_TYPE: %d\n", comml->args_type);
 }
 
-static int	arg_check_label_2(t_command *comml, char *arg_lab)
+static int	arg_check_lab2(t_command *comml, char *arg_lab)
 {
 	int			size;
 	t_command	*tmpc;
@@ -48,10 +47,10 @@ static int	arg_check_label_2(t_command *comml, char *arg_lab)
 		size += tmpc->size;
 		tmpc = tmpc->next;
 	}
-	return (0);
+	return (-1);
 }
 
-static int	arg_check_label(t_command *comml, char *arg_lab)
+static int	arg_check_lab(t_command *comml, char *arg_lab)
 {
 	int			size;
 	t_command	*tmpc;
@@ -72,7 +71,7 @@ static int	arg_check_label(t_command *comml, char *arg_lab)
 		if (tmpc)
 			size -= tmpc->size;
 	}
-	return (arg_check_label_2(comml, arg_lab));
+	return (1);
 }
 
 static int	set_args(t_command *comml)
@@ -81,6 +80,7 @@ static int	set_args(t_command *comml)
 	// если метка, найти растояние до неё;
 	// разобраться с урезанием по модулю;
 	t_args	*tmpa;
+	int		arg;
 
 	tmpa = comml->args;
 	while (tmpa)
@@ -88,7 +88,12 @@ static int	set_args(t_command *comml)
 		if (tmpa->type != T_REG)
 		{
 			if (tmpa->arg_name && tmpa->arg_name[0] == LABEL_CHAR)
-				tmpa->arg = arg_check_label(comml, &tmpa->arg_name[1]);
+			{
+				if ((arg = arg_check_lab(comml, &tmpa->arg_name[1])) > 0)
+					if ((arg = arg_check_lab2(comml, &tmpa->arg_name[1])) < 0)
+						return (0);
+				tmpa->arg = arg;
+			}
 			else
 				tmpa->arg = ft_atoi(tmpa->arg_name);
 		}
@@ -103,7 +108,11 @@ int			check_comm_list(t_asm *asmb)
 	while (asmb->comm_last)
 	{
 		set_args_type(asmb->comm_last);
-		set_args(asmb->comm_last);
+		if (!set_args(asmb->comm_last))
+		{
+			printf("Error with label\n");
+			return (0);
+		}
 		asmb->comm_last = asmb->comm_last->next;
 	}
 	return (1);

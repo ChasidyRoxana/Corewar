@@ -35,9 +35,9 @@ static int	error_without_gnl(int error, int return_num)
 }
 
 /* принимает номер ошибки; лист, из которго берёт строку и её номер;
-** число, которое вернёт функция
+** число, которое вернёт функция; номер символа в строке
 */
-int			error_line(int error, t_gnl *gnl, int return_num)
+int			error_line(int error, t_gnl *gnl, int return_num, int n_sym)
 {
 	if (!gnl)
 		return (error_without_gnl(error, return_num));
@@ -58,9 +58,9 @@ int			length_error(int index, int length) // обработать, чтобы в
 	if (index >= length)
 	{
 		if (length == PROG_NAME_LENGTH)
-			return (error_line(ERR_NAME_LENGTH, NULL, 1));
+			return (error_line(ERR_NAME_LENGTH, NULL, 1, -1));
 		else if (length == COMMENT_LENGTH)
-			return (error_line(ERR_COMMENT_LENGTH, NULL, 1));
+			return (error_line(ERR_COMMENT_LENGTH, NULL, 1, -1));
 		return (1);// на какой случай этот ретёрн?
 	}
 	return (0);

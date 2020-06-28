@@ -30,17 +30,20 @@ int			free_str(char **str, int ret_nb)
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0)
+	{
+		asmb->last_line = nb_line;
 		return (1);
+	}
 	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		asmb->gnl_last = asmb->gnl;
 	}
 	else
 	{
 		if (!(asmb->gnl_last->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		asmb->gnl_last = asmb->gnl_last->next;
 	}
 	asmb->gnl_last->line = line;
@@ -48,7 +51,7 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 	asmb->gnl_last->next = NULL;
 	return (1);
 }
-
+/////////////////////
 void		print_gnl(t_gnl *gnl)
 {
 	t_gnl *tmp;
@@ -59,7 +62,7 @@ void		print_gnl(t_gnl *gnl)
 		printf("[%d]:%s\n", tmp->nb_line, tmp->line);
 		tmp = tmp->next;
 	}
-}
+}//////////////////
 
 int			read_file(t_asm *asmb, char *file_name)
 {
@@ -69,7 +72,7 @@ int			read_file(t_asm *asmb, char *file_name)
 
 	nb_line = 1;
 	if ((fd = open(file_name, O_RDONLY)) < 0)
-		return (error_line(ERR_OPEN_FILE, NULL, 0));
+		return (error_line(ERR_OPEN_FILE, NULL, 0, -1));
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (!gnl_add_line(asmb, nb_line, line))
@@ -77,6 +80,11 @@ int			read_file(t_asm *asmb, char *file_name)
 		nb_line++;
 	}
 	close(fd);
+	if (asmb->last_line < asmb->gnl_last->nb_line)
+	{
+		printf("Syntax error - unexpected end of input (Perhaps you forgot to end with a newline?)\n");
+		return (0);
+	}
 	// print_gnl(asmb->gnl);
 	return (1);
 }
