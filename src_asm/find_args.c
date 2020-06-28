@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 19:52:34 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/28 14:42:09 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,16 +153,9 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 	}
-	// if (tmp->type == T_DIR)
-	// 	printf("DIR: %s\n", tmp->arg_name);
-	// else if (tmp->type == T_IND)
-	// 	printf("IND: %s\n", tmp->arg_name);
 	return (1);
 }
 
-// обработать ошибки
-// что записываем - 1/2/4? - размер T_DIR
-// \n проверить в конце файла (после команд)
 int			find_args(t_asm *asmb, int i, int index_op)
 {
 	t_args	*tmp;
