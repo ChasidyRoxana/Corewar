@@ -71,7 +71,6 @@ typedef struct  s_asm
 {
 	t_gnl		*gnl;
 	t_gnl		*gnl_last;
-	int			last_line;
 	t_command	*comm;
 	t_command	*comm_last;
 	t_header	header;

@@ -28,11 +28,11 @@ void		command_size(t_asm *asmb, t_command *command)
 	tmp = command->args;
 	while (tmp)
 	{
-		if (tmp->type == REG_CODE)
+		if (tmp->type == T_REG)
 			args_size += tmp->type;
-		else if (tmp->type == IND_CODE)
+		else if (tmp->type == T_IND)
 			args_size += IND_SIZE;
-		else if (tmp->type == DIR_CODE)
+		else if (tmp->type == T_DIR)
 		{
 			if (OP(command->op - 1).t_dir_size == 1)
 				args_size += tmp->type;

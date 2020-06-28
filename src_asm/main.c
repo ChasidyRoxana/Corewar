@@ -52,5 +52,6 @@ int			main(int argc, char **argv)
 		return (1);
 	if (!write_to_file(&asmb))
 		return (1);
+	printf("The champion is ready\n");
 	return (0);
 }

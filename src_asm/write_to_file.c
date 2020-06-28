@@ -63,7 +63,8 @@ static void	write_commands(t_asm *asmb, int fd)
 		{
 			if (tmp->type == T_REG)
 				write_int(fd, tmp->arg, 1);
-			else if (tmp->type == T_IND || OP(comm->op - 1).t_dir_size)
+			else if (tmp->type == T_IND ||
+				(tmp->type == T_DIR && OP(comm->op - 1).t_dir_size))
 				write_int(fd, tmp->arg, 2);
 			else
 				write_int(fd, tmp->arg, 4);
