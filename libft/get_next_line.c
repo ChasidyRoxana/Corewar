@@ -24,7 +24,7 @@ static int	ft_end(char **line, char **buf)
 		tmp = *buf;
 		*buf = ft_strdup(&tp[1]);
 		free(tmp);
-		return (1);
+		return (2);
 	}
 	else if (ft_strlen(*buf) > 0)
 	{

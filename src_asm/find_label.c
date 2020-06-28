@@ -20,7 +20,7 @@ int		malloc_label(t_command *command)
 	if (command->label == NULL)
 	{
 		if (!(command->label = (t_label*)malloc(sizeof(t_label))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		tmp = command->label;
 	}
 	else
@@ -28,7 +28,7 @@ int		malloc_label(t_command *command)
 		while (tmp->next)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_label*)malloc(sizeof(t_label))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		tmp = tmp->next;
 	}
 	tmp->line = NULL;
@@ -56,14 +56,14 @@ int		find_label(t_asm *asmb)
 		if (tmp->line[i] == LABEL_CHAR)
 		{
 			if (!malloc_label(asmb->comm_last))
-				return (error_line(ERR_MALLOC, NULL, 0));
+				return (error_line(ERR_MALLOC, NULL, 0, -1));
 			length = i - skip_first_spaces(tmp->line);
 			// добавила проход до конца label'ов, чтобы записать новую метку
 			tmp_label = asmb->comm_last->label;
 			while (tmp_label->next)
 				tmp_label = tmp_label->next;
 			if (!(tmp_label->line = ft_strnew(length)))
-				return (error_line(ERR_MALLOC, NULL, 0)); // добавила ERR_MALLOC для вывода ошибки
+				return (error_line(ERR_MALLOC, NULL, 0, -1)); // добавила ERR_MALLOC для вывода ошибки
 			ft_strncpy(tmp_label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
 			// printf("\nLABEL: .%s.\n", tmp_label->line);
 			if (check_end_space(&(tmp->line)[i + 1]))
