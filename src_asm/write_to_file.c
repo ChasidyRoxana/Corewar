@@ -81,8 +81,8 @@ int			write_to_file(t_asm *asmb)
 {
 	int		fd;
 
-	if (!create_file(asmb, &fd))
-		return (0);
+	if (!create_file(asmb, &fd)){printf("Error with create file [write_to_file 84]");
+		return (0);}
 	write_int(fd, asmb->header.magic, 4);
 	write(fd, asmb->header.prog_name, PROG_NAME_LENGTH);
 	write_int(fd, 0, 4);

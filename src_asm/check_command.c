@@ -97,10 +97,14 @@ int			find_command(t_asm *asmb, char *line)
 	while (line[i] >= 'a' && line[i] <= 'z' && j < 6)
 		com[j++] = line[i++];
 	if (j == 6)
+	{printf("Error, net takoj op[check_command 100]\n");
 		return (0); // команда слишком длинная; com[j==5] должен быть концом строки
+	}
 	// printf("COM: .%s.\n", com);
 	if ((j = check_op_name(com)) == -1)
+	{printf("Error, net takoj op[check_command 105]\n");
 		return (0); // обработать ошибку, что такой команды нет
+	}
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);
