@@ -63,7 +63,8 @@ static void	write_commands(t_asm *asmb, int fd)
 		{
 			if (tmp->type == T_REG)
 				write_int(fd, tmp->arg, 1);
-			else if (tmp->type == T_IND || OP(comm->op - 1).t_dir_size)
+			else if (tmp->type == T_IND ||
+				(tmp->type == T_DIR && OP(comm->op - 1).t_dir_size))
 				write_int(fd, tmp->arg, 2);
 			else
 				write_int(fd, tmp->arg, 4);
@@ -81,8 +82,8 @@ int			write_to_file(t_asm *asmb)
 {
 	int		fd;
 
-	if (!create_file(asmb, &fd))
-		return (0);
+	if (!create_file(asmb, &fd)){printf("Error with create file [write_to_file 84]");
+		return (0);}
 	write_int(fd, asmb->header.magic, 4);
 	write(fd, asmb->header.prog_name, PROG_NAME_LENGTH);
 	write_int(fd, 0, 4);

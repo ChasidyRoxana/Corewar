@@ -20,7 +20,7 @@ int			check_filename(char *name, t_asm *asmb)
 	length = ft_strlen(name);
 	i = length - 1;
 	if (i < 1)
-		return (error_line(ERR_FILE_NAME, NULL, 0));
+		return (error_line(ERR_FILE_NAME, NULL, 0, -1));
 	if (name[i] == 's' && name[i - 1] == '.')
 	{
 		asmb->filename = ft_strnew(length + 2);
@@ -28,7 +28,7 @@ int			check_filename(char *name, t_asm *asmb)
 		ft_strcat(asmb->filename, ".cor");
 	}
 	else
-		return (error_line(ERR_FILE_NAME, NULL, 0));
+		return (error_line(ERR_FILE_NAME, NULL, 0, -1));
 	return (1);
 }
 
@@ -52,5 +52,6 @@ int			main(int argc, char **argv)
 		return (1);
 	if (!write_to_file(&asmb))
 		return (1);
+	printf("The champion is ready\n");
 	return (0);
 }

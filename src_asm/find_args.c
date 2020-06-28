@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/28 14:42:09 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/28 15:06:45 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			new_args(t_command *command)
 	if (command->args == NULL)
 	{
 		if (!(command->args = (t_args*)malloc(sizeof(t_args))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		tmp = command->args;
 	}
 	else
@@ -28,7 +28,7 @@ int			new_args(t_command *command)
 		while (tmp->next)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_args*)malloc(sizeof(t_args))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		tmp = tmp->next;
 	}
 	tmp->type = 0;
@@ -76,7 +76,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		return (0);
 	}
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
-		return (error_line(ERR_MALLOC, NULL, 0));
+		return (error_line(ERR_MALLOC, NULL, 0, -1));
 	ft_strncpy(tmp->arg_name, &asmb->gnl_last->line[last], (*i - last));
 	asmb->comm_last->num_args++;
 	return (1);
@@ -125,7 +125,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	if (asmb->gnl_last->line[*i] == 'r')
 	{
 		(*i)++;
-		tmp->type = REG_CODE;
+		tmp->type = T_REG;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 		// проверяем, что r >= 1 && r <= REG_NUMBER
@@ -141,15 +141,15 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	{
 		if (asmb->gnl_last->line[*i] == '%')
 		{
-			tmp->type = DIR_CODE;
+			tmp->type = T_DIR;
 			(*i)++;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0'
 			&& asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
-			tmp->type = IND_CODE;
+			tmp->type = T_IND;
 		// если метка - запоминаем строку с этой командой, чтобы потом вывести ошибку, если нужно
 		if (asmb->gnl_last->line[*i] == ':')
-			asmb->comm_last->label_line = asmb->gnl_last;
+			asmb->comm_last->gnl_line = asmb->gnl_last;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 	}

@@ -23,19 +23,19 @@ int			new_command(t_asm *asmb)
 	if (!asmb->comm)
 	{
 		if (!(asmb->comm = (t_command*)malloc(sizeof(t_command))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		asmb->comm_last = asmb->comm;
 	}
 	else
 	{
 		if (!(asmb->comm_last->next = (t_command*)malloc(sizeof(t_command))))
-			return (error_line(ERR_MALLOC, NULL, 0));
+			return (error_line(ERR_MALLOC, NULL, 0, -1));
 		tmp = asmb->comm_last;
 		asmb->comm_last = asmb->comm_last->next;
 	}
 	ft_memset((void*)asmb->comm_last, 0, sizeof(t_command));
 	asmb->comm_last->prev = tmp;
-	asmb->comm_last->label_line = NULL; // на всякий случай (?)
+	asmb->comm_last->gnl_line = NULL;
 	return (1);
 }
 
@@ -49,30 +49,5 @@ int			parse_commands(t_asm *asmb)
 	}
 	if (!check_comm_list(asmb))
 		return (0);
-
-	// для чего это?
-	// while (asmb->comm_last->label)
-	// {
-	// 	printf("\nCheckLabel: .%s.\n", asmb->comm_last->label->line);
-	// 	asmb->comm_last->label = asmb->comm_last->label->next;
-	// }
-		// create_command();
-	// printf("%d\n", asmb->gnl->nb_line);
-
-	// for check
-	// int j = 0;
-	// t_label	*temp;
-	// t_command *tmp = asmb->comm;
-	// while(tmp){
-	// 	j++;
-	// 	temp = tmp->label;
-	// 	while(temp)
-	// 	{
-	// 		printf("%s\n", temp->line);
-	// 		temp = temp->next;
-	// 	}
-	// 	tmp = tmp->next;
-	// }
-	// printf("%d command\n", j);
 	return (1);
 }

@@ -61,7 +61,7 @@ typedef struct  		s_command
 	unsigned char		op; //код команды
 	unsigned char		args_type; //код аргументов 
 	int					num_args; //количетво аргуентов
-	t_gnl				*label_line; //
+	t_gnl				*gnl_line; //указатель на строку гнл
 	t_args				*args; //аргументы
 	struct s_command	*prev;
 	struct s_command	*next;
@@ -82,58 +82,58 @@ typedef struct  s_asm
 /*
 ** read file.c
 */
-int		read_file(t_asm *asmb, char *file_name);
+int			read_file(t_asm *asmb, char *file_name);
 
 /*
 ** error.c
 */
-int		error_line(int error, t_gnl *gnl, int return_num);
-int		length_error(int index, int length);
+int			error_line(int error, t_gnl *gnl, int return_num, int n_sym);
+int			length_error(int index, int length);
 
 /*
 ** find_name_comment.c
 */
-int		check_next_line(char *line, int j, t_gnl **tmp, int length);
-int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length);
-int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb);
-int		find_name_comment(t_asm *asmb);
+int			check_next_line(char *line, int j, t_gnl **tmp, int length);
+int			create_name_comment(char *line, char *name_com, t_gnl **tmp, int length);
+int			proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb);
+int			find_name_comment(t_asm *asmb);
 
 /*
 ** name_comment_utils.c
 */
-int		is_separator(char c);
-int		is_args(char c);
-int		is_space(char c);
-int		check_end_space(char *line);
-int     skip_first_spaces(char *line);
+int			is_separator(char c);
+int			is_args(char c);
+int			is_space(char c);
+int			check_end_space(char *line);
+int     	skip_first_spaces(char *line);
 
 /*
 ** parse_commands.c
 */
-int		new_command(t_asm *asmb);
-int		parse_commands(t_asm *asmb);
+int			new_command(t_asm *asmb);
+int			parse_commands(t_asm *asmb);
 
 /*
 ** find_label.c
 */
-int		malloc_label(t_command *command);
-int		find_label(t_asm *asmb);
+int			malloc_label(t_command *command);
+int			find_label(t_asm *asmb);
 
 /*
 ** check_command.c
 */
 int			check_op_name(char *com);
 int			find_command(t_asm *asmb, char *line);
-int		check_command(t_asm *asmb);
+int			check_command(t_asm *asmb);
 
 /*
 ** find_args.c
 */
-int		new_args(t_command *command);
-int		write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op);
-int		double_check_args(t_asm *asmb, int *i);
-int		proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
-int		find_args(t_asm *asmb, int i, int index_op);
+int			new_args(t_command *command);
+int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op);
+int			double_check_args(t_asm *asmb, int *i);
+int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
+int			find_args(t_asm *asmb, int i, int index_op);
 
 /*
 ** check_comm_list.c
