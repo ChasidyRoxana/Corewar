@@ -30,7 +30,11 @@ int			free_str(char **str, int ret_nb)
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0)
+	{
+		printf("free 0 length line\n");
+		free(line);
 		return (1);
+	}
 	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
@@ -84,11 +88,6 @@ int			read_file(t_asm *asmb, char *file_name)
 		}
 	}
 	close(fd);
-	// if (asmb->last_line < asmb->gnl_last->nb_line)
-	// {
-	// 	printf("Syntax error - unexpected end of input (Perhaps you forgot to end with a newline?)\n");
-	// 	return (0);
-	// }
 	// print_gnl(asmb->gnl);
 	return (1);
 }
