@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/05/30 19:19:32 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/29 22:41:28 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@
 # define ERR_COMMENT			8
 # define ERR_NO_NAME_COMMENT	9
 # define ERR_NOT_COMMAND		10
+# define ERR_ARG				12
+# define ERR_SYNTAX				13
+# define ERR_MAX_ARG			14
+# define ERR_MIN_ARG			15
+# define ERR_REG				16
+# define ERR_NO_ARGS			17
+# define ERR_LEXICAL			18
+# define ERR_LABEL				19
+# define ERR_OP					20
+# define ERR_NO_END				21
 
 
 # define OP(index)	g_op_tab[index] // ne ebu
@@ -88,6 +98,8 @@ int			read_file(t_asm *asmb, char *file_name);
 ** error.c
 */
 int			error_line(int error, t_gnl *gnl, int return_num, int n_sym);
+int			error_args(int error, t_gnl *gnl, t_command *comm, int n_sym);
+int			error_without_gnl(int error, int return_num);
 int			length_error(int index, int length);
 
 /*

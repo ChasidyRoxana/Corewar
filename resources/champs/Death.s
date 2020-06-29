@@ -19,8 +19,7 @@ loop:	add	r3, r4, r3
 golive:	live	%1
 	ld	%-25, r3
 	ld	%1, r4
-lock:	add	r3, r4, r3
-	zjmp	%:nolock
+lock:	add	r3, r4, r3Д
 	xor	r5, r5, r5
 	zjmp	%:lock
 nolock:	

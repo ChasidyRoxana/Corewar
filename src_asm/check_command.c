@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 20:20:44 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/29 22:42:07 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,18 @@ int			find_command(t_asm *asmb, char *line)
 		check_label_in_str(line, &i, asmb->comm_last->label);
 	while (line[i] >= 'a' && line[i] <= 'z' && j < 6)
 		com[j++] = line[i++];
-	if (j == 6)
+	if (j > 5)
 	{printf("Error, net takoj op[check_command 100]\n");
 		return (0); // команда слишком длинная; com[j==5] должен быть концом строки
 	}
 	// printf("COM: .%s.\n", com);
 	if ((j = check_op_name(com)) == -1)
-	{printf("Error, net takoj op[check_command 105]\n");
-		return (0); // обработать ошибку, что такой команды нет
+	{
+		printf("Error, net takoj op[check_command 105]\n");
+		return (0);
+		// в функцию ошибки надо подавать gnl, а тут его нет, надо будет решать (можно в этой функции не лайн принимать, а гнл)
+		// в gnl_line я в find_args записываю только когда метка есть
+		// return (error_line(ERR_OP, asmb->comm_last->gnl_line, 0, i)); // обработать ошибку, что такой команды нет
 	}
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))

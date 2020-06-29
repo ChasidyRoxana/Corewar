@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 16:49:43 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 12:04:19 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/29 22:27:33 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,10 @@ int			check_comm_list(t_asm *asmb)
 		set_args_type(asmb->comm_last);
 		if (!set_args(asmb->comm_last))
 		{
-			printf("Error with label\n");
-			return (0);
+			// оригинальный асм: No such label gig while attempting to dereference token [TOKEN][010:012] DIRECT_LABEL "%:gig"
+			// надо как-то записывать/отправлять метку, которую не нашли (скорее всего в функцию error_args),
+			// пока сделала дефолтную обработку ошибок
+			return (error_line(ERR_LABEL, asmb->comm_last->gnl_line, 0, -1));
 		}
 		asmb->comm_last = asmb->comm_last->next;
 	}
