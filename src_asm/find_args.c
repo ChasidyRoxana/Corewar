@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/28 15:06:45 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/28 15:13:44 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 
 	if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->type) == 0)
 	{
-		printf("Wrong arg type\n");
+		printf("Wrong arg type\n"); //Invalid parameter 0 type indirect for instruction st
 		return (0);
 	}
 	last = *i;
