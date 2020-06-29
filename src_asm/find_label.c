@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:09:02 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 12:00:53 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/29 19:36:03 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,6 @@ int		find_label(t_asm *asmb)
 	{
 		tmp = asmb->gnl_last;
 		i = skip_first_spaces(tmp->line);
-		// если после строки с меткой будут пустые строки надо их скипать
-		// if (tmp->line[i] == '\0')
-		// 	asmb->gnl_last = asmb->gnl_last->next;
-		// добавила пока tmp->line[i], иначе какая-то хня
 		while (tmp->line[i] && ft_strchr(LABEL_CHARS, tmp->line[i]))
 			i++;
 		if (tmp->line[i] == LABEL_CHAR)
@@ -58,24 +54,22 @@ int		find_label(t_asm *asmb)
 			if (!malloc_label(asmb->comm_last))
 				return (error_line(ERR_MALLOC, NULL, 0, -1));
 			length = i - skip_first_spaces(tmp->line);
-			// добавила проход до конца label'ов, чтобы записать новую метку
 			tmp_label = asmb->comm_last->label;
 			while (tmp_label->next)
 				tmp_label = tmp_label->next;
 			if (!(tmp_label->line = ft_strnew(length)))
-				return (error_line(ERR_MALLOC, NULL, 0, -1)); // добавила ERR_MALLOC для вывода ошибки
+				return (error_line(ERR_MALLOC, NULL, 0, -1));
 			ft_strncpy(tmp_label->line, &tmp->line[skip_first_spaces(tmp->line)], length);
-			// printf("\nLABEL: .%s.\n", tmp_label->line);
 			if (check_end_space(&(tmp->line)[i + 1]))
 				asmb->gnl_last = asmb->gnl_last->next;
 			else
-				return (1);//если дальше команда
+				return (1);
 		}
 		else if (is_space(tmp->line[i]) || tmp->line[i] == '%'
 			|| tmp->line[i] == ',' || tmp->line[i] == '\0')// или может быть '%' или ',' (sti9,%8 например) или '\0'
-			return (1);// если команда(' ')
+			return (1);
 		else
-			return (0);// ошибка - символ не из LABEL_CHAR
+			return (error_line(ERR_LEXICAL, asmb->gnl_last, 0, i));// ошибка - символ не из LABEL_CHAR
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/28 15:52:41 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/29 22:39:33 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0)
 	{
-		printf("free 0 length line\n");
+		// printf("free 0 length line\n");
 		free(line);
 		return (1);
 	}
@@ -77,15 +77,12 @@ int			read_file(t_asm *asmb, char *file_name)
 		return (error_line(ERR_OPEN_FILE, NULL, 0, -1));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		printf("gnl: %d\n", gnl);
+		// printf("gnl: %d\n", gnl);
 		if (!gnl_add_line(asmb, nb_line, line))
 			return (0);
 		nb_line++;
 		if (gnl == 1)
-		{
-			printf("Syntax error - unexpected end of input (Perhaps you forgot to end with a newline?)\n");
-			return (0);
-		}
+			return (error_without_gnl(ERR_NO_END, 0));
 	}
 	close(fd);
 	// print_gnl(asmb->gnl);
