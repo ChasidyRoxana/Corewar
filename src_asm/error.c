@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 12:02:16 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/28 15:14:47 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	error_without_gnl(int error, int return_num)
 */
 int			error_line(int error, t_gnl *gnl, int return_num, int n_sym)
 {
+	n_sym = 0; ////
 	if (!gnl)
 		return (error_without_gnl(error, return_num));
 	else if (error == ERR_NAME)

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/27 11:40:24 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/28 15:52:41 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			read_file(t_asm *asmb, char *file_name)
 		return (error_line(ERR_OPEN_FILE, NULL, 0, -1));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		// printf("gnl: %d\n", gnl);
+		printf("gnl: %d\n", gnl);
 		if (!gnl_add_line(asmb, nb_line, line))
 			return (0);
 		nb_line++;
