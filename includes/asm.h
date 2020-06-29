@@ -61,7 +61,7 @@ typedef struct  		s_command
 	unsigned char		op; //код команды
 	unsigned char		args_type; //код аргументов 
 	int					num_args; //количетво аргуентов
-	t_gnl				*gnl_line; //указатель на строку гнл
+	t_gnl				*gnl_line; //указатель на строку гнл с этой командой
 	t_args				*args; //аргументы
 	struct s_command	*prev;
 	struct s_command	*next;
