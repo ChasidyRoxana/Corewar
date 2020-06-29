@@ -17,9 +17,9 @@ static int	create_file(t_asm *asmb, int *fd)
 //разобраться с дефайнами и циферкой
 	if ((*fd = open(asmb->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
 		return (0);
-	if (*fd != -1 && (*fd = open(asmb->filename, O_RDWR)) == -1)
-		// if ((fd = open(name, O_RDWR)) == -1)
-		return (0);
+	// if (*fd != -1 && (*fd = open(asmb->filename, O_RDWR)) == -1)
+	// 	// if ((fd = open(name, O_RDWR)) == -1)
+	// 	return (0);
 	return (1);
 }
 
