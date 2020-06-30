@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 16:49:43 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/29 22:27:33 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/30 18:34:43 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	set_args(t_command *comml)
 	// разобраться с урезанием по модулю;
 	t_args	*tmpa;
 	int		arg;
-
+	
 	tmpa = comml->args;
 	while (tmpa)
 	{

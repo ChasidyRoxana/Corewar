@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/29 22:42:41 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/06/30 23:19:12 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int			error_common(int error)
 	if (error == ERR_OPEN_FILE)
 		write(2, "Сould not open file\n", 22);
 	else if (error == ERR_MALLOC)
-		write(2, "Malloc ne v sebe\n", 18);
+		write(2, "Malloc didn't work\n", 20);
 	else if (error == ERR_FILE)
-		write(2, "Pustoy file\n", 25);
+		write(2, "Empty file\n", 12);
 	else if (error == ERR_FILE_NAME)
-		write(2, "Nujen [filename].s\n", 20);
+		write(2, "Use [filename].s\n", 18);
 	else if (error == ERR_NAME_LENGTH)
 		write(2, "The name of the champeon is too long\n", 38);
 	else if (error == ERR_COMMENT_LENGTH)
@@ -32,7 +32,9 @@ int			error_common(int error)
 	else if (error == ERR_NOT_COMMAND)
 		write(2, "There is no such command. Use [.name] or [.comment]\n", 53);
 	else if (error == ERR_NO_END)
-		write(2, "Unexpected end of input. No new line at the end.\n", 50);
+		write(2, "Unexpected end of input. No new line at the end\n", 49);
+	else if (error == ERR_NO_OP)
+		write(2, "No commands in .s file\n", 24);
 	return (0);
 }
 

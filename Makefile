@@ -6,13 +6,15 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/05/08 15:38:45 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/06/30 23:28:18 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # заменить шапку
 
 ASM = asm
+
+DISASM = disasm
 
 RES = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c \
 	find_label.c check_command.c find_args.c op.c check_comm_list.c write_to_file.c
@@ -32,8 +34,14 @@ SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstd
 	  ft_printf_per.c ft_printf_x.c ft_printf_o.c ft_printf_u.c ft_printf_di.c \
 	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c)
 
-INC = includes/asm.h
+RES_DISASM = main.c
+
+SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
+
+INC_ASM = includes/asm.h
 # op.h ? - прописать зависимость
+
+INC_DISASM = includes/disasm.h
 
 INC_LIB = libft/libft.h
 
@@ -41,19 +49,22 @@ LIBFT = libft/libft.a
 
 FLAG = -Wall -Werror -Wextra
 
-all: $(ASM)
+all: $(ASM) $(DISASM)
 
 $(LIBFT): $(SRC_LIB) $(INC_LIB)
 	make -C libft/
 
 $(ASM): $(SRC) $(INC) $(LIBFT)
-	gcc -o $(ASM) $(FLAG) -I $(INC) $(SRC) $(LIBFT)
+	gcc -o $(ASM) $(FLAG) -I $(INC_ASM) $(SRC) $(LIBFT)
+
+$(DISASM): $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
+	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(LIBFT)
 
 clean:
 	@rm -f libft/*.o
 
 fclean: clean
-	@rm -f $(LIBFT) $(ASM)
+	@rm -f $(LIBFT) $(ASM) $(DISASM)
 
 re: fclean all
 
