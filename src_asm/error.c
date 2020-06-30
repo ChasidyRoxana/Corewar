@@ -19,8 +19,8 @@ int			error_common(int error)
 		write(2, "Сould not open file\n", 22);
 	else if (error == ERR_MALLOC)
 		write(2, "Malloc ne v sebe\n", 18);
-	// else if (error == ERR_DOT)
-	// 	write(2, "Slishkom mnogo .command\n", 25);
+	else if (error == ERR_FILE)
+		write(2, "Pustoy file\n", 25);
 	else if (error == ERR_FILE_NAME)
 		write(2, "Nujen [filename].s\n", 20);
 	else if (error == ERR_NAME_LENGTH)

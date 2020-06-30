@@ -85,6 +85,8 @@ int			read_file(t_asm *asmb, char *file_name)
 			return (error_common(ERR_NO_END));
 	}
 	close(fd);
+	if (!asmb->gnl)
+		return (error_common(ERR_FILE));
 	// print_gnl(asmb->gnl);
 	return (1);
 }

@@ -20,7 +20,7 @@
 
 # define ERR_OPEN_FILE			1
 # define ERR_MALLOC				2
-// # define ERR_DOT				3//
+# define ERR_FILE				3
 # define ERR_FILE_NAME			4
 # define ERR_NAME_LENGTH		5
 # define ERR_COMMENT_LENGTH		6

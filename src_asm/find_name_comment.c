@@ -128,5 +128,7 @@ int		find_name_comment(t_asm *asmb)
 			return (error_common(ERR_NO_NAME_COMMENT));
 		tmp = tmp->next;
 	}
+	// if (!tmp) ...
+	//добавить ошибку, если в файле только имя/коммент
 	return (0);
 }
