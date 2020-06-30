@@ -38,6 +38,7 @@
 # define ERR_MAX_ARG			18
 # define ERR_MIN_ARG			19
 # define ERR_NO_ARGS			20
+# define ERR_NO_OP				21
 
 
 # define OP(index)	g_op_tab[index] // ne ebu
