@@ -20,24 +20,24 @@
 
 # define ERR_OPEN_FILE			1
 # define ERR_MALLOC				2
-# define ERR_DOT				3
+// # define ERR_DOT				3//
 # define ERR_FILE_NAME			4
 # define ERR_NAME_LENGTH		5
 # define ERR_COMMENT_LENGTH		6
-# define ERR_NAME				7
-# define ERR_COMMENT			8
-# define ERR_NO_NAME_COMMENT	9
-# define ERR_NOT_COMMAND		10
-# define ERR_ARG				12
-# define ERR_SYNTAX				13
-# define ERR_MAX_ARG			14
-# define ERR_MIN_ARG			15
-# define ERR_REG				16
-# define ERR_NO_ARGS			17
-# define ERR_LEXICAL			18
-# define ERR_LABEL				19
-# define ERR_OP					20
-# define ERR_NO_END				21
+# define ERR_NO_NAME_COMMENT	7
+# define ERR_NOT_COMMAND		8
+# define ERR_NO_END				9
+# define ERR_NAME				10
+# define ERR_COMMENT			11
+# define ERR_SYNTAX				12
+# define ERR_REG				13
+# define ERR_LEXICAL			14
+# define ERR_LABEL				15
+# define ERR_OP					16
+# define ERR_ARG				17
+# define ERR_MAX_ARG			18
+# define ERR_MIN_ARG			19
+# define ERR_NO_ARGS			20
 
 
 # define OP(index)	g_op_tab[index] // ne ebu
@@ -97,9 +97,9 @@ int			read_file(t_asm *asmb, char *file_name);
 /*
 ** error.c
 */
-int			error_line(int error, t_gnl *gnl, int return_num, int n_sym);
-int			error_args(int error, t_gnl *gnl, t_command *comm, int n_sym);
-int			error_without_gnl(int error, int return_num);
+int			error_common(int error);
+int			error_line(int error, t_gnl *gnl, int n_sym);
+int			error_args(int error, t_command *comm, char *str, int n_sym);
 int			length_error(int index, int length);
 
 /*

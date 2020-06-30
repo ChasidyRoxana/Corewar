@@ -94,7 +94,8 @@ static int	set_args(t_command *comml)
 			{
 				if ((arg = arg_check_lab(comml, &tmpa->arg_name[1])) > 0)
 					if ((arg = arg_check_lab2(comml, &tmpa->arg_name[1])) < 0)
-						return (0);
+						return (error_args(ERR_LABEL, comml,
+							&tmpa->arg_name[1], -1));
 				tmpa->arg = arg;
 			}
 			else
@@ -112,12 +113,7 @@ int			check_comm_list(t_asm *asmb)
 	{
 		set_args_type(asmb->comm_last);
 		if (!set_args(asmb->comm_last))
-		{
-			// оригинальный асм: No such label gig while attempting to dereference token [TOKEN][010:012] DIRECT_LABEL "%:gig"
-			// надо как-то записывать/отправлять метку, которую не нашли (скорее всего в функцию error_args),
-			// пока сделала дефолтную обработку ошибок
-			return (error_line(ERR_LABEL, asmb->comm_last->gnl_line, 0, -1));
-		}
+			return (0);
 		asmb->comm_last = asmb->comm_last->next;
 	}
 	return (1);

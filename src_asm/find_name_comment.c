@@ -22,7 +22,7 @@ int		check_next_line(char *line, int j, t_gnl **tmp, int length)
 		line[j++] = '\n';
 	while ((*tmp)->line[i] && (*tmp)->line[i] != '\"')
 	{
-		if (length_error(j, length))
+		if (!length_error(j, length))
 			return (0);
 		line[j++] = (*tmp)->line[i++];
 	}
@@ -54,7 +54,7 @@ int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length)
 	{
 		while (line[i] && line[i] != '\"')
 		{
-			if (length_error(j, length))
+			if (!length_error(j, length))
 				return (0);
 			name_com[j++] = line[i++];
 		}
@@ -85,7 +85,7 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 				asmb->header.prog_name, tmp, PROG_NAME_LENGTH);
 		if (error == 0)
 			return ((ft_strlen(asmb->header.prog_name) == PROG_NAME_LENGTH) ?
-				0 : error_line(ERR_NAME, *tmp, 0, -1));
+				0 : error_line(ERR_NAME, *tmp, -1));
 		asmb->flag_name += 1;
 		return (1);
 	}
@@ -95,12 +95,12 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 				asmb->header.comment, tmp, COMMENT_LENGTH);
 		if (error == -1)
 			return ((ft_strlen(asmb->header.comment) == COMMENT_LENGTH) ?
-				0 : error_line(ERR_COMMENT, *tmp, 0, -1));
+				0 : error_line(ERR_COMMENT, *tmp, -1));
 		asmb->flag_comment += 1;
 		return (1);
 	}
 	else
-		return (error_line(ERR_NOT_COMMAND, NULL, 0, -1));
+		return (error_common(ERR_NOT_COMMAND));
 }
 
 // return (0) - ошибка, (1) - все ок
@@ -125,7 +125,7 @@ int		find_name_comment(t_asm *asmb)
 		}
 		else if (tmp->line[i] && tmp->line[i] != COMMENT_CHAR
 			&& tmp->line[i] != COMMENT_CHAR_2)
-			return (error_line(ERR_NO_NAME_COMMENT, NULL, 0, -1));
+			return (error_common(ERR_NO_NAME_COMMENT));
 		tmp = tmp->next;
 	}
 	return (0);

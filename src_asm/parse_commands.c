@@ -23,13 +23,13 @@ int			new_command(t_asm *asmb)
 	if (!asmb->comm)
 	{
 		if (!(asmb->comm = (t_command*)malloc(sizeof(t_command))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		asmb->comm_last = asmb->comm;
 	}
 	else
 	{
 		if (!(asmb->comm_last->next = (t_command*)malloc(sizeof(t_command))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		tmp = asmb->comm_last;
 		asmb->comm_last = asmb->comm_last->next;
 	}
