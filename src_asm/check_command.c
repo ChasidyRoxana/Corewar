@@ -43,7 +43,6 @@ void		command_size(t_asm *asmb, t_command *command)
 	}
 	command->size += command_code + type_arg + args_size;
 	asmb->header.prog_size += command->size;
-	// printf("Size of command: %d\n", command->size);
 }
 
 int			check_op_name(char *com)
@@ -85,6 +84,7 @@ int			find_command(t_asm *asmb, char *line)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	com[6];
 
 	i = 0;
@@ -94,26 +94,15 @@ int			find_command(t_asm *asmb, char *line)
 		i++;
 	if (asmb->comm_last->label)// если у команды есть метка, будем искать её в строке
 		check_label_in_str(line, &i, asmb->comm_last->label);
+	k = i;
 	while (line[i] >= 'a' && line[i] <= 'z' && j < 6)
 		com[j++] = line[i++];
-	if (j > 5)
-	{printf("Error, net takoj op[check_command 100]\n");
-		return (0); // команда слишком длинная; com[j==5] должен быть концом строки
-	}
-	// printf("COM: .%s.\n", com);
-	if ((j = check_op_name(com)) == -1)
-	{
-		printf("Error, net takoj op[check_command 105]\n");
-		return (0);
-		// в функцию ошибки надо подавать gnl, а тут его нет, надо будет решать (можно в этой функции не лайн принимать, а гнл)
-		// в gnl_line я в find_args записываю только когда метка есть
-		// return (error_line(ERR_OP, asmb->comm_last->gnl_line, 0, i)); // обработать ошибку, что такой команды нет
-	}
+	if (j > 5 || (j = check_op_name(com)) == -1)
+		return (error_line(ERR_OP, asmb->comm_last->gnl_line, k));
 	asmb->comm_last->op = j;
 	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
 		return (0);
 	command_size(asmb, asmb->comm_last);
-	// printf("PROG SIZE: %d\n", asmb->header.prog_size);
 	return (1);
 }
 
@@ -130,6 +119,7 @@ int			check_command(t_asm *asmb)
 		return (0);
 	if (!find_label(asmb))
 		return (0);
+	asmb->comm_last->gnl_line = asmb->gnl_last;
 	if (!find_command(asmb, asmb->gnl_last->line))
 		return (0);
 	return (1);

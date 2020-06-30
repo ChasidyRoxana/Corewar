@@ -20,7 +20,7 @@ int			new_args(t_command *command)
 	if (command->args == NULL)
 	{
 		if (!(command->args = (t_args*)malloc(sizeof(t_args))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		tmp = command->args;
 	}
 	else
@@ -28,7 +28,7 @@ int			new_args(t_command *command)
 		while (tmp->next)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_args*)malloc(sizeof(t_args))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		tmp = tmp->next;
 	}
 	tmp->type = 0;
@@ -45,13 +45,13 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 
 	err = 0;
 	if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->type) == 0)
-		return (error_args(ERR_ARG, asmb->gnl_last, asmb->comm_last, (*i)));
+		return (error_args(ERR_ARG, asmb->comm_last, 0, (*i)));
 	last = *i;
 	if (asmb->gnl_last->line[*i] == '-')
 	{
 		(*i)++;
 		if (!(asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9'))
-			return (error_line(ERR_SYNTAX, asmb->gnl_last, 0, (*i)));
+			return (error_line(ERR_SYNTAX, asmb->gnl_last, (*i)));
 	}
 	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
 		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
@@ -69,9 +69,9 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		}
 	}
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])) || err == 0)
-		return (error_line(ERR_LEXICAL, asmb->gnl_last, 0, (*i)));
+		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
-		return (error_line(ERR_MALLOC, NULL, 0, -1));
+		return (error_common(ERR_MALLOC));
 	ft_strncpy(tmp->arg_name, &asmb->gnl_last->line[last], (*i - last));
 	asmb->comm_last->num_args++;
 	return (1);
@@ -95,10 +95,10 @@ int			double_check_args(t_asm *asmb, int *i)
 		while (is_space(asmb->gnl_last->line[*i]))
 			(*i)++;
 		if (!asmb->gnl_last->line[*i])
-			return (error_line(ERR_SYNTAX, asmb->gnl_last, 0, (*i)));
+			return (error_line(ERR_SYNTAX, asmb->gnl_last, (*i)));
 	}
 	else
-		return (error_line(ERR_SYNTAX, asmb->gnl_last, 0, (*i)));
+		return (error_line(ERR_SYNTAX, asmb->gnl_last, (*i)));
 	return (-1);
 }
 
@@ -112,7 +112,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			return (0);
 		tmp->arg = ft_atoi(tmp->arg_name);
 		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER))
-			return (error_line(ERR_REG, asmb->gnl_last, 0, (*i)));
+			return (error_line(ERR_REG, asmb->gnl_last, (*i)));
 	}
 	else
 	{
@@ -124,8 +124,6 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0'
 			&& asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
 			tmp->type = T_IND;
-		if (asmb->gnl_last->line[*i] == ':')
-			asmb->comm_last->gnl_line = asmb->gnl_last;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
 	}
@@ -144,7 +142,7 @@ int			find_args(t_asm *asmb, int i, int index_op)
 	while (asmb->gnl_last->line[i])
 	{
 		if (asmb->comm_last->num_args == OP(index_op).nb_arg)
-			return (error_args(ERR_MAX_ARG, asmb->gnl_last, asmb->comm_last, i));
+			return (error_args(ERR_MAX_ARG, asmb->comm_last, 0, i));
 		if (!new_args(asmb->comm_last))
 			return (0);
 		tmp = asmb->comm_last->args;
@@ -159,12 +157,12 @@ int			find_args(t_asm *asmb, int i, int index_op)
 			else if (check == 1)
 			{
 				if (asmb->comm_last->num_args != OP(index_op).nb_arg)
-					return (error_args(ERR_MIN_ARG, asmb->gnl_last, asmb->comm_last, i));
+					return (error_args(ERR_MIN_ARG, asmb->comm_last, 0, i));
 				return (1);
 			}
 		}
 		else
-			return (error_line(ERR_SYNTAX, asmb->gnl_last, 0, i));
+			return (error_line(ERR_SYNTAX, asmb->gnl_last, i));
 	}
-	return (error_args(ERR_NO_ARGS, asmb->gnl_last, asmb->comm_last, i));
+	return (error_args(ERR_NO_ARGS, asmb->comm_last, 0, i));
 }

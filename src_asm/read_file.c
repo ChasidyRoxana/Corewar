@@ -38,13 +38,13 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		asmb->gnl_last = asmb->gnl;
 	}
 	else
 	{
 		if (!(asmb->gnl_last->next = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (error_line(ERR_MALLOC, NULL, 0, -1));
+			return (error_common(ERR_MALLOC));
 		asmb->gnl_last = asmb->gnl_last->next;
 	}
 	asmb->gnl_last->line = line;
@@ -74,7 +74,7 @@ int			read_file(t_asm *asmb, char *file_name)
 
 	nb_line = 1;
 	if ((fd = open(file_name, O_RDONLY)) < 0)
-		return (error_line(ERR_OPEN_FILE, NULL, 0, -1));
+		return (error_common(ERR_OPEN_FILE));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
 		// printf("gnl: %d\n", gnl);
@@ -82,7 +82,7 @@ int			read_file(t_asm *asmb, char *file_name)
 			return (0);
 		nb_line++;
 		if (gnl == 1)
-			return (error_without_gnl(ERR_NO_END, 0));
+			return (error_common(ERR_NO_END));
 	}
 	close(fd);
 	// print_gnl(asmb->gnl);
