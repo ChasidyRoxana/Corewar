@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/01 23:22:44 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/01 23:23:22 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ typedef struct  		s_op
 
 typedef struct          s_disasm
 {
-      char              *name;
-      char              *comment;
-      int               prog_length;
-      t_op				*ops; 
+	char              *name;
+	char              *comment;
+	int               prog_length;
+	t_op				*ops; 
 }                       t_disasm;
 
 
