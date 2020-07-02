@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/02 14:14:55 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/02 19:20:22 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstd
 	  ft_printf_per.c ft_printf_x.c ft_printf_o.c ft_printf_u.c ft_printf_di.c \
 	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c)
 
-RES_DISASM = main.c error.c
+RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c
 
 SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:19:46 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/02 14:15:09 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/02 19:59:50 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,28 @@ int			check_filename(t_disasm *disasm, char *name)
 	{
 		disasm->filename = ft_strnew(length - 2);
 		ft_strncpy(disasm->filename, name, (length - 4));
-		ft_strcat(disasm->filename, ".s_test");////
+		ft_strcat(disasm->filename, ".s");////
 	}
 	else
 		return (error_disasm(ERR_FILE_NAME));
-	// printf("FILENAME: %s\n", disasm.filename);
+	// printf("FILENAME: %s\n", disasm->filename);
+	return (1);
+}
+
+int		start_disasm(t_disasm *disasm, char *filename)
+{
+	// проверяем .cor
+	if (!check_filename(disasm, filename))
+		return (0);
+		
+	// парсим файл и записываем все в структуру
+	if (!parse_file(disasm, filename))
+		return (0);
+		
+	// записываем данные из структуры в файл
+	// !!! Хотя для визуалки это не надо будет, мб и в main все оставить лучше
+	if (!write_to_file(disasm))
+		return (0);
 	return (1);
 }
 
@@ -43,15 +60,9 @@ int		main(int argc, char **argv)
 		write(2, "Usage: ./disasm [file.cor]\n", 28);
 		return (1);
 	}
-	// проверяем .cor
-	if (!check_filename(&disasm, argv[1]))
+	if (!start_disasm(&disasm, argv[1]))
 		return (1);
-
-	// парсим файл и записываем все в структуру
-	if (!parse_file(&disasm, argv[1]))
-		return (1);
-	
-	// записываем данные из структуры в файл
-	// write_to_file(&disasm);
+	// printf("NAME: %s\nCOMMENT: %s\nPROG_LENGTH: %d\n", disasm.name, 
+	// disasm.comment, disasm.prog_length);
 	return (0);
 }

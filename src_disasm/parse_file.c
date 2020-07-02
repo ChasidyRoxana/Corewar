@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 15:32:59 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/02 15:32:59 by marvin           ###   ########.fr       */
+/*   Updated: 2020/07/02 20:32:14 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/disasm.h"
 
-static int			read_n_byte(int fd, unsigned char str[], int n_byte)
+static int			read_n_byte(int fd, char str[], int n_byte)
 {
 	int				byte_read;
 
@@ -25,27 +25,27 @@ static int			read_n_byte(int fd, unsigned char str[], int n_byte)
 
 static unsigned int	get_uint(int fd, int n_byte)
 {
-	unsigned char	str[n_byte + 1];
-	unsigned int	result;
-	int				i;
+	char	str[n_byte + 1];
+	int		result;
+	int		i;
 	
 	result = 0;
 	i = -1;
 	if (n_byte > 4 || !read_n_byte(fd, str, n_byte))
 		return (0);
 	while (++i < n_byte)
-		result |= (unsigned int)str[i] << ((n_byte - i - 1) * 8);
+		result |= str[i] << ((n_byte - i - 1) * 8);
 	return (result);
 }
 
 static int			parse_header(t_disasm *disasm, int fd)
 {
-	if ((int)get_uint(fd, 4) != COREWAR_EXEC_MAGIC)
+	if (get_uint(fd, 4) != COREWAR_EXEC_MAGIC)
 		return (0);
 	if (!read_n_byte(fd, disasm->name, PROG_NAME_LENGTH))
 		return (0);
 	get_uint(fd, 4);
-	if ((disasm->prog_length = (int)get_uint(fd, 4)) < 0 ||
+	if ((disasm->prog_length = get_uint(fd, 4)) < 0 ||
 		disasm->prog_length > CHAMP_MAX_SIZE)
 		return (0);
 	if (!read_n_byte(fd, disasm->comment, COMMENT_LENGTH))
