@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/02 20:26:27 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/02 20:55:19 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct			s_command
 typedef struct			s_disasm
 {
 	char				*filename;
-	char				name[PROG_NAME_LENGTH + 1]; // было просто char
-	char				comment[COMMENT_LENGTH + 1]; // было просто char
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
 	int					prog_length;
 	t_command			*ops;
 	t_command			*ops_last;
