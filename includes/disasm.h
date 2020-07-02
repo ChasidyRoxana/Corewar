@@ -22,37 +22,48 @@
 
 # define OP(index)		g_op_tab[index] // ne ebu
 
-typedef struct 			s_arg
+typedef struct			s_arg
 {
 	int					type; //T_REG, T_IND, T_DIR
 	int 				arg; //значение аргумента
 	struct s_arg 		*next;
 }						t_arg;
 
-typedef struct  		s_command
+typedef struct			s_command
 {
-	unsigned char		op_code; //код команды
+	int					op_code; //код команды
 	t_arg				*args; //аргументы
 	struct s_command	*next;
 }						t_command;
 
-typedef struct          s_disasm
+typedef struct			s_disasm
 {
 	char				*filename;
-	char              	*name;
-	char              	*comment;
-	int               	prog_length;
-	t_command			*ops; 
-}                       t_disasm;
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
+	int					prog_length;
+	t_command			*ops;
+	t_command			*ops_last;
+}						t_disasm;
 
 /*
 ** main.c
 */
-int		check_filename(char *name);
+int			check_filename(t_disasm *disasm, char *name);
 
 /*
 ** error.c
 */
-int     error_disasm(int error);
+int			error_disasm(int error);
+
+/*
+** parse_file.c
+*/
+int				parse_file(t_disasm *disasm, char *file);
+
+/*
+** parse_commands.c
+*/
+int				parse_commands(t_disasm *disasm, int fd);
 
 #endif
