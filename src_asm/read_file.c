@@ -79,10 +79,16 @@ int			read_file(t_asm *asmb, char *file_name)
 	{
 		// printf("gnl: %d\n", gnl);
 		if (!gnl_add_line(asmb, nb_line, line))
+		{
+			close(fd);
 			return (0);
+		}
 		nb_line++;
 		if (gnl == 1)
+		{
+			close(fd);
 			return (error_common(ERR_NO_END));
+		}
 	}
 	close(fd);
 	if (!asmb->gnl)

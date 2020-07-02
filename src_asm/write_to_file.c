@@ -12,17 +12,6 @@
 
 #include "../includes/asm.h"
 
-static int	create_file(t_asm *asmb, int *fd)
-{
-//разобраться с дефайнами и циферкой
-	if ((*fd = open(asmb->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
-		return (0);
-	// if (*fd != -1 && (*fd = open(asmb->filename, O_RDWR)) == -1)
-	// 	// if ((fd = open(name, O_RDWR)) == -1)
-	// 	return (0);
-	return (1);
-}
-
 /* Принимает номер потока, число, количество байт, которое число должно
 ** занимать.
 ** Зписывает число в массив. Деление на 256 (диапазон значений одного
@@ -82,7 +71,8 @@ int			write_to_file(t_asm *asmb)
 {
 	int		fd;
 
-	if (!create_file(asmb, &fd)){printf("Error with create file [write_to_file 84]");
+	if ((fd = open(asmb->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
+	{printf("Error with create file [write_to_file 84]");
 		return (0);}
 	write_int(fd, asmb->header.magic, 4);
 	write(fd, asmb->header.prog_name, PROG_NAME_LENGTH);

@@ -12,12 +12,10 @@
 
 #include "../includes/disasm.h"
 
-int			check_filename(char *name)
+int			check_filename(t_disasm *disasm, char *name)
 {
 	int			length;
-	t_disasm	disasm;
 
-	ft_memset(&disasm, 0, sizeof(disasm));
 	length = ft_strlen(name);
 	// проверяем, что у нас файл "*.cor" (то есть хотя бы  
 	// один символ и расширение .cor)
@@ -25,9 +23,9 @@ int			check_filename(char *name)
 		return (error_disasm(ERR_FILE_NAME));
 	if (ft_strcmp(&name[length - 4], ".cor") == 0)
 	{
-		disasm.filename = ft_strnew(length - 2);
-		ft_strncpy(disasm.filename, name, (length - 4));
-		ft_strcat(disasm.filename, ".s");
+		disasm->filename = ft_strnew(length - 2);
+		ft_strncpy(disasm->filename, name, (length - 4));
+		ft_strcat(disasm->filename, ".s_test");////
 	}
 	else
 		return (error_disasm(ERR_FILE_NAME));
@@ -37,19 +35,23 @@ int			check_filename(char *name)
 
 int		main(int argc, char **argv)
 {
+	t_disasm	disasm;
+
+	ft_memset(&disasm, 0, sizeof(disasm));
 	if (argc != 2)
 	{
 		write(2, "Usage: ./disasm [file.cor]\n", 28);
 		return (1);
 	}
 	// проверяем .cor
-	if (!check_filename(argv[1]))
+	if (!check_filename(&disasm, argv[1]))
 		return (1);
 
 	// парсим файл и записываем все в структуру
-	// parse_file();
+	if (!parse_file(&disasm, argv[1]))
+		return (1);
 	
 	// записываем данные из структуры в файл
-	// write_to_file();
+	// write_to_file(&disasm);
 	return (0);
 }
