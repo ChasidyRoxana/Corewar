@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 11:58:13 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/02 21:02:32 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		find_name_comment(t_asm *asmb)
 		}
 		else if (tmp->line[i] && tmp->line[i] != COMMENT_CHAR
 			&& tmp->line[i] != COMMENT_CHAR_2)
-			return (error_common(ERR_NO_NAME_COMMENT));
+			return (error_line(ERR_SYNTAX, tmp, i));
 		tmp = tmp->next;
 	}
 	if (asmb->flag_name != 1 || asmb->flag_comment != 1)
