@@ -74,10 +74,8 @@ static char		**ft_strfull(char const *s, char c, char **str, size_t size)
 char			**ft_strsplit(char const *s, char c)
 {
 	char	**str;
-	size_t	j;
 	size_t	size;
 
-	j = 0;
 	if (!s)
 		return (NULL);
 	size = ft_count(s, c);

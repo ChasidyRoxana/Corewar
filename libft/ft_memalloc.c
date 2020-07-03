@@ -15,9 +15,7 @@
 void	*ft_memalloc(size_t size)
 {
 	char	*kek;
-	size_t	i;
 
-	i = 0;
 	if (!(kek = (char*)malloc(sizeof(char) * size)))
 		return (NULL);
 	return ((void *)kek);

@@ -15,9 +15,7 @@
 int		ft_printf_c(t_form *pt)
 {
 	int c;
-	int	n;
 
-	n = 0;
 	c = va_arg(*(pt->ptr), int);
 	if (pt->minus != 1)
 		ft_print_sp(pt->width - 1, ' ');
