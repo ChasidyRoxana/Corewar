@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/02 20:55:50 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/03 19:52:32 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int			parse_commands(t_asm *asmb)
 	{
 		if (!check_command(asmb))
 			return (0);
-		asmb->gnl_last = asmb->gnl_last->next;
+		if (asmb->gnl_last)///////
+			asmb->gnl_last = asmb->gnl_last->next;
 	}
 	if (!asmb->comm)
 		return (error_common(ERR_NO_OP));

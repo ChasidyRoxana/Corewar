@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/03 18:25:59 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/03 19:52:49 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,11 @@ int			check_command(t_asm *asmb)
 	if (!find_label(asmb))
 		return (0);
 	if (!asmb->gnl_last)
+	{
+		if (asmb->comm_last->label->line)/////
+			return (1);///////
 		return (error_common(ERR_NO_OP));
+	}
 	asmb->comm_last->gnl_line = asmb->gnl_last;
 	if (!find_command(asmb, asmb->gnl_last->line))
 		return (0);
