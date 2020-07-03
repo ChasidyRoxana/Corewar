@@ -44,12 +44,12 @@ static int	ft_print_p(t_form *pt, char *s)
 
 int			ft_printf_p(t_form *pt)
 {
-	u_int64_t	num;
-	u_int64_t	n;
-	char		*s;
-	int			i;
+	unsigned long int	num;
+	unsigned long int	n;
+	char				*s;
+	int					i;
 
-	num = (u_int64_t)va_arg(*(pt->ptr), void*);
+	num = (unsigned long int)va_arg(*(pt->ptr), void*);
 	i = ft_count_b(num, 4);
 	s = ft_strnew(num == 0 ? 1 : i);
 	if (num == 0)
