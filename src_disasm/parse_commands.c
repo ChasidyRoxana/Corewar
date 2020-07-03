@@ -21,6 +21,12 @@ static int		get_int(unsigned char code[], int *i, int byte)
 	j = -1;
 	while (++j < byte)
 		result |= (unsigned int)code[(*i)++] << ((byte - j - 1) * 8);
+	if ((result >> (byte * 8 - 1)) & 1)
+	{
+		j = byte * 8;
+		while (j < 32)
+			result |= 1 << j++;
+	}
 	return (result);
 }
 
