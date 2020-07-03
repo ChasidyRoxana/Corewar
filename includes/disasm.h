@@ -68,6 +68,12 @@ int			parse_file(t_disasm *disasm, char *file);
 int			parse_commands(t_disasm *disasm, int fd);
 
 /*
+** new_comm_arg.c
+*/
+int			new_command(t_disasm *disasm);
+int			new_arg(t_command *comm);
+
+/*
 ** write_file.c
 */
 int			write_to_file(t_disasm *disasm);

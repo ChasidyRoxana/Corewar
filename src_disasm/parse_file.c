@@ -23,18 +23,18 @@ static int			read_n_byte(int fd, char str[], int n_byte)
 	return (1);
 }
 
-static unsigned int	get_uint(int fd, int n_byte)
+static int	get_uint(int fd, int n_byte)
 {
-	char	str[n_byte + 1];
-	int		result;
-	int		i;
+	unsigned char	str[n_byte + 1];
+	int				result;
+	int				i;
 	
 	result = 0;
 	i = -1;
-	if (n_byte > 4 || !read_n_byte(fd, str, n_byte))
+	if (n_byte > 4 || !read_n_byte(fd, (char*)str, n_byte))
 		return (0);
 	while (++i < n_byte)
-		result |= str[i] << ((n_byte - i - 1) * 8);
+		result |= (unsigned int)str[i] << ((n_byte - i - 1) * 8);
 	return (result);
 }
 

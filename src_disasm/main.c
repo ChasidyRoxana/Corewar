@@ -25,7 +25,7 @@ int			check_filename(t_disasm *disasm, char *name)
 	{
 		disasm->filename = ft_strnew(length - 2);
 		ft_strncpy(disasm->filename, name, (length - 4));
-		ft_strcat(disasm->filename, ".s");////
+		ft_strcat(disasm->filename, ".s_t");////
 	}
 	else
 		return (error_disasm(ERR_FILE_NAME));
