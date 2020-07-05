@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:34:35 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/05 13:49:07 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 14:11:08 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int		fill_command(t_command *comm, unsigned char code[], int *i)
 				tmp = tmp->next;
 			//определяем тип аргумента: 01 рег, 10 дир, 11 инд
 			tmp->type = (arg_code >> j) & 3;
+			printf("TYPE: %d\n", tmp->type);
 			if (tmp->type == IND_CODE)
 				tmp->type = T_IND;
 			// printf("  type: %d\n", tmp->type);
@@ -58,8 +59,10 @@ static int		fill_command(t_command *comm, unsigned char code[], int *i)
 				return (0);
 			// printf("  correct type arg\n");
 			//читаем нужное количество байт
-			if (tmp->type == T_REG || tmp->type == T_IND)
-				tmp->arg = get_int(code, i, tmp->type);
+			if (tmp->type == T_REG)
+				tmp->arg = get_int(code, i, 1);
+			else if (tmp->type == T_IND)
+				tmp->arg = get_int(code, i, 2);
 			else
 				tmp->arg = get_int(code, i,
 					(OP(comm->op_code).t_dir_size ? 2 : 4));
@@ -95,6 +98,7 @@ int				parse_commands(t_disasm *disasm, int fd)
 	{
 		if (!new_command(disasm))
 			return (0);
+		// printf("%d\n", code[i]);
 		disasm->ops_last->op_code = get_int(code, &i, 1) - 1;
 		printf("  op_code: %d\n", disasm->ops_last->op_code);
 		if (disasm->ops_last->op_code < 0 || disasm->ops_last->op_code > 15)
