@@ -14,15 +14,15 @@
 
 /* фришит строку, зануляет указатель на неё и возвращает ret_nb
 */
-int			free_str(char **str, int ret_nb)
-{
-	if (*str)
-	{
-		free(*str);
-		*str = NULL;
-	}
-	return (ret_nb);
-}
+// int			free_str(char **str, int ret_nb)
+// {
+// 	if (*str)
+// 	{
+// 		free(*str);
+// 		*str = NULL;
+// 	}
+// 	return (ret_nb);
+// }
 
 /* пустая строка не добавляется в список, пробелы в начале строки скипаются;
 ** есть ошибка только с malloc(фришит line и выводит ошибку)
@@ -31,7 +31,6 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0)
 	{
-		// printf("free 0 length line\n");
 		free(line);
 		return (1);
 	}
@@ -52,18 +51,6 @@ static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 	asmb->gnl_last->next = NULL;
 	return (1);
 }
-/////////////////////
-void		print_gnl(t_gnl *gnl)
-{
-	t_gnl *tmp;
-
-	tmp = gnl;
-	while (tmp)
-	{
-		printf("[%d]:%s\n", tmp->nb_line, tmp->line);
-		tmp = tmp->next;
-	}
-}//////////////////
 
 int			read_file(t_asm *asmb, char *file_name)
 {
@@ -77,22 +64,22 @@ int			read_file(t_asm *asmb, char *file_name)
 		return (error_common(ERR_OPEN_FILE));
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		// printf("gnl: %d\n", gnl);
-		if (!gnl_add_line(asmb, nb_line, line))
+		if (!gnl_add_line(asmb, nb_line, line) || gnl == 1)
 		{
+			if (gnl == 1)
+				error_common(ERR_NO_END);
 			close(fd);
 			return (0);
 		}
 		nb_line++;
-		if (gnl == 1)
-		{
-			close(fd);
-			return (error_common(ERR_NO_END));
-		}
+		// if (gnl == 1)
+		// {
+		// 	close(fd);
+		// 	return (error_common(ERR_NO_END));
+		// }
 	}
 	close(fd);
 	if (!asmb->gnl)
-		return (error_common(ERR_FILE));
-	// print_gnl(asmb->gnl);
+		return (asmb, error_common(ERR_FILE));
 	return (1);
 }

@@ -29,7 +29,6 @@ int			check_filename(t_disasm *disasm, char *name)
 	}
 	else
 		return (error_disasm(ERR_FILE_NAME));
-	// printf("FILENAME: %s\n", disasm->filename);
 	return (1);
 }
 
@@ -38,16 +37,31 @@ int		start_disasm(t_disasm *disasm, char *filename)
 	// проверяем .cor
 	if (!check_filename(disasm, filename))
 		return (0);
-		
+
 	// парсим файл и записываем все в структуру
 	if (!parse_file(disasm, filename))
 		return (0);
-		
-	// записываем данные из структуры в файл
-	// !!! Хотя для визуалки это не надо будет, мб и в main все оставить лучше
-	if (!write_to_file(disasm))
-		return (0);
 	return (1);
+}
+
+static void	free_all(t_disasm *disasm)
+{
+	t_arg	*tmp;
+
+	if (disasm->filename)
+		free(disasm->filename);
+	while (disasm->ops)
+	{
+		disasm->ops_last = disasm->ops;
+		disasm->ops = disasm->ops->next;
+		while (disasm->ops_last->args)
+		{
+			tmp = disasm->ops_last->args;
+			disasm->ops_last->args = disasm->ops_last->args->next;
+			free(tmp);
+		}
+		free(disasm->ops_last);
+	}
 }
 
 int		main(int argc, char **argv)
@@ -60,9 +74,9 @@ int		main(int argc, char **argv)
 		write(2, "Usage: ./disasm [file.cor]\n", 28);
 		return (1);
 	}
-	if (!start_disasm(&disasm, argv[1]))
-		return (1);
-	// printf("NAME: %s\nCOMMENT: %s\nPROG_LENGTH: %d\n", disasm.name, 
-	// disasm.comment, disasm.prog_length);
+	if (start_disasm(&disasm, argv[1])&&
+		write_to_file(&disasm))
+		printf("The .s file is ready\n");
+	free_all(&disasm);
 	return (0);
 }

@@ -17,25 +17,19 @@ static void	free_comm(t_asm *asmb)
 	t_label	*tmp_lab;
 	t_args	*tmp_arg;
 
-	// int i = 1;
 	while (asmb->comm)
 	{
-		// printf("free comm: %d\n", i++);//
 		asmb->comm_last = asmb->comm;
 		asmb->comm = asmb->comm->next;
-		// int j = 1;
 		while (asmb->comm_last->label)
 		{
-			// printf("	free label: %d\n", j++);//
 			tmp_lab = asmb->comm_last->label;
 			asmb->comm_last->label = asmb->comm_last->label->next;
 			free(tmp_lab->line);
 			free(tmp_lab);
 		}
-		// int k = 1;
 		while (asmb->comm_last->args)
 		{
-			// printf("		free arg: %d\n", k++);//
 			tmp_arg = asmb->comm_last->args;
 			asmb->comm_last->args = asmb->comm_last->args->next;
 			free(tmp_arg->arg_name);
@@ -46,10 +40,10 @@ static void	free_comm(t_asm *asmb)
 
 void		free_all(t_asm *asmb)
 {
-	free(asmb->filename);
+	if (asmb->filename)
+		free(asmb->filename);
 	while (asmb->gnl)
 	{
-		// printf("!free gnl, nb_line: %d\n", asmb->gnl->nb_line);//
 		asmb->gnl_last = asmb->gnl;
 		asmb->gnl = asmb->gnl->next;
 		free(asmb->gnl_last->line);
@@ -88,17 +82,12 @@ int			main(int argc, char **argv)
 		return (1);
 	}
 	ft_memset(&asmb, 0, sizeof(asmb));
-	if (!check_filename(argv[1], &asmb))
-		return (1);
-	if (!read_file(&asmb, argv[1]))
-		return (1);
-	if (!find_name_comment(&asmb))
-		return (1);
-	if (!parse_commands(&asmb))
-		return (1);
-	if (!write_to_file(&asmb))
-		return (1);
-	printf("The champion is ready\n");
+	if (check_filename(argv[1], &asmb) &&
+		read_file(&asmb, argv[1]) &&
+		find_name_comment(&asmb) &&
+		parse_commands(&asmb) &&
+		write_to_file(&asmb))
+		printf("The champion is ready\n");
 	free_all(&asmb);
 	return (0);
 }

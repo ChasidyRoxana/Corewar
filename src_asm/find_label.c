@@ -66,10 +66,10 @@ int		find_label(t_asm *asmb)
 				return (1);
 		}
 		else if (is_space(tmp->line[i]) || tmp->line[i] == '%'
-			|| tmp->line[i] == ',' || tmp->line[i] == '\0')// или может быть '%' или ',' (sti9,%8 например) или '\0'
+			|| tmp->line[i] == ',' || tmp->line[i] == '\0')
 			return (1);
 		else
-			return (error_line(ERR_LEXICAL, asmb->gnl_last, i));// ошибка - символ не из LABEL_CHAR
+			return (error_line(ERR_LEXICAL, asmb->gnl_last, i));
 	}
 	return (1);
 }

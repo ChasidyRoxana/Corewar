@@ -45,7 +45,7 @@ int			parse_commands(t_asm *asmb)
 	{
 		if (!check_command(asmb))
 			return (0);
-		if (asmb->gnl_last)///////
+		if (asmb->gnl_last)
 			asmb->gnl_last = asmb->gnl_last->next;
 	}
 	if (!asmb->comm)
