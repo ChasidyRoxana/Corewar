@@ -62,11 +62,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	else if (asmb->gnl_last->line[*i] == ':')
 	{
 		last = *i;
-		// ++(*i);
-		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i])) {
-			// (*i)++;
+		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
 			err = 1;
-		}
 	}
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])) || err == 0)
 		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
@@ -81,9 +78,6 @@ int			double_check_args(t_asm *asmb, int *i)
 {
 	while (is_space(asmb->gnl_last->line[*i]))
 		(*i)++;
-	// uzhe checkayetsya?
-	// if (asmb->comm_last->num_args > 3)
-	// 	return (error_args(ERR_MAX_ARG, asmb->gnl_last, asmb->comm_last, *i));
 	if (!asmb->gnl_last->line[*i])
 		return (1);
 	if (asmb->gnl_last->line[*i] == COMMENT_CHAR

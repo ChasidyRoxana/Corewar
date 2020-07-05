@@ -69,7 +69,6 @@ int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length)
 	}
 	else
 		return (0);
-	// printf("NAME/COMMENT: .%s.\n", name_com);
 	return (1);
 }
 
@@ -79,7 +78,7 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 
 	error = 0;
 	asmb->header.magic = COREWAR_EXEC_MAGIC;
-	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0) // ? проверяем .name (не знаю какой функцией лучше)
+	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)
 	{
 		error = create_name_comment((*tmp)->line + i + ft_strlen(NAME_CMD_STRING),
 				asmb->header.prog_name, tmp, PROG_NAME_LENGTH);

@@ -45,21 +45,19 @@ int 		count_tabs(t_gnl *gnl, int n_sym)
 	i = 0;
 	while (n_sym >= 0)
 	{
-		// printf(".%c. %d\n", gnl->line[n_sym], gnl->line[n_sym]);
 		if (gnl->line[n_sym] == '\t')
 			i += sizeof(gnl->line[n_sym]);
 		else
 			i += 1;
 		n_sym--;
 	}
-	// printf("i: %d\n", i);
 	return (i);
 }
 
 // проверка на переполнение
 // return (0) - есть length_error, то есть места больше нет
 // return (1) - все ок
-int			length_error(int index, int length) // обработать, чтобы выводилось сколько лишнего
+int			length_error(int index, int length)
 {
 	if (index >= length)
 	{
@@ -67,7 +65,6 @@ int			length_error(int index, int length) // обработать, чтобы в
 			return (error_common(ERR_NAME_LENGTH));
 		else if (length == COMMENT_LENGTH)
 			return (error_common(ERR_COMMENT_LENGTH));
-		return (0);// на какой случай этот ретёрн?
 	}
 	return (1);
 }
@@ -94,7 +91,6 @@ int			error_args(int error, t_command *comm, char *str, int n_sym)
 */
 int			error_line(int error, t_gnl *gnl, int n_sym)
 {
-	// n_sym = 0; ////
 	if (error == ERR_NAME)
 		write(2, "Error in name of the champeon in line: ", 40);
 	else if (error == ERR_COMMENT)
@@ -113,8 +109,6 @@ int			error_line(int error, t_gnl *gnl, int n_sym)
 		if (n_sym >= 0)
 			printf(" at symbol [%d]", (n_sym + 1));
 		printf(":\n%s\n", gnl->line);
-		// n_sym = count_tabs(gnl, n_sym);
-		// ft_printf("%*c^\n", n_sym, ' ');
 	}
 	return (0);
 }

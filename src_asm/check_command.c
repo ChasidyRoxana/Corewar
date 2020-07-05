@@ -121,8 +121,8 @@ int			check_command(t_asm *asmb)
 		return (0);
 	if (!asmb->gnl_last)
 	{
-		if (asmb->comm_last->label)/////
-			return (1);///////
+		if (asmb->comm_last->label->line)
+			return (1);
 		return (error_common(ERR_NO_OP));
 	}
 	asmb->comm_last->gnl_line = asmb->gnl_last;

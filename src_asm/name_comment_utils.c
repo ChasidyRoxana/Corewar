@@ -36,7 +36,7 @@ int		check_end_space(char *line)
 	i = 0;
 	while (is_space(line[i]))
 		i++;
-	if (!line[i] || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2) // чекнуть в конце, нужно ли это везде, где вызывается эта функция
+	if (!line[i] || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2)
 		return (1);
 	else
 		return (0);
