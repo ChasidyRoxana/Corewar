@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/03 17:41:22 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/05 12:48:53 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,12 @@ ASM = asm
 
 DISASM = disasm
 
-RES = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c \
+VM = corewar
+
+RES_ASM = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c \
 	find_label.c check_command.c find_args.c op.c check_comm_list.c write_to_file.c
 
-SRC = $(addprefix src_asm/,$(RES))
+SRC_ASM = $(addprefix src_asm/,$(RES_ASM))
 
 SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c \
 	  ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_memalloc.c ft_memccpy.c ft_memcmp.c \
@@ -33,16 +35,23 @@ SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstd
 	  ft_printf.c ft_printf_flags.c ft_printf_c.c ft_printf_s.c ft_printf_p.c \
 	  ft_printf_per.c ft_printf_x.c ft_printf_o.c ft_printf_u.c ft_printf_di.c \
 	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c)
+# проверить, все ли файлы в либе
 
 RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c \
 	new_comm_arg.c
 
 SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 
+RES_VM = main.c
+
+SRC_VM = $(addprefix src_vm/,$(RES_VM))
+
 INC_ASM = includes/asm.h
 # op.h ? - прописать зависимость
 
 INC_DISASM = includes/disasm.h
+
+INC_VM = includes/vm.h
 
 INC_LIB = libft/libft.h
 
@@ -50,25 +59,29 @@ LIBFT = libft/libft.a
 
 FLAG = -Wall -Werror -Wextra
 
-all: $(ASM) $(DISASM)
+all: $(ASM) $(DISASM) $(VM)
 
 $(LIBFT): $(SRC_LIB) $(INC_LIB)
 	make -C libft/
 
-$(ASM): $(SRC) $(INC) $(LIBFT)
-	gcc -o $(ASM) $(FLAG) -I $(INC_ASM) $(SRC) $(LIBFT)
+$(ASM): $(SRC_ASM) $(INC_ASM) $(LIBFT)
+	gcc -o $(ASM) $(FLAG) -I $(INC_ASM) $(SRC_ASM) $(LIBFT)
 
 $(DISASM): $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
 	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(LIBFT)
+
+$(VM): $(SRC_VM) $(INC_VM) $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
+	gcc -o $(VM) $(FLAG) -I $(INC_VM) -I $(INC_DISASM) $(SRC_VM) $(LIBFT) 
+# не уверена с INC_DISASM, SRC_DISASM (убрала из gcc, дублировался мейн; но оставила в зависимостях - нннадо?) - правильно ли подключила?
 
 clean:
 	@rm -f libft/*.o
 
 fclean: clean
-	@rm -f $(LIBFT) $(ASM) $(DISASM)
+	@rm -f $(LIBFT) $(ASM) $(DISASM) $(VM)
 
 re: fclean all
 
 norm:
 	@echo "\x1b[32mASM\x1b[0m"
-	@norminette $(SRC) $(INC)
+	@norminette $(SRC_ASM) $(SRC_DISASM) $(SRC_VM) $(INC_ASM) $(INC_DISASM) $(INC_VM)
