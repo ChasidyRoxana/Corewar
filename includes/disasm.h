@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/05 18:04:38 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 18:41:37 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ typedef struct			s_disasm
 ** main.c
 */
 int			check_filename(t_disasm *disasm, char *name);
+
+/*
+** start_disasm.c
+*/
 int			start_disasm(t_disasm *disasm, char *filename);
+int			check_filename(t_disasm *disasm, char *name);
 
 /*
 ** error.c
