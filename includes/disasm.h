@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/02 20:55:19 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 18:04:38 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_disasm
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 	int					prog_length;
+	char				*exec_code; // исполняемый код чемпиона
 	t_command			*ops;
 	t_command			*ops_last;
 }						t_disasm;
