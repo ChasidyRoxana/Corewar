@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:34:35 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/05 13:19:59 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 13:49:07 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				parse_commands(t_disasm *disasm, int fd)
 		if (!new_command(disasm))
 			return (0);
 		disasm->ops_last->op_code = get_int(code, &i, 1) - 1;
-		// printf("  op_code: %d\n", disasm->ops_last->op_code);
+		printf("  op_code: %d\n", disasm->ops_last->op_code);
 		if (disasm->ops_last->op_code < 0 || disasm->ops_last->op_code > 15)
 			return (0);
 		if (!fill_command(disasm->ops_last, code, &i))

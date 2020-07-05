@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:19:46 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/05 13:20:06 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 13:48:09 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		main(int argc, char **argv)
 	}
 	if (start_disasm(&disasm, argv[1])&&
 		write_to_file(&disasm))
-		printf("The .s file is ready\n");
+	printf("The .s file is ready\n");
 	free_all(&disasm);
 	return (0);
 }

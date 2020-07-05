@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/29 22:39:33 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/05 13:22:05 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int			read_file(t_asm *asmb, char *file_name)
 	}
 	close(fd);
 	if (!asmb->gnl)
-		return (asmb, error_common(ERR_FILE));
+		return (error_common(ERR_FILE));
 	return (1);
 }
