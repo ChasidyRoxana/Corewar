@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/05 12:27:38 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/05 12:48:53 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ $(DISASM): $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
 	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(LIBFT)
 
 $(VM): $(SRC_VM) $(INC_VM) $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
-	gcc -o $(VM) $(FLAG) -I $(INC_VM) $(INC_DISASM) $(SRC_VM) $(SRC_DISASM) $(LIBFT) 
-# не уверена с INC_DISASM, SRC_DISASM - правильно ли подключила?
+	gcc -o $(VM) $(FLAG) -I $(INC_VM) -I $(INC_DISASM) $(SRC_VM) $(LIBFT) 
+# не уверена с INC_DISASM, SRC_DISASM (убрала из gcc, дублировался мейн; но оставила в зависимостях - нннадо?) - правильно ли подключила?
 
 clean:
 	@rm -f libft/*.o
