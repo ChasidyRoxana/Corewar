@@ -12,11 +12,6 @@
 
 #include "../includes/vm.h"
 
-int		main(int argc, char **argv)
-{
-	// memset vm
-	// memset арены
-	
 	// parse_args: 
 	// - проверить имя файлов
 	// - проверить, что есть игроки и их кол-во <= MAX_PLAYERS
@@ -30,5 +25,13 @@ int		main(int argc, char **argv)
 
 	// прописать все команды
 
+int		main(int argc, char **argv)
+{
+	t_vm	vm;
+
+	ft_memset(&vm, 0, sizeof(vm));
+	if (parse_args(&vm, argc, argv))
+		; //если ошибок нет, запускается цикл игры
+	// free_all(&vm);
 	return (0);
 }
