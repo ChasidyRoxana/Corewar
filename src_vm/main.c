@@ -6,15 +6,27 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/07 18:57:03 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/07 21:51:37 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
+// int		main(int argc, char **argv)
+// {
+// 	t_vm	vm;
+
+// 	// memset vm
+// 	// memset арены - арена уже замемсетилась или нет ???
+// 	ft_memset(&vm, 0, sizeof(vm));
+// 	if (argc > 2)
+// 	{
+// 		parse_args(argv, &vm);
+// 	}
+	
 	// parse_args: 
-	// - проверить имя файлов
-	// - проверить, что есть игроки и их кол-во <= MAX_PLAYERS
+	// - проверить имя файлов - DONE
+	// - проверить, что есть игроки и их кол-во <= MAX_PLAYERS - DONE
 	// - обработать флаги (-n, -dump, -v)
 	// - записать туда номер игрока, имя, коммент, позицию на арене = проверить имя, коммент, размер 
 	// - если все ок, записать код чемпиона в арену
@@ -31,7 +43,7 @@ int		main(int argc, char **argv)
 
 	ft_memset(&vm, 0, sizeof(vm));
 	if (parse_args(&vm, argc, argv))
-		; //если ошибок нет, запускается цикл игры
+		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
 	// free_all(&vm);
 	return (0);
 }

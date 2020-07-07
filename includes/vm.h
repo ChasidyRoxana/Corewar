@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/07 18:57:08 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/07 21:47:55 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 # include "op.h"
 
 # define ERR_FILE_NAME		1
-# define ERR_CREATE_FILE	2
+# define ERR_MAX_PLAYERS    2
+# define ERR_FLAG			3
 # define OP(index)			g_op_tab[index] // ne ebu
 
 typedef struct			s_player
 {
+	char				*file_name;
 	int					id; // номер игрока
 	int					fd;
 	int					i; // позиция игрока на арене
@@ -51,7 +53,8 @@ typedef struct			s_vm
 	int					cycle; // номер цикла
 	int					visu; // флаг визуализации
 	int					dump; // флаг -dump
-	t_player			player[MAX_PLAYERS + 1]; // массив чемпионов
+	int					n_players;
+	t_player			player[MAX_PLAYERS]; // массив чемпионов
 	t_cursor			*cur;
 }						t_vm;
 
@@ -60,5 +63,13 @@ typedef struct			s_vm
 */
 int			parse_args(t_vm *vm, int ac, char **av);
 
+/*
+** main.c
+*/
+
+/*
+** error.c
+*/
+int     error_vm(int error);
 
 #endif
