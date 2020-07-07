@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/07 18:44:07 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/07 18:57:08 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct			s_player
 {
     int                 id; // номер игрока
+    int                 fd;
     char                name[PROG_NAME_LENGTH + 1];
     char                comment[COMMENT_LENGTH + 1];
     int                 i; // позиция игрока на арене
@@ -51,7 +52,7 @@ typedef struct			s_vm
     int                 cycle; // номер цикла
     int                 visu; // флаг визуализации
     int                 dump; // флаг -dump
-    t_player            *player; // массив чемпионов
+    t_player            player[MAX_PLAYERS + 1]; // массив чемпионов
     t_cursor            *cur;
 }						t_vm;
 
