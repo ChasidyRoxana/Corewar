@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/05 18:41:49 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/07 18:48:37 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,14 +37,10 @@ SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstd
 	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c)
 # проверить, все ли файлы в либе
 
-RES_DISASM = main.c
-
-SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
-
-RES_VM_DISASM = error.c parse_file.c parse_commands.c op.c write_file.c \
+RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c \
 	new_comm_arg.c start_disasm.c
 
-SRC_VM_DISASM = $(addprefix src_disasm/,$(RES_VM_DISASM))
+SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 
 RES_VM = main.c
 
@@ -71,11 +67,11 @@ $(LIBFT): $(SRC_LIB) $(INC_LIB)
 $(ASM): $(SRC_ASM) $(INC_ASM) $(LIBFT)
 	gcc -o $(ASM) $(FLAG) -I $(INC_ASM) $(SRC_ASM) $(LIBFT)
 
-$(DISASM): $(SRC_DISASM) $(SRC_VM_DISASM) $(INC_DISASM) $(LIBFT)
-	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(SRC_VM_DISASM) $(LIBFT)
+$(DISASM): $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
+	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(LIBFT)
 
-$(VM): $(SRC_VM) $(INC_VM) $(SRC_DISASM) $(SRC_VM_DISASM) $(INC_DISASM) $(LIBFT)
-	gcc -o $(VM) $(FLAG) -I $(INC_VM) -I $(INC_DISASM) $(SRC_VM) $(SRC_VM_DISASM) $(LIBFT) 
+$(VM): $(SRC_VM) $(INC_VM) $(SRC_DISASM) $(LIBFT)
+	gcc -o $(VM) $(FLAG) -I $(INC_VM) $(SRC_VM) $(LIBFT) 
 # не уверена с INC_DISASM, SRC_DISASM (убрала из gcc, дублировался мейн; но оставила в зависимостях - нннадо?) - правильно ли подключила?
 
 clean:
