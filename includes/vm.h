@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 16:04:46 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/08 20:47:50 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct			s_arena
 {
 	unsigned char		i;
 	int					color;
-	int					cursor;
 }						t_arena;
 
 typedef struct			s_vm
@@ -95,12 +94,19 @@ int     error_line(int error, char *str);
 */
 int		check_four_bytes(t_player *player);
 int		check_player(t_player *player);
-int		fill_arena(t_vm *vm, t_player player);
+int		fill_arena(t_vm *vm, t_player player, int color);
 int		create_player(t_vm *vm);
 
 /*
 **	game_cycle.c
 */
 int			game_cycle(t_vm *vm);
+
+/*
+** ncurses.c
+*/
+void	init_ncurses();
+void	print_ncurses(t_vm *vm);
+void	start_ncurses(t_vm *vm);
 
 #endif

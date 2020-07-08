@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_cycle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/08 17:52:33 by marvin           ###   ########.fr       */
+/*   Updated: 2020/07/08 20:23:11 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int			game_cycle(t_vm *vm)
 {
+	vm = NULL;//
 	// int	play = 1;
 	// int	cycle = 0;
 	// while(play)

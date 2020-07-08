@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/08 16:05:15 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/08 20:45:36 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c \
 
 SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 
-RES_VM = main.c error.c parse_args.c create_players.c
+RES_VM = main.c error.c parse_args.c create_players.c game_cycle.c ncurses.c
 
 SRC_VM = $(addprefix src_vm/,$(RES_VM))
 
@@ -71,7 +71,7 @@ $(DISASM): $(SRC_DISASM) $(INC_DISASM) $(LIBFT)
 	gcc -o $(DISASM) $(FLAG) -I $(INC_DISASM) $(SRC_DISASM) $(LIBFT)
 
 $(VM): $(SRC_VM) $(INC_VM) $(SRC_DISASM) $(LIBFT)
-	gcc -o $(VM) $(FLAG) -I $(INC_VM) $(SRC_VM) $(LIBFT) 
+	gcc -o $(VM) $(FLAG) -I $(INC_VM) $(SRC_VM) $(LIBFT) -lncurses
 # не уверена с INC_DISASM, SRC_DISASM (убрала из gcc, дублировался мейн; но оставила в зависимостях - нннадо?) - правильно ли подключила?
 
 clean:

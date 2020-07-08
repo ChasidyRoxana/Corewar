@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 17:38:42 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/08 20:44:21 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 
 void	print_arena(t_vm *vm)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (i < MEM_SIZE)
 	{
 		printf("%0.2x ", vm->arena[i].i);
@@ -46,7 +47,10 @@ int		main(int argc, char **argv)
 	if (parse_args(&vm, argc, argv) &&
 		create_player(&vm))
 	{
-		// print_arena(&vm);
+		if (vm.v)
+			start_ncurses(&vm);
+		else
+			print_arena(&vm);
 		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
 		game_cycle(&vm);
 	}

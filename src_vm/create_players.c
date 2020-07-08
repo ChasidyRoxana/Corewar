@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:03:40 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 16:57:07 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/08 20:27:34 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		check_player(t_player *player)
 	return (1);
 }
 
-int		fill_arena(t_vm *vm, t_player player)
+int		fill_arena(t_vm *vm, t_player player, int color)
 {
 	unsigned char	code[player.champ_size + 1];
 	int 			read_bytes;
@@ -67,6 +67,7 @@ int		fill_arena(t_vm *vm, t_player player)
 	while(++j < player.champ_size)
 	{
 		vm->arena[i].i = code[j];
+        vm->arena[i].color = (j == 0) ? (color + 1) : color;
 		i++;
 	}
 	return (1);
@@ -77,12 +78,14 @@ int		create_player(t_vm *vm)
 	int	i;
 	int j;
 	int champ_place;
-
+    int color;
+    
 	// считаем количество игроков -> считаем первые ячейки игроков (4098 / n_players)
 	champ_place = MEM_SIZE / vm->n_players;
 	// проходим по массиву игроков
 	j = 0;
 	i = 0;
+    color = 1;
 	while (j < vm->n_players)
 	{
 		// открываем файл, записываем фд, записываем i на арене
@@ -93,10 +96,11 @@ int		create_player(t_vm *vm)
 		if (!check_player(&vm->player[j]))
 			return (0);
 		// если все ок -> записываем кода чемпиона в арену
-		if (!fill_arena(vm, vm->player[j]))
+		if (!fill_arena(vm, vm->player[j], color))
 			return (0);	
 		close(vm->player[j].fd);
 		i += champ_place;
+        color += 2;
 		j++;
 	}
 	return (1);
