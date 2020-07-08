@@ -51,7 +51,6 @@ int		check_player(t_player *player)
 
 int		fill_arena(t_vm *vm, t_player player)
 {
-	// +1 или +2 ?
 	unsigned char	code[player.champ_size + 1];
 	int 			read_bytes;
 	int				j;
@@ -81,8 +80,6 @@ int		create_player(t_vm *vm)
 	int j;
 	int champ_place;
 	
-	// меместим арену (нннада?)
-	ft_memset(&vm->arena, 0, sizeof(vm->arena));
 	// считаем количество игроков -> считаем первые ячейки игроков (4098 / n_players)
 	champ_place = MEM_SIZE / vm->n_players;
 	// проходим по массиву игроков

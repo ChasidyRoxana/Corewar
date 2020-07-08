@@ -31,7 +31,7 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 	int		num;
 
 	if (*n_arg + 2 >= ac)
-		return (0);
+		return (error_vm(ERR_FLAG));
 	else
 	{
 		(*n_arg)++;
@@ -60,7 +60,7 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 static int	flag_dump(t_vm *vm, int ac, char **av, int *n_arg)
 {
 	if (*n_arg + 2 >= ac || vm->dump != 0)
-		return (0);
+		return (error_vm(ERR_FLAG));
 	else
 	{
 		(*n_arg)++;

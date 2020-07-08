@@ -67,6 +67,9 @@ typedef struct			s_vm
 	int					cycle; // номер цикла
 	int					v; // флаг визуализации
 	int					dump; // флаг -dump
+	int					cycles_to_die; // циклов в периоде до проверки
+	int					n_live; // количество live за последний период
+	int					n_check; // количество проверок
 	int					n_players;
 	t_player			player[MAX_PLAYERS]; // массив чемпионов
 	t_cursor			*cur;
