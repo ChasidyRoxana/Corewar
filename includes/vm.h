@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/07 21:47:55 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/08 16:04:46 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # define ERR_FILE_NAME		1
 # define ERR_MAX_PLAYERS    2
 # define ERR_FLAG			3
+# define ERR_OPEN_FILE		4
+# define ERR_MAGIC_HEADER	5
+# define ERR_NAME			6
+# define ERR_COMMENT		7
+# define ERR_MAX_SIZE		8
+# define ERR_CHAMP_SIZE		9
 # define OP(index)			g_op_tab[index] // ne ebu
 
 typedef struct			s_player
@@ -28,6 +34,7 @@ typedef struct			s_player
 	char				*file_name;
 	int					id; // номер игрока
 	int					fd;
+	int					champ_size;
 	int					i; // позиция игрока на арене
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
@@ -47,9 +54,16 @@ typedef struct			s_cursor
 	// добавить цвет
 }						t_cursor;
 
+typedef struct			s_arena
+{
+	unsigned char		i;
+	int					color;
+	int					cursor;
+}						t_arena;
+
 typedef struct			s_vm
 {
-	unsigned char		arena[MEM_SIZE + 1]; // арена
+	t_arena				arena[MEM_SIZE + 1]; // арена
 	int					cycle; // номер цикла
 	int					v; // флаг визуализации
 	int					dump; // флаг -dump
@@ -71,5 +85,14 @@ int			parse_args(t_vm *vm, int ac, char **av);
 ** error.c
 */
 int     error_vm(int error);
+int     error_line(int error, char *str);
+
+/*
+** create_players.c
+*/
+int		check_four_bytes(t_player *player);
+int		check_player(t_player *player);
+int		fill_arena(t_vm *vm, t_player player);
+int		create_player(t_vm *vm);
 
 #endif
