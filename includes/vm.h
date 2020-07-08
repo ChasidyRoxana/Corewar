@@ -98,4 +98,9 @@ int		check_player(t_player *player);
 int		fill_arena(t_vm *vm, t_player player);
 int		create_player(t_vm *vm);
 
+/*
+**	game_cycle.c
+*/
+int			game_cycle(t_vm *vm);
+
 #endif

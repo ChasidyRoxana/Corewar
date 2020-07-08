@@ -48,6 +48,7 @@ int		main(int argc, char **argv)
 	{
 		// print_arena(&vm);
 		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
+		game_cycle(&vm);
 	}
 	// free_all(&vm);
 	return (0);
