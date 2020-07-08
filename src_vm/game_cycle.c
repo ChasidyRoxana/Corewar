@@ -14,7 +14,8 @@
 
 int			game_cycle(t_vm *vm)
 {
-	vm = NULL;//
+	if (vm)
+		vm = NULL;//
 	// int	play = 1;
 	// int	cycle = 0;
 	// while(play)
