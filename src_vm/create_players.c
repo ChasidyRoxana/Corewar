@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:03:40 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 16:03:48 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/08 16:57:07 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		check_player(t_player *player)
 	// проверяем magic_header
 	if (check_four_bytes(player) != COREWAR_EXEC_MAGIC)
 		return (error_vm(ERR_MAGIC_HEADER));
-	// считываем имя ??? надо \0 в конце?
 	if (!read(player->fd, player->name, PROG_NAME_LENGTH))
 		return (error_vm(ERR_NAME));
 	read(player->fd, buf, 4);
@@ -61,7 +60,6 @@ int		fill_arena(t_vm *vm, t_player player)
 	// printf("READ BYTES: %d\n", read_bytes);
 	if (read_bytes != player.champ_size)
 		return (error_vm(ERR_CHAMP_SIZE));
-	// нннада ?
 	code[player.champ_size] = '\0';
 	// размещаем на арене с i;
 	j = -1;
@@ -79,7 +77,7 @@ int		create_player(t_vm *vm)
 	int	i;
 	int j;
 	int champ_place;
-	
+
 	// считаем количество игроков -> считаем первые ячейки игроков (4098 / n_players)
 	champ_place = MEM_SIZE / vm->n_players;
 	// проходим по массиву игроков

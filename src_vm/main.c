@@ -43,10 +43,10 @@ int		main(int argc, char **argv)
 	t_vm	vm;
 
 	ft_memset(&vm, 0, sizeof(vm));
-	if (parse_args(&vm, argc, argv))
+	if (parse_args(&vm, argc, argv) &&
+		create_player(&vm))
 	{
-		create_player(&vm);
-		print_arena(&vm);
+		// print_arena(&vm);
 		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
 	}
 	// free_all(&vm);

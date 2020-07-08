@@ -44,6 +44,8 @@ static void	write_commands(t_asm *asmb, int fd)
 	comm = asmb->comm;
 	while (comm)
 	{
+		if (comm->op < 1)
+			return ;
 		write_int(fd, comm->op, 1);
 		if (OP(comm->op - 1).type_arg_code)
 			write_int(fd, comm->args_type, 1);
