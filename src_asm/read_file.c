@@ -29,7 +29,7 @@
 */
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
-	if (ft_strlen(line) == 0)
+	if (ft_strlen(line) == 0 || line[skip_first_spaces(line)] == '\0')
 	{
 		free(line);
 		return (1);
