@@ -57,8 +57,6 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 	}
 }
 
-// нужна ли проверка на то, что после -dump идёт
-// именно число, без всяких букв и лишних знаков?
 static int	flag_dump(t_vm *vm, int ac, char **av, int *n_arg)
 {
 	if (*n_arg + 2 >= ac || vm->dump != 0)
@@ -109,20 +107,25 @@ int			parse_args(t_vm *vm, int ac, char **av)
 	n_arg = 1;
 	if (ac < 2)
 		return (error_vm(ERR_FLAG));
-	// {
-	// 	write(2, "Usage: ...", 11);
-	// 	return (0);
-	// }
 	while (n_arg < ac)
 	{
 		if (!ft_strcmp(av[n_arg], "-v") && vm->v)
 			return (0);
-		if (!ft_strcmp(av[n_arg], "-dump") && !flag_dump(vm, ac, av, &n_arg))
-			return (0);
-		else if (!ft_strcmp(av[n_arg], "-n") && !flag_n(vm, ac, av, &n_arg))
-			return (0);
+		if (!ft_strcmp(av[n_arg], "-dump"))
+		{
+			if (!flag_dump(vm, ac, av, &n_arg))
+				return (0);
+		}
+		else if (!ft_strcmp(av[n_arg], "-n"))
+		{
+			if (!flag_n(vm, ac, av, &n_arg))
+				return (0);
+		}
 		else if (!ft_strcmp(av[n_arg], "-v"))
+		{
 			vm->v = 1;
+			n_arg++;
+		}
 		else
 		{
 			if (!check_filename(av[n_arg]))
@@ -139,28 +142,9 @@ int			parse_args(t_vm *vm, int ac, char **av)
 	}
 	if (!sort_players(vm))
 		return (0);
-	printf("dump: %d\nn_pl: %d\n", vm->dump, vm->n_players);
-	for(int j = 0; j < vm->n_players; j++)
-		printf(" PL[%d] id: %d, i: %d, filename: %s\n", j, vm->player[j].id,
-			vm->player[j].i, vm->player[j].file_name);
+	// printf("dump: %d\nn_pl: %d\nvis: %d\n", vm->dump, vm->n_players, vm->v);
+	// for(int j = 0; j < vm->n_players; j++)
+	// 	printf(" PL[%d] id: %d, i: %d, filename: %s\n", j, vm->player[j].id,
+	// 		vm->player[j].i, vm->player[j].file_name);
 	return (1);
 }
-
-// int		parse_args(char **argv, t_vm *vm) 
-// {
-// 	int i;
-// 	int	num_players;
-
-// 	i = 1;
-// 	while (argv[i])
-// 	{
-// 		if (argv[i][0] == '-')
-// 			check_flags();
-// 		if (check_filename)
-// 			init_player(); // передать сюда цифру после -n? Или как делать будем?
-// 		num_players += 1;
-// 		if (num_players > MAX_PLAYERS)
-// 			error_vm(ERR_MAX_PLAYERS);
-// 	}
-// 	return (1);
-// }
