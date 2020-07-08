@@ -115,16 +115,14 @@ int			parse_args(t_vm *vm, int ac, char **av)
 	// }
 	while (n_arg < ac)
 	{
-		if (!ft_strcmp(av[n_arg], "-dump"))
-		{
-			if (!flag_dump(vm, ac, av, &n_arg))
-				return (error_vm(ERR_FLAG));
-		}
-		else if (!ft_strcmp(av[n_arg], "-n"))
-		{
-			if (!flag_n(vm, ac, av, &n_arg))
-				return (error_vm(ERR_FLAG));
-		}
+		if (!ft_strcmp(av[n_arg], "-v") && vm->v)
+			return (0);
+		if (!ft_strcmp(av[n_arg], "-dump") && !flag_dump(vm, ac, av, &n_arg))
+			return (0);
+		else if (!ft_strcmp(av[n_arg], "-n") && !flag_n(vm, ac, av, &n_arg))
+			return (0);
+		else if (!ft_strcmp(av[n_arg], "-v"))
+			vm->v = 1;
 		else
 		{
 			if (!check_filename(av[n_arg]))
@@ -141,10 +139,10 @@ int			parse_args(t_vm *vm, int ac, char **av)
 	}
 	if (!sort_players(vm))
 		return (0);
-	// printf("dump: %d\nn_pl: %d\n", vm->dump, vm->n_players);
-	// for(int j = 0; j < vm->n_players; j++)
-	// 	printf(" PL[%d] id: %d, i: %d, filename: %s\n", j, vm->player[j].id,
-	// 		vm->player[j].i, vm->player[j].file_name);
+	printf("dump: %d\nn_pl: %d\n", vm->dump, vm->n_players);
+	for(int j = 0; j < vm->n_players; j++)
+		printf(" PL[%d] id: %d, i: %d, filename: %s\n", j, vm->player[j].id,
+			vm->player[j].i, vm->player[j].file_name);
 	return (1);
 }
 

@@ -51,7 +51,7 @@ typedef struct			s_vm
 {
 	unsigned char		arena[MEM_SIZE + 1]; // арена
 	int					cycle; // номер цикла
-	int					visu; // флаг визуализации
+	int					v; // флаг визуализации
 	int					dump; // флаг -dump
 	int					n_players;
 	t_player			player[MAX_PLAYERS]; // массив чемпионов
