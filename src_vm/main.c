@@ -51,7 +51,7 @@ int		main(int argc, char **argv)
 			start_ncurses(&vm);
 		else
 			print_arena(&vm);
-		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
+		printf("game cycle\n");
 		game_cycle(&vm);
 	}
 	// free_all(&vm);

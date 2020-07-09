@@ -44,13 +44,14 @@ typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
 	int					player_id; // номер игрока 
+	int					cursor_id; //номер каретки
 	int					carry;
 	int					live_cycle; // номер цикла, в котором последний раз выполнялась команда live
 	int					op; // код операции, на которой стоит каретка
 	int					cycles_left; // кол-во операций, оставшихся до исполнения операции на которой стоит каретка
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
-	
+	struct s_cursor		*next;
 	// добавить цвет
 }						t_cursor;
 
