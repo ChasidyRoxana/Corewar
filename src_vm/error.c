@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:45:43 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 15:21:10 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:52:03 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int     error_vm(int error)
         write(2, "The champion size is too big\n", 30);
     else if (error == ERR_CHAMP_SIZE)
         write(2, "Wrong champion size\n", 21);
+    else if (error == ERR_MALLOC)
+        write(2, "Error with memory allocation\n", 30);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 15:41:57 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:45:44 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		create_cursors(t_vm *vm)
 		vm->cur->regs[0] = vm->player[i].id * (-1); // номер игрока со знаком минус
 		vm->cur->player_id = vm->player[i].id; // id игрока - можно убрать
 		vm->cur->cursor_id = i + 1; // id каретки
-		vm->cur->op = (unsigned int)vm->arena[vm->player[i].i].i; // нннада unsigned int? считываем 1 байт с арены
+		vm->cur->op = vm->arena[vm->player[i].i].i; // нннада unsigned int? считываем 1 байт с арены
 		vm->cur->cycles_left = OP(vm->cur->op - 1).cycle; // смотрим циклы до исполнения по op.c в зависимости от команды
 		vm->cur->i = vm->player[i].i; // текущая позиция каретки
 		vm->cur->op_size = count_size(vm, i); // размер операции, на которой стоит каретка
