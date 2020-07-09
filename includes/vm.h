@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 20:47:50 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:37:19 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define ERR_COMMENT		7
 # define ERR_MAX_SIZE		8
 # define ERR_CHAMP_SIZE		9
+# define ERR_MALLOC			10
 # define OP(index)			g_op_tab[index] // ne ebu
 
 typedef struct			s_player
@@ -40,17 +41,20 @@ typedef struct			s_player
 	char				comment[COMMENT_LENGTH + 1];
 }						t_player;
 
+typedef struct s_cursor t_cursor;
+
 typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
 	int					player_id; // номер игрока 
+	int					cursor_id; // уникальный номер каретки
 	int					carry;
 	int					live_cycle; // номер цикла, в котором последний раз выполнялась команда live
 	int					op; // код операции, на которой стоит каретка
 	int					cycles_left; // кол-во операций, оставшихся до исполнения операции на которой стоит каретка
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
-	
+	t_cursor			*next;
 	// добавить цвет
 }						t_cursor;
 
@@ -108,5 +112,13 @@ int			game_cycle(t_vm *vm);
 void	init_ncurses();
 void	print_ncurses(t_vm *vm);
 void	start_ncurses(t_vm *vm);
+
+/*
+** create_cursor.c
+*/
+int		malloc_cursor(t_vm *vm);
+int		count_size(t_vm *vm, int i);
+int		create_cursors(t_vm *vm);
+int		count_size_arg_code(t_vm *vm, int i);
 
 #endif

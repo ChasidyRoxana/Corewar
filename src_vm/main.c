@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 20:44:21 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:29:52 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int		main(int argc, char **argv)
 
 	ft_memset(&vm, 0, sizeof(vm));
 	if (parse_args(&vm, argc, argv) &&
-		create_player(&vm))
+		create_player(&vm) && 
+		create_cursors(&vm))
 	{
-		if (vm.v)
-			start_ncurses(&vm);
-		else
-			print_arena(&vm);
+		// if (vm.v)
+		// 	start_ncurses(&vm);
+		// else
+		// 	print_arena(&vm);
 		printf("game cycle\n");; //если ошибок нет, запускается цикл игры
 		game_cycle(&vm);
 	}
