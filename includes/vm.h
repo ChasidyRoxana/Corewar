@@ -115,8 +115,13 @@ void	start_ncurses(t_vm *vm);
 ** create_cursor.c
 */
 int		malloc_cursor(t_vm *vm);
-int		count_size(t_vm *vm, int i);
 int		create_cursors(t_vm *vm);
-int		count_size_arg_code(t_vm *vm, int i);
+
+/*
+**	cursor_op.c
+*/
+int			count_size_arg_code(t_vm *vm, int op, int i);
+int			count_size(t_vm *vm, int op, int i);
+int			cursor_op(t_vm *vm);
 
 #endif

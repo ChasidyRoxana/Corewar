@@ -76,11 +76,7 @@ int			game_cycle(t_vm *vm)
 	{
 	//	визуализация, если vm->v == 1
 	//	
-	//	каретки:
-	//	1. устанавливаем код операции
-	//	2. уменьшить количество циклов до исполнения
-	//	3. выполнить операцию
-	//	
+		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)
 			check_up(vm, &cycle, &play);
 		cycle++;

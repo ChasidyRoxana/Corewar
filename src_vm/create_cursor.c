@@ -34,50 +34,6 @@ int		malloc_cursor(t_vm *vm)
 	return (1);
 }
 
-int		count_size_arg_code(t_vm *vm, int i)
-{
-	int j;
-	int res;
-	int size; 
-	int arg_code;
-	
-	j = 6;
-	res = 0;
-	size = 2; // 1 байт на код операции + 1 байт на код аргументов
-	arg_code = vm->arena[vm->player[i].i + 1].i;
-	while (j > 0 && ((arg_code >> j) & 3) != 0)
-	{
-		res = (arg_code >> j) & 3;
-		if (res == 1)
-			size += 1;
-		else if (res == 3)
-			size += 2;
-		else if (res == 2)
-			size += (OP(vm->cur->op - 1).t_dir_size == 1) ? 2 : 4;
-		j -= 2;
-	}
-	return (size);
-}
-
-int		count_size(t_vm *vm, int i)
-{
-	int	size;
-
-	size = 1; // 1 байт на код операции
-	if (OP(vm->cur->op - 1).type_arg_code == 0)
-	{
-		if (OP(vm->cur->op - 1).args[0] == T_REG)
-			size += 1;
-		else if (OP(vm->cur->op - 1).args[0] == T_IND)
-			size += 2;
-		else if (OP(vm->cur->op - 1).args[0] == T_DIR)
-			size += (OP(vm->cur->op - 1).t_dir_size == 1) ? 2 : 4;
-	}
-	else 
-		size = count_size_arg_code(vm, i);
-	return (size);
-}
-
 int		create_cursors(t_vm *vm) 
 {
 	int i;
@@ -91,14 +47,13 @@ int		create_cursors(t_vm *vm)
 		vm->cur->regs[0] = vm->player[i].id * (-1); // номер игрока со знаком минус
 		vm->cur->player_id = vm->player[i].id; // id игрока - можно убрать
 		vm->cur->cursor_id = i + 1; // id каретки
-		vm->cur->op = vm->arena[vm->player[i].i].i; // нннада unsigned int? считываем 1 байт с арены
-		vm->cur->cycles_left = OP(vm->cur->op - 1).cycle; // смотрим циклы до исполнения по op.c в зависимости от команды
+
+		vm->cur->cycles_left = 0;
 		vm->cur->i = vm->player[i].i; // текущая позиция каретки
-		vm->cur->op_size = count_size(vm, i); // размер операции, на которой стоит каретка
 		
 		// printf
-		printf("PLAYER: %d\nCURSOR: %d\nOP: %d\nCYCLES: %d\ni: %d\nOP SIZE: %d\n\n", vm->cur->regs[0], vm->cur->cursor_id, vm->cur->op, 
-		vm->cur->cycles_left, vm->cur->i, vm->cur->op_size);
+		// printf("PLAYER: %d\nCURSOR: %d\nOP: %d\nCYCLES: %d\ni: %d\nOP SIZE: %d\n\n", vm->cur->regs[0], vm->cur->cursor_id, vm->cur->op, 
+		// vm->cur->cycles_left, vm->cur->i, vm->cur->op_size);
 		
 		i++;
 	}
