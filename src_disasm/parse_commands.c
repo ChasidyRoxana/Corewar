@@ -100,7 +100,7 @@ int				parse_commands(t_disasm *disasm, int fd)
 			return (0);
 		// printf("%d\n", code[i]);
 		disasm->ops_last->op_code = get_int(code, &i, 1) - 1;
-		printf("  op_code: %d\n", disasm->ops_last->op_code);
+		// printf("  op_code: %d\n", disasm->ops_last->op_code);
 		if (disasm->ops_last->op_code < 0 || disasm->ops_last->op_code > 15)
 			return (0);
 		if (!fill_command(disasm->ops_last, code, &i))

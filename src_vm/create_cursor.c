@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 15:39:58 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:41:57 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ int		create_cursors(t_vm *vm)
 		vm->cur->cycles_left = OP(vm->cur->op - 1).cycle; // смотрим циклы до исполнения по op.c в зависимости от команды
 		vm->cur->i = vm->player[i].i; // текущая позиция каретки
 		vm->cur->op_size = count_size(vm, i); // размер операции, на которой стоит каретка
-		// printf("PLAYER: %d\nCURSOR: %d\nOP: %d\nCYCLES: %d\ni: %d\nOP SIZE: %d\n\n", vm->cur->regs[0], vm->cur->cursor_id, vm->cur->op, 
-		// vm->cur->cycles_left, vm->cur->i, vm->cur->op_size);
+		
+		// printf
+		printf("PLAYER: %d\nCURSOR: %d\nOP: %d\nCYCLES: %d\ni: %d\nOP SIZE: %d\n\n", vm->cur->regs[0], vm->cur->cursor_id, vm->cur->op, 
+		vm->cur->cycles_left, vm->cur->i, vm->cur->op_size);
+		
 		i++;
 	}
 	return (1);

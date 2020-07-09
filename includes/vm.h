@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 15:37:19 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:41:11 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ typedef struct			s_player
 	char				comment[COMMENT_LENGTH + 1];
 }						t_player;
 
-typedef struct s_cursor t_cursor;
-
 typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
@@ -54,7 +52,7 @@ typedef struct			s_cursor
 	int					cycles_left; // кол-во операций, оставшихся до исполнения операции на которой стоит каретка
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
-	t_cursor			*next;
+	struct s_cursor		*next;
 	// добавить цвет
 }						t_cursor;
 

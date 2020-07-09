@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 15:29:52 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/09 15:40:47 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_arena(t_vm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		printf("%0.2x ", vm->arena[i].i);
+		printf("%.2x ", vm->arena[i].i);
 		i++;
 		if (i % 64 == 0)
 			printf("\n");
