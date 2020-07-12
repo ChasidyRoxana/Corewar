@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 16:05:08 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/12 20:49:49 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef struct			s_player
 	char				comment[COMMENT_LENGTH + 1];
 }						t_player;
 
+typedef struct			s_arg
+{
+	int					arg;
+	int					type;
+}						t_arg;
+
 typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
@@ -53,6 +59,7 @@ typedef struct			s_cursor
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
 	int					color;
+	t_arg				*args;
 	struct s_cursor		*next;
 	// добавить цвет
 }						t_cursor;
@@ -124,5 +131,14 @@ int		create_cursors(t_vm *vm);
 int			count_size_arg_code(t_vm *vm, int op, int i);
 int			count_size(t_vm *vm, int op, int i);
 int			cursor_op(t_vm *vm);
+
+/*
+** check_ops.c
+*/
+int			check_position(int pos);
+int			get_arg(t_vm *vm, int i, int size);
+int         write_args(t_vm *vm, t_cursor *cur, int num_args);
+int         write_types(t_vm *vm, t_cursor *cur, int num_args);
+int			check_op(t_vm *vm, t_cursor *cur);
 
 #endif
