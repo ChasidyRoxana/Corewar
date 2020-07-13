@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_tpepperm.c                                      :+:      :+:    :+:   */
+/*   op_live_ls_st_add_sub.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:32:34 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 17:44:30 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:07:41 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 	}
 }
 
-void	op_add(t_vm *vm, t_cursor *cur, t_arg *args)
+void	op_add(t_cursor *cur, t_arg *args)
 {
 	int arg;
 	int	reg_one;
@@ -78,7 +78,7 @@ void	op_add(t_vm *vm, t_cursor *cur, t_arg *args)
 	cur->carry = (arg == 0) ? 1 : 0;
 }
 
-void	op_sub(t_vm *vm, t_cursor *cur, t_arg *args)
+void	op_sub(t_cursor *cur, t_arg *args)
 {
 	int arg;
 	int	reg_one;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_tpepperm_sec.c                                  :+:      :+:    :+:   */
+/*   op_ldi_sti_lld_lldi.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:28:14 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 17:46:34 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:07:23 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,15 @@ void    write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
 
 void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
 {
-	int arg;
 	int reg;
 	int address;
 
 	reg = args[2].arg - 1;
-	address = cur->i;
-	if (args[0].arg == T_REG)
-		address += cur->regs[args[0].arg - 1];
-	else if (args[0].arg == T_DIR)
-		address += args[0].arg;
-	else if (args[0].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[0].arg) % IDX_MOD, 4);
-	if (args[1].arg == T_REG)
-		address += cur->regs[args[1].arg - 1];
-	else if (args[1].arg == T_DIR)
-		address += args[1].arg;
-	else if (args[1].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[1].arg) % IDX_MOD, 4);
+    address = 0;
+    address += set_arg(vm, cur, args, 0);
+    address += set_arg(vm, cur, args, 1);
 	address %= IDX_MOD;
+    address += cur->i;
 	cur->regs[reg] = get_arg(vm, address, 4);
 }
 
@@ -58,20 +48,11 @@ void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
     
     num = 0;
     reg = cur->regs[args[0].arg - 1];
-    address = cur->i;
-    if (args[1].arg == T_REG)
-		address += cur->regs[args[1].arg - 1];
-	else if (args[1].arg == T_DIR)
-		address += args[0].arg;
-	else if (args[1].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[1].arg) % IDX_MOD, 4);
-	if (args[2].arg == T_REG)
-		address += cur->regs[args[2].arg - 1];
-	else if (args[2].arg == T_DIR)
-		address += args[1].arg;
-	else if (args[2].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[1].arg) % IDX_MOD, 4);
-    address %= IDX_MOD;
+    address = 0;
+    address += set_arg(vm, cur, args, 1);
+    address += set_arg(vm, cur, args, 2);
+	address %= IDX_MOD;
+    address += cur->i;
     write_to_memory(vm, cur, address, reg);
 }
 
@@ -97,24 +78,12 @@ void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)
 
 void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
 {
-    int arg;
 	int reg;
 	int address;
 
 	reg = args[2].arg - 1;
-	address = cur->i;
-	if (args[0].arg == T_REG)
-		address += cur->regs[args[0].arg - 1];
-	else if (args[0].arg == T_DIR)
-		address += args[0].arg;
-	else if (args[0].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[0].arg) % IDX_MOD, 4);
-	if (args[1].arg == T_REG)
-		address += cur->regs[args[1].arg - 1];
-	else if (args[1].arg == T_DIR)
-		address += args[1].arg;
-	else if (args[1].arg == T_IND)
-		address += get_arg(vm, (cur->i + args[1].arg) % IDX_MOD, 4);
-	// здесь была строчка: address %= IDX_MOD; - все остальное аналогично ldi
+    address = cur->i;
+    address += set_arg(vm, cur, args, 0);
+    address += set_arg(vm, cur, args, 1);
 	cur->regs[reg] = get_arg(vm, address, 4);
 }

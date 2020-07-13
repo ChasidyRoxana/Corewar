@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 15:35:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/13 17:54:34 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:08:05 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 	else if (cur->op == 3)
 		op_st(vm, cur, args);
 	else if (cur->op == 4)
-		op_add(vm, cur, args);
+		op_add(cur, args);
 	else if (cur->op == 5)
-		op_sub(vm, cur, args);
+		op_sub(cur, args);
 	else if (cur->op == 6)
 		op_and(vm, cur, args);
 	else if (cur->op == 7)

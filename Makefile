@@ -6,7 +6,7 @@
 #    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/13 17:28:39 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/13 18:06:42 by tkarpukova       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c \
 SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 
 RES_VM = main.c error.c parse_args.c create_players.c game_cycle.c ncurses.c op.c \
-	create_cursor.c cursor_op.c check_ops.c send_to_op.c op_tpepperm.c op_tpepperm_sec.c \
+	create_cursor.c cursor_op.c check_ops.c send_to_op.c op_live_ls_st_add_sub.c \
+	op_ldi_sti_lld_lldi.c op_fork_lfork_aff.c op_and_or_xor_zjmp.c
 	
 
 SRC_VM = $(addprefix src_vm/,$(RES_VM))

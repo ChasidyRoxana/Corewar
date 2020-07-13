@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 17:54:08 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:07:53 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_live(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_st(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_add(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_sub(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_add(t_cursor *cur, t_arg *args);
+void		op_sub(t_cursor *cur, t_arg *args);
 
 /*
 ** op_tpepperm_sec.c
@@ -161,6 +161,8 @@ void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
+
+/*
 **	op_and_or_xor_zjmp.c
 */
 int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
