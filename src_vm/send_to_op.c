@@ -46,6 +46,7 @@ static void	send_to_op2(t_vm *vm, t_cursor *cur, t_arg args[])
 
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 {
+	printf("cur %d: ", cur->cursor_id);
 	if (cur->op == 1)
 	{printf("live\n");
 		op_live(vm, cur, args);
