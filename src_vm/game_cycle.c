@@ -42,16 +42,17 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	return (1);
 }
 
-static int	check_up(t_vm *vm, int *cycle, int *game)
-{
 	//	если vm->n_live >= NBR_LIVE уменьшаем vm->cycle_to_die на CYCLE_DELTA
 	//	если после проверки vm->cycle_to_die не уменьшился на CYCLE_DELTA, то vm->n_check++
 	//	если vm->n_check == MAX_CHECKS уменьшаем vm->cycle_to_die на CYCLE_DELTA
 	//	если кареток больше нет play = 0
+static void	check_up(t_vm *vm, int *cycle, int *game)
+{
 	check_cursor(vm, cycle);
-	if (!vm->cur) {
-		printf("Here\n");
+	if (!vm->cur)
+	{
 		*game = 0;
+		return ;
 	}
 	printf("vm->cycles_to_die %d -> ", vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
@@ -64,7 +65,6 @@ static int	check_up(t_vm *vm, int *cycle, int *game)
 	printf("%d, vm->n_check: %d\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
 	vm->n_live = 0;
-	return (1);
 }
 
 int			game_cycle(t_vm *vm)

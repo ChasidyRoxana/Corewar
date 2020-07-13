@@ -54,5 +54,8 @@ void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
 void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	if (cur->carry)
+	{
 		cur->i = (cur->i + (set_arg(vm, cur, args, 0) % IDX_MOD)) % MEM_SIZE;
+		cur->op_size = 0;
+	}
 }
