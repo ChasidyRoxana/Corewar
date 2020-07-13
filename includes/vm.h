@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 12:54:24 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 17:48:35 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct			s_cursor
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
 	int					color;
-	t_arg				*args;
 	struct s_cursor		*next;
 	// добавить цвет
 }						t_cursor;
@@ -73,6 +72,7 @@ typedef struct			s_arena
 typedef struct			s_vm
 {
 	t_arena				arena[MEM_SIZE + 1]; // арена
+	int					winner;
 	int					cycle; // номер цикла
 	int					v; // флаг визуализации
 	int					dump; // флаг -dump
@@ -145,5 +145,23 @@ int			check_op(t_vm *vm, t_cursor *cur);
 **	send_to_op.c
 */
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+** op_tpepperm.c
+*/
+void		op_live(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_st(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_add(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_sub(t_vm *vm, t_cursor *cur, t_arg *args);
+
+/*
+** op_tpepperm_sec.c
+*/
+void    	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
+void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
+void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
 
 #endif

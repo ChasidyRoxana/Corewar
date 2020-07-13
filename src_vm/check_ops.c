@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 19:56:51 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 12:59:06 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 16:07:38 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			check_op(t_vm *vm, t_cursor *cur)
 	if (!write_args(vm, cur, args, num_args))
 		return (0);
 	// отправить в свою команду
-	// send_to_op(vm, cur, args);
+	send_to_op(vm, cur, args);
 
 	// вывод аргументов для проверки
 	// int i = -1;

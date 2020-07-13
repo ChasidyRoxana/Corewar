@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/09 15:45:44 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 17:49:49 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		malloc_cursor(t_vm *vm)
 
 	if (!(tmp = (t_cursor*)malloc(sizeof(t_cursor))))
 		return (error_vm(ERR_MALLOC));
-	tmp->player_id = 0;
+	ft_memset(&tmp->regs, 0, sizeof(tmp->regs));
 	tmp->cursor_id = 0;
 	tmp->carry = 0;
 	tmp->live_cycle = 0;
@@ -45,7 +45,6 @@ int		create_cursors(t_vm *vm)
 		if (!malloc_cursor(vm))
 			return (0);
 		vm->cur->regs[0] = vm->player[i].id * (-1); // номер игрока со знаком минус
-		vm->cur->player_id = vm->player[i].id; // id игрока - можно убрать
 		vm->cur->cursor_id = i + 1; // id каретки
 
 		vm->cur->cycles_left = 0;
