@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/13 18:13:57 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:26:03 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ static int	check_up(t_vm *vm, int *cycle, int *game)
 	//	если vm->n_check == MAX_CHECKS уменьшаем vm->cycle_to_die на CYCLE_DELTA
 	//	если кареток больше нет play = 0
 	check_cursor(vm, cycle);
-	if (!vm->cur)
+	if (!vm->cur) {
+		printf("Here\n");
 		*game = 0;
+	}
 	printf("vm->cycles_to_die %d -> ", vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
 	{

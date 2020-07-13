@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:32:34 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 18:07:41 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:55:46 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 	else if (args[1].type == T_IND)
 	{
 		address = cur->i + (args[1].arg % IDX_MOD);
-		write_to_memory(vm, cur, address, reg);
+		write_to_memory(vm, cur, reg, address);
 	}
 }
 

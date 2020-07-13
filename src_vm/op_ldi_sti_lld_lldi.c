@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:28:14 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 18:07:23 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:56:15 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void    write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
 	int i;
 	int num;
 
-	i = 4;
-	num = cur->regs[reg];
-	while (--i >= 0)
-	{
-		vm->arena[(address + i) % MEM_SIZE].i = num % 256;
-		num /= 256;
-	}
+    i = 4;
+    num = cur->regs[reg];
+    while (--i >= 0)
+    {
+        vm->arena[(address + i) % MEM_SIZE].i = num % 256;
+        vm->arena[(address + i) % MEM_SIZE].color = cur->color - 1;
+        num /= 256;
+    }
 }
 
 void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
@@ -50,8 +51,8 @@ void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
 	address += set_arg(vm, cur, args, 1);
 	address += set_arg(vm, cur, args, 2);
 	address %= IDX_MOD;
-	address += cur->i;
-	write_to_memory(vm, cur, reg, address);
+    address += cur->i;
+    write_to_memory(vm, cur, reg, address);
 }
 
 void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)

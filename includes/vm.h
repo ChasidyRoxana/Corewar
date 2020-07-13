@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 18:07:53 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 18:16:18 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int			check_op(t_vm *vm, t_cursor *cur);
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
 
 /*
-** op_tpepperm.c
+**	op_live_ls_st_add_sub.c
 */
 void		op_live(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
@@ -154,7 +154,7 @@ void		op_add(t_cursor *cur, t_arg *args);
 void		op_sub(t_cursor *cur, t_arg *args);
 
 /*
-** op_tpepperm_sec.c
+**	op_ldi_sti_lld_lldi.c
 */
 void    	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
 void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
