@@ -141,4 +141,9 @@ int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			check_op(t_vm *vm, t_cursor *cur);
 
+/*
+**	send_to_op.c
+*/
+void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
+
 #endif

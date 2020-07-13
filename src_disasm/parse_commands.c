@@ -50,7 +50,7 @@ static int		fill_command(t_command *comm, unsigned char code[], int *i)
 				tmp = tmp->next;
 			//определяем тип аргумента: 01 рег, 10 дир, 11 инд
 			tmp->type = (arg_code >> j) & 3;
-			printf("TYPE: %d\n", tmp->type);
+			// printf("TYPE: %d\n", tmp->type);
 			if (tmp->type == IND_CODE)
 				tmp->type = T_IND;
 			// printf("  type: %d\n", tmp->type);

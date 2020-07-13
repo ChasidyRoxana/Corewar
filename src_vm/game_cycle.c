@@ -18,9 +18,10 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	t_cursor	*tmp2;
 
 	tmp = vm->cur;
+	// printf("vm->cycle: %d, tmp->live_cycle: %d, cycle: %d\n", vm->cycle, tmp->live_cycle, *cycle);
 	while (tmp)
 	{
-		if (vm->cycle - tmp->live_cycle >= *cycle)
+		if (vm->cycle - tmp->live_cycle >= *cycle - 1)
 		{
 			tmp2 = vm->cur;
 			if (tmp2 == tmp)
@@ -82,6 +83,7 @@ int			game_cycle(t_vm *vm)
 		cycle++;
 		vm->cycle++;
 	}
+	// финальная визуализация
 	printf("END\nvm->cycle: %d\n", vm->cycle);
 	return(1);
 }

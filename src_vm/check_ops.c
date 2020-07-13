@@ -14,10 +14,7 @@
 
 int			check_position(int pos)
 {
-	// if (pos >= MEM_SIZE)
-		return (pos % MEM_SIZE);
-	// else
-		// return (pos);
+	return (pos % MEM_SIZE);
 }
 
 int			get_arg(t_vm *vm, int i, int size)
@@ -28,8 +25,7 @@ int			get_arg(t_vm *vm, int i, int size)
 	j = -1;
 	arg = 0;
 	while (++j < size)
-		arg |= vm->arena[i++ % MEM_SIZE].i << ((size - j - 1) * 8);
-		// разобраться с делением на MEM_SIZE
+		arg |= vm->arena[check_position(i++)].i << ((size - j - 1) * 8);
 	if ((arg >> (size * 8 - 1)) & 1)
 	{
 		j = size * 8;
@@ -39,11 +35,11 @@ int			get_arg(t_vm *vm, int i, int size)
 	return (arg);
 }
 
-int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
+int			write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
-	int j;
-	int pos;
-	int size;
+	int		j;
+	int		pos;
+	int		size;
 
 	j = -1;
 	size = 0;
@@ -67,12 +63,12 @@ int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 	return (1);
 }
 
-int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
+int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
-	int j;
-	int pos;
-	int type;
-	int bytes;
+	int		j;
+	int		pos;
+	int		type;
+	int		bytes;
 
 	j = -1;
 	type = 0;
@@ -107,8 +103,8 @@ int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 
 int			check_op(t_vm *vm, t_cursor *cur)
 {
-	t_arg   args[OP(cur->op - 1).nb_arg];
-    int 	num_args;
+	t_arg	args[OP(cur->op - 1).nb_arg];
+    int		num_args;
 
 	num_args = OP(cur->op - 1).nb_arg;
 	if (!write_types(vm, cur, args, num_args))
@@ -116,12 +112,12 @@ int			check_op(t_vm *vm, t_cursor *cur)
 	if (!write_args(vm, cur, args, num_args))
 		return (0);
 	// отправить в свою команду
-	// send_to_op(cur);
+	// send_to_op(vm, cur, args);
 
 	// вывод аргументов для проверки
-	int i = -1;
-	while (++i < num_args)
-		printf("TYPE: %d ARG: %d\n", args[i].type, args[i].arg);
+	// int i = -1;
+	// while (++i < num_args)
+	// 	printf("TYPE: %d ARG: %d\n", args[i].type, args[i].arg);
 	
 	return (1);
 }
