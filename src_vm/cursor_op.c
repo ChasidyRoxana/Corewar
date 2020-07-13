@@ -57,13 +57,12 @@ int			count_size(t_vm *vm, int op, int i)
 	return (size);
 }
 
-int			cursor_op(t_vm *vm)
-{
 	//	каретки:
 	//	1. устанавливаем код операции
 	//	2. уменьшить количество циклов до исполнения
 	//	3. выполнить операцию
-	//
+int			cursor_op(t_vm *vm)
+{
 	t_cursor	*tmp;
 
 	tmp = vm->cur;
@@ -90,7 +89,7 @@ int			cursor_op(t_vm *vm)
 			//		2.	выполняем команду
 			if (tmp->op >= 1 && tmp->op <= 16) 
 				check_op(vm, tmp); // что делаем если возвращается 0? ничего же?
-			tmp->i += tmp->op_size; // подумооооть....
+			tmp->i += tmp->op_size;
 		}
 		tmp = tmp->next;
 	}
