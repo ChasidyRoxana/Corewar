@@ -25,7 +25,7 @@ static int	check_cursor(t_vm *vm, int *cycle)
 		{
 			tmp2 = vm->cur;
 			if (tmp2 == tmp)
-				vm->cur = tmp->next;
+				vm->cur = vm->cur->next;
 			else
 			{
 				while (tmp2->next != tmp && tmp2->next)

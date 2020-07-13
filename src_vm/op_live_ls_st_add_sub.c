@@ -45,13 +45,9 @@ void	op_ld(t_vm *vm, t_cursor *cur, t_arg *args)
 
 void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 {
-	int i;
-	int num;
 	int reg;
 	int	address;
 
-	i = 4;
-	num = 0;
 	address = 0;
 	reg = args[0].arg - 1;
 	if (args[1].type == T_REG)
