@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 19:56:51 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/12 20:51:29 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 12:14:47 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int         write_types(t_vm *vm, t_cursor *cur, int num_args)
 int			check_op(t_vm *vm, t_cursor *cur)
 {
 	int num_args;
-
+    // сделать статическим cur->args !!!
 	num_args = OP(cur->op - 1).nb_arg;
 	// выделяем память на кол-во аргументов в операции
 	if (!(cur->args = (t_arg*)malloc(sizeof(t_arg) * num_args)))
