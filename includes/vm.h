@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/12 20:49:49 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 12:54:24 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,8 @@ int			cursor_op(t_vm *vm);
 */
 int			check_position(int pos);
 int			get_arg(t_vm *vm, int i, int size);
-int         write_args(t_vm *vm, t_cursor *cur, int num_args);
-int         write_types(t_vm *vm, t_cursor *cur, int num_args);
+int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
+int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			check_op(t_vm *vm, t_cursor *cur);
 
 #endif

@@ -6,22 +6,20 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 19:56:51 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 12:14:47 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 12:59:06 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-// проверка выхода за 4096 (MEM_SIZE)
 int			check_position(int pos)
 {
-	if (pos >= MEM_SIZE)
+	// if (pos >= MEM_SIZE)
 		return (pos % MEM_SIZE);
-	else
-		return (pos);
+	// else
+		// return (pos);
 }
 
-// запись аргумента из disasm
 int			get_arg(t_vm *vm, int i, int size)
 {
 	int j;
@@ -41,7 +39,7 @@ int			get_arg(t_vm *vm, int i, int size)
 	return (arg);
 }
 
-int         write_args(t_vm *vm, t_cursor *cur, int num_args)
+int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
 	int j;
 	int pos;
@@ -54,23 +52,22 @@ int         write_args(t_vm *vm, t_cursor *cur, int num_args)
 		pos = check_position(pos + 1);
 	while (++j < num_args)
 	{
-		if (cur->args[j].type == T_REG)
-			size = 1; // макрос?
-		else if (cur->args[j].type == T_IND)
-			size = 2; // макрос?
-		else if (cur->args[j].type == T_DIR)
-			size = (OP(cur->op - 1).t_dir_size == 1) ? 2 : 4; // макросы?
-		cur->args[j].arg = get_arg(vm, pos, size);
-		// проверка регистров
-		if (cur->args[j].type == T_REG && (cur->args[j].arg <= 0 ||
-			cur->args[j].arg > REG_NUMBER))
+		if (args[j].type == T_REG)
+			size = 1;
+		else if (args[j].type == T_IND)
+			size = 2;
+		else if (args[j].type == T_DIR)
+			size = (OP(cur->op - 1).t_dir_size == 1) ? 2 : 4;
+		args[j].arg = get_arg(vm, pos, size);
+		if (args[j].type == T_REG && (args[j].arg <= 0 ||
+			args[j].arg > REG_NUMBER))
 			return (0);
 		pos = check_position(pos + size);
 	}
 	return (1);
 }
 
-int         write_types(t_vm *vm, t_cursor *cur, int num_args)
+int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
 	int j;
 	int pos;
@@ -94,35 +91,29 @@ int         write_types(t_vm *vm, t_cursor *cur, int num_args)
 					type = T_IND;
 				if ((type & OP(cur->op - 1).args[j]) == 0)
 					return (0);
-				cur->args[j].type = type;
+				args[j].type = type;
 			}
 			else
-			{
-				if ((vm->arena[pos].i >> bytes) & 3 != 0)
+				if (((vm->arena[pos].i >> bytes) & 3) != 0)
 					return (0);
-			}
 			bytes -= 2;
 		}
 	}
 	else 
 		while (++j < num_args)
-			cur->args[j].type = OP(cur->op - 1).args[j];
+			args[j].type = OP(cur->op - 1).args[j];
 	return (1);
 }
 
 int			check_op(t_vm *vm, t_cursor *cur)
 {
-	int num_args;
-    // сделать статическим cur->args !!!
+	t_arg   args[OP(cur->op - 1).nb_arg];
+    int 	num_args;
+
 	num_args = OP(cur->op - 1).nb_arg;
-	// выделяем память на кол-во аргументов в операции
-	if (!(cur->args = (t_arg*)malloc(sizeof(t_arg) * num_args)))
-		return (error_vm(ERR_MALLOC));
-	// смотрим код типов аргументов, записываем тип каждого аргумента в лист
-	if (!write_types(vm, cur, num_args))
+	if (!write_types(vm, cur, args, num_args))
 		return (0);
-	// считываем нужное количество байтов на аргумент, записываем каждый
-	if (!write_args(vm, cur, num_args))
+	if (!write_args(vm, cur, args, num_args))
 		return (0);
 	// отправить в свою команду
 	// send_to_op(cur);
@@ -130,7 +121,7 @@ int			check_op(t_vm *vm, t_cursor *cur)
 	// вывод аргументов для проверки
 	int i = -1;
 	while (++i < num_args)
-		printf("TYPE: %d ARG: %d\n", cur->args[i].type, cur->args[i].arg);
+		printf("TYPE: %d ARG: %d\n", args[i].type, args[i].arg);
 	
 	return (1);
 }
