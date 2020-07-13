@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 17:48:35 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/13 17:54:08 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct			s_arg
 typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
-	int					player_id; // номер игрока 
 	int					cursor_id; // уникальный номер каретки
 	int					carry;
 	int					live_cycle; // номер цикла, в котором последний раз выполнялась команда live
@@ -60,7 +59,6 @@ typedef struct			s_cursor
 	int					op_size; // размер операции, на которой стоит каретка
 	int					color;
 	struct s_cursor		*next;
-	// добавить цвет
 }						t_cursor;
 
 typedef struct			s_arena
@@ -163,5 +161,19 @@ void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
+**	op_and_or_xor_zjmp.c
+*/
+int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
+void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+**	op_fork_lfork_aff.c
+*/
+void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_aff(t_cursor *cur, t_arg args[]);
 
 #endif

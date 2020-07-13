@@ -21,7 +21,7 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	// printf("vm->cycle: %d, tmp->live_cycle: %d, cycle: %d\n", vm->cycle, tmp->live_cycle, *cycle);
 	while (tmp)
 	{
-		if (vm->cycle - tmp->live_cycle >= *cycle - 1)
+		if (vm->cycle - tmp->live_cycle >= *cycle)
 		{
 			tmp2 = vm->cur;
 			if (tmp2 == tmp)
@@ -61,6 +61,7 @@ static int	check_up(t_vm *vm, int *cycle, int *game)
 		vm->n_check++;
 	printf("%d, vm->n_check: %d\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
+	vm->n_live = 0;
 	return (1);
 }
 
@@ -71,9 +72,9 @@ int			game_cycle(t_vm *vm)
 	
 	play = 1;
 	cycle = 1;
-	vm->cycle = 0;
+	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
-	while(play)
+	while (play)
 	{
 	//	визуализация, если vm->v == 1
 	//	
@@ -83,6 +84,7 @@ int			game_cycle(t_vm *vm)
 		cycle++;
 		vm->cycle++;
 	}
+	vm->cycle--;
 	// финальная визуализация
 	printf("END\nvm->cycle: %d\n", vm->cycle);
 	return(1);
