@@ -50,7 +50,6 @@ typedef struct			s_arg
 typedef struct			s_cursor
 {
 	int					regs[REG_NUMBER]; // регистры
-	int					player_id; // номер игрока 
 	int					cursor_id; // уникальный номер каретки
 	int					carry;
 	int					live_cycle; // номер цикла, в котором последний раз выполнялась команда live
@@ -59,9 +58,7 @@ typedef struct			s_cursor
 	int					i; // текущая позиция каретки
 	int					op_size; // размер операции, на которой стоит каретка
 	int					color;
-	t_arg				*args;
 	struct s_cursor		*next;
-	// добавить цвет
 }						t_cursor;
 
 typedef struct			s_arena
@@ -145,5 +142,21 @@ int			check_op(t_vm *vm, t_cursor *cur);
 **	send_to_op.c
 */
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+**	op_and_or_xor_zjmp.c
+*/
+int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
+void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+**	op_fork_lfork_aff.c
+*/
+void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_aff(t_cursor *cur, t_arg args[]);
 
 #endif
