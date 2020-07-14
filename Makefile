@@ -44,7 +44,7 @@ SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 
 RES_VM = main.c error.c parse_args.c create_players.c game_cycle.c ncurses.c op.c \
 	create_cursor.c cursor_op.c check_ops.c send_to_op.c op_live_ls_st_add_sub.c \
-	op_ldi_sti_lld_lldi.c op_fork_lfork_aff.c op_and_or_xor_zjmp.c
+	op_ldi_sti_lld_lldi.c op_fork_lfork_aff.c op_and_or_xor_zjmp.c op_tools.c
 	
 
 SRC_VM = $(addprefix src_vm/,$(RES_VM))

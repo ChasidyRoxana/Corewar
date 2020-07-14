@@ -12,21 +12,6 @@
 
 #include "../includes/vm.h"
 
-void    write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
-{
-	int i;
-	int num;
-
-    i = 4;
-    num = cur->regs[reg];
-    while (--i >= 0)
-    {
-        vm->arena[(address + i) % MEM_SIZE].i = num % 256;
-        vm->arena[(address + i) % MEM_SIZE].color = cur->color - 1;
-        num /= 256;
-    }
-}
-
 void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
 {
 	int reg;

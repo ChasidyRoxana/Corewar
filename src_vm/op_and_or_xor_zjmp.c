@@ -1,17 +1,6 @@
 
 #include "../includes/vm.h"
 
-// возвращает значение регистра/дира/значение по инд(%IDX_MOD)
-int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i)
-{
-	if (args[i].type == T_REG)
-		return (cur->regs[args[i].arg - 1]);
-	else if (args[0].type == T_DIR)
-		return (args[i].arg);
-	else
-		return (get_arg(vm, cur->i + (args[i].arg % IDX_MOD), 4));
-}
-
 void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	int		result;
@@ -51,11 +40,11 @@ void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
 	cur->carry = (result == 0 ? 1 : 0);
 }
 
-void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
+void		op_zjmp(t_cursor *cur, t_arg args[])
 {
 	if (cur->carry)
 	{
-		cur->i = (cur->i + (set_arg(vm, cur, args, 0) % IDX_MOD)) % MEM_SIZE;
+		cur->i = check_position(args[0].arg);
 		cur->op_size = 0;
 	}
 }

@@ -36,13 +36,13 @@ static void	create_new_cursor(t_vm *vm, t_cursor *cur)
 void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
-	vm->cur->i += (args[0].arg % IDX_MOD) % MEM_SIZE;
+	vm->cur->i += check_position(args[0].arg % IDX_MOD);
 }
 
 void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
-	vm->cur->i += args[0].arg % MEM_SIZE;
+	vm->cur->i += check_position(args[0].arg);
 }
 
 void		op_aff(t_cursor *cur, t_arg args[])

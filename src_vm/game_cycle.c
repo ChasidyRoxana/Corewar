@@ -54,7 +54,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 		*game = 0;
 		return ;
 	}
-	printf("vm->cycles_to_die %d -> ", vm->cycles_to_die);
+	printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",vm->n_live, vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
@@ -62,7 +62,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-	printf("%d, vm->n_check: %d\n", vm->cycles_to_die, vm->n_check);
+	printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
 	vm->n_live = 0;
 }

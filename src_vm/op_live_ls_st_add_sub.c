@@ -36,7 +36,7 @@ void	op_ld(t_vm *vm, t_cursor *cur, t_arg *args)
 		arg = args[0].arg;
 	else if (args[0].arg == T_IND)
 	{
-		address = cur->i + (args[0].arg % IDX_MOD);
+		address = check_position(cur->i + (args[0].arg % IDX_MOD));
 		arg = get_arg(vm, address, 4);
 	}
 	cur->regs[reg] = arg;
@@ -54,7 +54,7 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 		cur->regs[args[1].arg - 1] = cur->regs[reg];
 	else if (args[1].type == T_IND)
 	{
-		address = cur->i + (args[1].arg % IDX_MOD);
+		address = check_position(cur->i + (args[1].arg % IDX_MOD));
 		write_to_memory(vm, cur, reg, address);
 	}
 }
@@ -88,6 +88,3 @@ void	op_sub(t_cursor *cur, t_arg *args)
 	cur->regs[reg_three] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
 }
-
-// проверить ft_memset для regs
-// замемсетить арену

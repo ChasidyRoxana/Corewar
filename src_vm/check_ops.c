@@ -12,29 +12,6 @@
 
 #include "../includes/vm.h"
 
-int			check_position(int pos)
-{
-	return (pos % MEM_SIZE);
-}
-
-int			get_arg(t_vm *vm, int i, int size)
-{
-	int j;
-	int arg;
-
-	j = -1;
-	arg = 0;
-	while (++j < size)
-		arg |= vm->arena[check_position(i++)].i << ((size - j - 1) * 8);
-	if ((arg >> (size * 8 - 1)) & 1)
-	{
-		j = size * 8;
-		while (j < 32)
-			arg |= 1 << j++;
-	}
-	return (arg);
-}
-
 int			write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
 	int		j;

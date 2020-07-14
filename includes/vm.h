@@ -134,7 +134,6 @@ int			cursor_op(t_vm *vm);
 ** check_ops.c
 */
 int			check_position(int pos);
-int			get_arg(t_vm *vm, int i, int size);
 int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			check_op(t_vm *vm, t_cursor *cur);
@@ -143,6 +142,13 @@ int			check_op(t_vm *vm, t_cursor *cur);
 **	send_to_op.c
 */
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+**	op_tools.c
+*/
+int			get_arg(t_vm *vm, int i, int size);
+void    	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
+int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 
 /*
 **	op_live_ls_st_add_sub.c
@@ -156,7 +162,6 @@ void		op_sub(t_cursor *cur, t_arg *args);
 /*
 **	op_ldi_sti_lld_lldi.c
 */
-void    	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
 void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
 void		op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
@@ -165,11 +170,10 @@ void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
 /*
 **	op_and_or_xor_zjmp.c
 */
-int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_zjmp(t_cursor *cur, t_arg args[]);
 
 /*
 **	op_fork_lfork_aff.c
