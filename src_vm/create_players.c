@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:03:40 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 20:27:34 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:18:38 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		fill_arena(t_vm *vm, t_player player, int color)
 	{
 		vm->arena[i].i = code[j];
         vm->arena[i].color = (j == 0) ? (color + 1) : color;
+		vm->arena[i].prev_color = color;
 		i++;
 	}
 	return (1);

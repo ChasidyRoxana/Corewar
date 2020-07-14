@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 18:44:15 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:37:15 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		create_cursors(t_vm *vm)
 			return (0);
 		vm->cur->regs[0] = vm->player[i].id * (-1); // номер игрока со знаком минус
 		vm->cur->cursor_id = i + 1; // id каретки
-
+		vm->cur->color = (i + 1) * 2;
 		vm->cur->cycles_left = 0;
 		vm->cur->i = vm->player[i].i; // текущая позиция каретки
 		

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/08 20:56:13 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:33:54 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ void	print_ncurses(t_vm *vm)
 	if (vm->v)
 	{
 		erase(); // или лучше clear ? проверить
-        while (true) // убрать потом ?
-        {
-            while (i < MEM_SIZE)
-            {
-                printf("%d\n", vm->arena[i].color);
-                attron(COLOR_PAIR(vm->arena[i].color));
-                printw("%0.2x", vm->arena[i].i);
-                attroff(COLOR_PAIR(vm->arena[i].color));
-                printw(" ");
-                i++;
-                if (i % 64 == 0)
-                    printw("\n");
-            }
-            refresh();
-        }
+		while (i < MEM_SIZE)
+		{
+			// printw("%d", vm->arena[i].color);
+			// printf("%d\n", vm->arena[i].color);
+			attron(COLOR_PAIR(vm->arena[i].color));
+			printw("%.2x", vm->arena[i].i);
+			attroff(COLOR_PAIR(vm->arena[i].color));
+			printw(" ");
+			i++;
+			if (i % 64 == 0)
+				printw("\n");
+		}
+		refresh();
 		// getch();
-		endwin();
+		// endwin();
 	}
 }
 
 void	start_ncurses(t_vm *vm)
 {
 	init_ncurses();
-	print_ncurses(vm);
+	if (!vm)
+		return ;
+	// print_ncurses(vm);
 }

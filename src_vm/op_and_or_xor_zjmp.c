@@ -12,6 +12,7 @@ void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg & second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
+	// printf("AND: reg%d = %d\n", args[2].arg - 1, result);
 }
 
 void		op_or(t_vm *vm, t_cursor *cur, t_arg args[])
@@ -25,6 +26,7 @@ void		op_or(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg | second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
+	// printf("OR: reg%d = %d\n", args[2].arg - 1, result);
 }
 
 void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
@@ -38,6 +40,7 @@ void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg ^ second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
+	// printf("XOR: reg%d = %d\n", args[2].arg - 1, result);
 }
 
 void		op_zjmp(t_cursor *cur, t_arg args[])
@@ -46,5 +49,10 @@ void		op_zjmp(t_cursor *cur, t_arg args[])
 	{
 		cur->i = check_position(args[0].arg);
 		cur->op_size = 0;
+		// printf("ZJMP %d\n", cur->i);
 	}
+	// else
+	// {
+		// printf("ZJMP FAILED\n");
+	// }
 }

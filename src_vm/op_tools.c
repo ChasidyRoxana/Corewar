@@ -27,15 +27,18 @@ int			get_arg(t_vm *vm, int i, int size)
 
 void    write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
 {
-	int i;
-	int num;
+	int 			i;
+	unsigned int	num;
 
     i = 4;
     num = cur->regs[reg];
     while (--i >= 0)
     {
         vm->arena[check_position(address + i)].i = num % 256;
-        vm->arena[check_position(address + i)].color = cur->color - 1;
+		if (vm->arena[check_position(address + i)].color % 2 != 0 || 
+			vm->arena[check_position(address + i)].color == 0)
+        	vm->arena[check_position(address + i)].color = cur->color - 1;
+		vm->arena[check_position(address + i)].prev_color = cur->color - 1;
         num /= 256;
     }
 }
@@ -45,7 +48,7 @@ int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i)
 {
 	if (args[i].type == T_REG)
 		return (cur->regs[args[i].arg - 1]);
-	else if (args[0].type == T_DIR)
+	else if (args[i].type == T_DIR)
 		return (args[i].arg);
 	else
 		return (get_arg(vm, cur->i + (args[i].arg % IDX_MOD), 4));

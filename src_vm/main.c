@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 18:12:07 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 15:53:19 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_arena(t_vm *vm)
 	int i;
 
 	i = 0;
+	printf("\033[1J\033[;H");
 	while (i < MEM_SIZE)
 	{
 		printf("%.2x ", vm->arena[i].i);
@@ -24,6 +25,7 @@ void	print_arena(t_vm *vm)
 		if (i % 64 == 0)
 			printf("\n");
 	}
+	usleep(50000);
 }
 
 int		main(int argc, char **argv)
@@ -38,8 +40,8 @@ int		main(int argc, char **argv)
 		// if (vm.v)
 		// 	start_ncurses(&vm);
 		// else
-		// 	print_arena(&vm);
-		printf("game cycle\n");
+			// print_arena(&vm);
+		// printf("game cycle\n");
 		game_cycle(&vm);
 	}
 	// free_all(&vm);

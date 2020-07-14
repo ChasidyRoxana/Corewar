@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 15:35:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/13 18:08:05 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:04:59 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void	send_to_op2(t_vm *vm, t_cursor *cur, t_arg args[])
 
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-	printf("cur %d: %s\n", cur->cursor_id, OP(cur->op - 1).name);
+	// printf("cur %d: %s\n", cur->cursor_id, OP(cur->op - 1).name);
+	// printf("cur %d:", cur->cursor_id);
 
 	if (cur->op == 1)
 		op_live(vm, cur, args);

@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/13 18:26:03 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:50:52 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	check_cursor(t_vm *vm, int *cycle)
 					tmp2 = tmp2->next;
 				tmp2->next = tmp->next;
 			}
-			printf("delete %d cursor\n", tmp->cursor_id);
+			// printf("delete %d cursor\n", tmp->cursor_id);
+			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color;
 			free(tmp);
 			tmp = vm->cur;
 		}
@@ -54,7 +55,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 		*game = 0;
 		return ;
 	}
-	printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",vm->n_live, vm->cycles_to_die);
+	// printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",vm->n_live, vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
@@ -62,7 +63,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-	printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
+	// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
 	vm->n_live = 0;
 }
@@ -76,6 +77,7 @@ int			game_cycle(t_vm *vm)
 	cycle = 1;
 	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
+	start_ncurses(vm);
 	while (play)
 	{
 	//	визуализация, если vm->v == 1
@@ -85,9 +87,12 @@ int			game_cycle(t_vm *vm)
 			check_up(vm, &cycle, &play);
 		cycle++;
 		vm->cycle++;
+		print_ncurses(vm);
 	}
 	vm->cycle--;
+	print_ncurses(vm);
 	// финальная визуализация
-	printf("END\nvm->cycle: %d\n", vm->cycle);
+	// print_arena(vm);
+	// printf("END\nvm->cycle: %d\n", vm->cycle);
 	return(1);
 }

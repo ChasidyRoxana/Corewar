@@ -6,7 +6,7 @@
 /*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:56:07 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/13 17:56:09 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/14 17:04:46 by tkarpukova       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i += check_position(args[0].arg % IDX_MOD);
+	// printf("FORK %d\n", vm->cur->i);
 }
 
 void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i += check_position(args[0].arg);
+	// printf("LFORK %d\n", vm->cur->i);
 }
 
 void		op_aff(t_cursor *cur, t_arg args[])
