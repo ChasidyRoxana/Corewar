@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/15 22:11:13 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 00:07:51 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		is_separator(char c)
 int		is_args(char c)
 {
 	return (c == '%' || c == 'r' || c == LABEL_CHAR
-		|| (c >= '0' && c <= '9') || c == '-');
+		|| is_numeric(c) || c == '-');
 }
 
 int		is_space(char c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/29 19:42:17 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 00:16:09 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	if ((OP(index_op).args[asmb->comm_last->num_args] & tmp->type) == 0)
 		return (error_args(ERR_ARG, asmb->comm_last, 0, (*i)));
 	last = *i;
-	if (asmb->gnl_last->line[*i] == '-')
-	{
-		(*i)++;
-		if (!(asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9'))
-			return (error_line(ERR_SYNTAX, asmb->gnl_last, (*i)));
-	}
-	if (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
-		while (asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
-		{
-			(*i)++;
-			err = 1;
-		}
-	else if (asmb->gnl_last->line[*i] == ':')
-	{
-		last = *i;
-		while (asmb->gnl_last->line[++(*i)] && ft_strchr(LABEL_CHARS, asmb->gnl_last->line[*i]))
-			err = 1;
-	}
+	if (!check_numeric(asmb, &err, i, &last))
+		return (0);
 	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])) || err == 0)
 		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
@@ -115,8 +99,9 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			(*i)++;
 			tmp->type = T_DIR;
 		}
-		else if (asmb->gnl_last->line[*i] == ':' || (asmb->gnl_last->line[*i] >= '0'
-			&& asmb->gnl_last->line[*i] <= '9') || asmb->gnl_last->line[*i] == '-')
+		else if (asmb->gnl_last->line[*i] == ':' || // нормальная индентация?
+		(asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
+		|| asmb->gnl_last->line[*i] == '-')
 			tmp->type = T_IND;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
@@ -127,10 +112,9 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 int			find_args(t_asm *asmb, int i, int index_op)
 {
 	t_args	*tmp;
-	int		check;
+	int		res;
 
 	tmp = NULL;
-	check = -1;
 	while (is_space(asmb->gnl_last->line[i]))
 		i++;
 	while (asmb->gnl_last->line[i])
@@ -144,16 +128,9 @@ int			find_args(t_asm *asmb, int i, int index_op)
 			tmp = tmp->next;
 		if (is_args(asmb->gnl_last->line[i]))
 		{
-			if (!proceed_args(asmb, tmp, &i, index_op))
-				return (0);
-			if ((check = double_check_args(asmb, &i)) == 0)
-				return (0);
-			else if (check == 1)
-			{
-				if (asmb->comm_last->num_args != OP(index_op).nb_arg)
-					return (error_args(ERR_MIN_ARG, asmb->comm_last, 0, i));
-				return (1);
-			}
+			res = parse_args(asmb, tmp, &i, index_op);
+			if (res == 0 || res == 1)
+				return (res);
 		}
 		else
 			return (error_line(ERR_SYNTAX, asmb->gnl_last, i));

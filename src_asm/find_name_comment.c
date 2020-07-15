@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/15 22:17:16 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/15 23:51:44 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		check_next_line(char *line, int j, t_gnl **tmp, int length)
 	return (1);
 }
 
-int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length)
+int		create_namecom(char *line, char *name_com, t_gnl **tmp, int length)
 {
 	int		i;
 	int		j;
@@ -70,6 +70,31 @@ int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length)
 	return (1);
 }
 
+int		check_name_comment(t_gnl **tmp, int i, t_asm *asmb, int length)
+{
+	int error;
+
+	if (length == PROG_NAME_LENGTH)
+	{
+		error = create_namecom((*tmp)->line + i + ft_strlen(NAME_CMD_STRING),
+					asmb->header.prog_name, tmp, PROG_NAME_LENGTH);
+		if (error == 0)
+			return ((ft_strlen(asmb->header.prog_name) == PROG_NAME_LENGTH) ?
+				0 : error_line(ERR_NAME, *tmp, -1));
+			asmb->flag_name += 1;
+	}
+	else
+	{
+		error = create_namecom((*tmp)->line + i + ft_strlen(COMMENT_CMD_STRING),
+				asmb->header.comment, tmp, COMMENT_LENGTH);
+		if (error == -1)
+			return ((ft_strlen(asmb->header.comment) == COMMENT_LENGTH) ?
+				0 : error_line(ERR_COMMENT, *tmp, -1));
+			asmb->flag_comment += 1;
+	}
+	return (1);
+}
+
 int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 {
 	int error;
@@ -77,25 +102,9 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 	error = 0;
 	asmb->header.magic = COREWAR_EXEC_MAGIC;
 	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)
-	{
-		error = create_name_comment((*tmp)->line + i + ft_strlen(NAME_CMD_STRING),
-				asmb->header.prog_name, tmp, PROG_NAME_LENGTH);
-		if (error == 0)
-			return ((ft_strlen(asmb->header.prog_name) == PROG_NAME_LENGTH) ?
-				0 : error_line(ERR_NAME, *tmp, -1));
-			asmb->flag_name += 1;
-		return (1);
-	}
+		return (check_name_comment(tmp, i, asmb, PROG_NAME_LENGTH));
 	else if (ft_strcmp((*tmp)->line + i, COMMENT_CMD_STRING) > 0)
-	{
-		error = create_name_comment((*tmp)->line + i + ft_strlen(COMMENT_CMD_STRING),
-				asmb->header.comment, tmp, COMMENT_LENGTH);
-		if (error == -1)
-			return ((ft_strlen(asmb->header.comment) == COMMENT_LENGTH) ?
-				0 : error_line(ERR_COMMENT, *tmp, -1));
-			asmb->flag_comment += 1;
-		return (1);
-	}
+		return (check_name_comment(tmp, i, asmb, COMMENT_LENGTH));
 	else
 		return (error_common(ERR_NOT_COMMAND));
 }

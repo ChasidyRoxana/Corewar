@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/15 22:22:11 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/15 23:39:20 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			find_command(t_asm *asmb, char *line)
 	if (j > 5 || (j = check_op_name(com)) == -1)
 		return (error_line(ERR_OP, asmb->comm_last->gnl_line, k));
 	asmb->comm_last->op = j;
-	if (!find_args(asmb, i + 1, asmb->comm_last->op - 1))
+	if (!find_args(asmb, i, asmb->comm_last->op - 1))
 		return (0);
 	command_size(asmb, asmb->comm_last);
 	return (1);
@@ -108,7 +108,7 @@ int			check_command(t_asm *asmb)
 
 	line = asmb->gnl_last->line;
 	i = skip_first_spaces(line);
-	if (line[i] == '\0' || line[i] == COMMENT_CHAR)
+	if (line[i] == '\0' || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2)
 		return (1);
 	if (!new_command(asmb))
 		return (0);

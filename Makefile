@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+         #
+#    By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/06 16:37:34 by croxana           #+#    #+#              #
-#    Updated: 2020/07/13 18:06:42 by tkarpukova       ###   ########.fr        #
+#    Updated: 2020/07/15 23:58:59 by tpepperm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ DISASM = disasm
 VM = corewar
 
 RES_ASM = main.c read_file.c find_name_comment.c name_comment_utils.c error.c parse_commands.c \
-	find_label.c check_command.c find_args.c op.c check_comm_list.c write_to_file.c
+	find_label.c check_command.c find_args.c op.c check_comm_list.c write_to_file.c \
+	find_args_utils.c
 
 SRC_ASM = $(addprefix src_asm/,$(RES_ASM))
 

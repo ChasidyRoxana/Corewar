@@ -5,4 +5,6 @@
 t....."
 
 st r1, r4
-ldi r1, %0, r3
+live %0
+ldi r1, %-5, r3
+ld %5, r5

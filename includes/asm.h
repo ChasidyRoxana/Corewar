@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/15 22:14:38 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 00:15:33 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ int			length_error(int index, int length);
 ** find_name_comment.c
 */
 int			check_next_line(char *line, int j, t_gnl **tmp, int length);
-int			create_name_comment(char *line, char *name_com, t_gnl **tmp, int length);
+int			create_namecom(char *line, char *name_com, t_gnl **tmp, int length);
+int			check_name_comment(t_gnl **tmp, int i, t_asm *asmb, int length);
 int			proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb);
 int			find_name_comment(t_asm *asmb);
 
@@ -131,6 +132,7 @@ int			parse_commands(t_asm *asmb);
 ** find_label.c
 */
 int			malloc_label(t_command *command);
+int			create_label(t_asm *asmb, t_gnl *tmp, int *i);
 int			find_label(t_asm *asmb);
 
 /*
@@ -148,6 +150,13 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int			double_check_args(t_asm *asmb, int *i);
 int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
 int			find_args(t_asm *asmb, int i, int index_op);
+
+/*
+** find_args_utils.c
+*/
+int			is_numeric(char c);
+int			check_numeric(t_asm *asmb, int *err, int *i, int *last);
+int			parse_args(t_asm *asmb, t_args *tmp, int *i, int index_op);
 
 /*
 ** check_comm_list.c
