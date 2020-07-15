@@ -23,7 +23,9 @@ SRC = ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c \
 	  ft_strsub.c ft_strtrim.c ft_swap.c get_next_line.c\
 	  ft_printf.c ft_printf_flags.c ft_printf_c.c ft_printf_s.c ft_printf_p.c \
 	  ft_printf_per.c ft_printf_x.c ft_printf_o.c ft_printf_u.c ft_printf_di.c \
-	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c ft_free_split.c
+	  ft_printf_f.c ft_printf_func.c ft_printf_color.c ft_printf_b.c ft_free_split.c \
+	  ft_fdprintf.c ft_fdprintf_b_c_per.c ft_fdprintf_di.c ft_fdprintf_f.c \
+	  ft_fdprintf_p_s.c ft_fdprintf_u.c ft_fdprintf_x_o.c
 
 FLAG = -Wall -Werror -Wextra
 
@@ -38,7 +40,9 @@ OBG = ft_atoi.o ft_itoa.o ft_lstadd.o ft_lstdel.o ft_lstdelone.o ft_lstiter.o \
 	  ft_strsub.o ft_strtrim.o ft_swap.o get_next_line.o\
 	  ft_printf.o ft_printf_flags.o ft_printf_c.o ft_printf_s.o ft_printf_p.o \
 	  ft_printf_per.o ft_printf_x.o ft_printf_o.o ft_printf_u.o ft_printf_di.o \
-	  ft_printf_f.o ft_printf_func.o ft_printf_color.o ft_printf_b.o ft_free_split.o
+	  ft_printf_f.o ft_printf_func.o ft_printf_color.o ft_printf_b.o ft_free_split.o \
+	  ft_fdprintf.o ft_fdprintf_b_c_per.o ft_fdprintf_di.o ft_fdprintf_f.o \
+	  ft_fdprintf_p_s.o ft_fdprintf_u.o ft_fdprintf_x_o.o
 
 INC = libft.h
 

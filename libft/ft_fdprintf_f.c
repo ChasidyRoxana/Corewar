@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_f.c                                      :+:      :+:    :+:   */
+/*   ft_fdprintf_f.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: croxana <croxana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/14 12:55:24 by croxana           #+#    #+#             */
-/*   Updated: 2019/10/14 13:46:34 by croxana          ###   ########.fr       */
+/*   Created: 2020/07/15 18:00:20 by marvin            #+#    #+#             */
+/*   Updated: 2020/07/15 18:00:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void			ft_continue(t_form *pt, char *s, char *ds, long double d)
 	if (pt->minus != 1 && pt->zero != 1)
 		ft_print_sp(pt, pt->width - n, 32);
 	if (d < 0.0)
-		write(1, "-", 1);
+		write(pt->fd, "-", 1);
 	else if (pt->plus == 1 || pt->space == 1)
-		write(1, (pt->plus == 1 ? "+" : " "), 1);
+		write(pt->fd, (pt->plus == 1 ? "+" : " "), 1);
 	if (pt->minus != 1 && pt->zero == 1)
 		ft_print_sp(pt, pt->width - n, 48);
-	ft_printf("%s.%s", s, ds);
+	ft_fdprintf(pt->fd, "%s.%s", s, ds);
 	if (pt->minus == 1)
 		ft_print_sp(pt, pt->width - n, 32);
 }
@@ -50,14 +50,14 @@ static int			ft_print_str(t_form *pt, char *s, char *ds, long double d)
 		if (pt->minus != 1 && pt->zero != 1)
 			ft_print_sp(pt, pt->width - n, 32);
 		if (d < 0.0)
-			write(1, "-", 1);
+			write(pt->fd, "-", 1);
 		else if (pt->plus == 1 || pt->space == 1)
-			write(1, (pt->plus == 1 ? "+" : " "), 1);
+			write(pt->fd, (pt->plus == 1 ? "+" : " "), 1);
 		if (pt->minus != 1 && pt->zero == 1)
 			ft_print_sp(pt, pt->width - n, 48);
-		ft_printf("%s", s);
+		ft_fdprintf(pt->fd, "%s", s);
 		if (pt->hash == 1)
-			write(1, ".", 1);
+			write(pt->fd, ".", 1);
 		if (pt->minus == 1)
 			ft_print_sp(pt, pt->width - n, 32);
 	}
@@ -91,7 +91,7 @@ static char			*ft_check_ds(t_form *pt, long double d2)
 	return (ds);
 }
 
-int					ft_printf_f(t_form *pt)
+int					ft_fdprintf_f(t_form *pt)
 {
 	long double	d;
 	long double	d2;

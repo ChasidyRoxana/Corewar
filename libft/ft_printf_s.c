@@ -15,10 +15,10 @@
 static int	ft_print_str(t_form *pt, char *s, int len)
 {
 	if (pt->minus != 1)
-		ft_print_sp(pt->width - len, (pt->zero == 1 ? '0' : ' '));
+		ft_print_sp(pt, pt->width - len, (pt->zero == 1 ? '0' : ' '));
 	write(1, s, len);
 	if (pt->minus == 1)
-		ft_print_sp(pt->width - len, ' ');
+		ft_print_sp(pt, pt->width - len, ' ');
 	return (1);
 }
 

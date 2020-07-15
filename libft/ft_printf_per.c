@@ -17,12 +17,12 @@ int		ft_printf_per(t_form *pt)
 	if (pt->minus != 1)
 	{
 		if (pt->zero == 1)
-			ft_print_sp(pt->width - 1, '0');
+			ft_print_sp(pt, pt->width - 1, '0');
 		else
-			ft_print_sp(pt->width - 1, ' ');
+			ft_print_sp(pt, pt->width - 1, ' ');
 	}
 	write(1, "%%", 1);
 	if (pt->minus == 1)
-		ft_print_sp(pt->width - 1, ' ');
+		ft_print_sp(pt, pt->width - 1, ' ');
 	return (1);
 }

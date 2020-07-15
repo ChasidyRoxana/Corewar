@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_p.c                                      :+:      :+:    :+:   */
+/*   ft_fdprintf_p_s.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: croxana <croxana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 14:17:25 by croxana           #+#    #+#             */
-/*   Updated: 2019/10/14 13:46:46 by croxana          ###   ########.fr       */
+/*   Created: 2020/07/15 18:28:41 by marvin            #+#    #+#             */
+/*   Updated: 2020/07/15 18:28:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int			ft_count_b(unsigned long int n, int c)
-{
-	int	i;
-
-	i = 0;
-	while (n > 0)
-	{
-		n >>= c;
-		i++;
-	}
-	return (i);
-}
 
 static int	ft_print_p(t_form *pt, char *s)
 {
@@ -42,7 +29,7 @@ static int	ft_print_p(t_form *pt, char *s)
 	return (1);
 }
 
-int			ft_printf_p(t_form *pt)
+int			ft_fdprintf_p(t_form *pt)
 {
 	unsigned long int	num;
 	unsigned long int	n;
@@ -63,5 +50,31 @@ int			ft_printf_p(t_form *pt)
 	ft_check_prec(pt, &s, 'l');
 	ft_print_p(pt, s);
 	free(s);
+	return (1);
+}
+
+static int	ft_print_str(t_form *pt, char *s, int len)
+{
+	if (pt->minus != 1)
+		ft_print_sp(pt, pt->width - len, (pt->zero == 1 ? '0' : ' '));
+	write(pt->fd, s, len);
+	if (pt->minus == 1)
+		ft_print_sp(pt, pt->width - len, ' ');
+	return (1);
+}
+
+int			ft_fdprintf_s(t_form *pt)
+{
+	char	*s;
+	int		len;
+
+	s = va_arg(*(pt->ptr), char*);
+	if (s == 0)
+		s = "(null)";
+	len = ft_strlen(s);
+	if (pt->precision != -1 && len > pt->precision)
+		ft_print_str(pt, s, pt->precision);
+	else
+		ft_print_str(pt, s, len);
 	return (1);
 }

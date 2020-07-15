@@ -33,6 +33,7 @@ typedef struct		s_form
 {
 	va_list			*ptr;
 	char			*format;
+	int				fd;
 	int				i;
 	int				j;
 	int				width;
@@ -99,21 +100,17 @@ void				ft_swap(int *a, int *b);
 int					get_next_line(const int fd, char **line);
 
 int					ft_printf(const char *format, ...);
-void				ft_form_fill(t_form *pt);
 
-int					ft_flags(t_form *pt);
 int					ft_flag_three(t_form *pt);
 int					ft_flag_two(t_form *pt);
 int					ft_flag_one(t_form *pt);
-int					ft_print_sp(int n, char c);
+int					ft_print_sp(t_form *pt, int n, char c);
 int					ft_count_b(unsigned long int n, int c);
 void				ft_length_u(t_form *pt, unsigned long int *li);
 void				ft_check_prec(t_form *pt, char **s, char side);
 char				*ft_itoa_l(long l);
 int					ft_printf_color(t_form *pt);
 
-int					ft_type_check(t_form *pt);
-int					ft_print_type(t_form *pt);
 int					ft_printf_c(t_form *pt);
 int					ft_printf_s(t_form *pt);
 int					ft_printf_p(t_form *pt);
@@ -125,5 +122,18 @@ int					ft_printf_u(t_form *pt);
 int					ft_printf_f(t_form *pt);
 int					ft_printf_b(t_form *pt);
 void				ft_free_split(char **tmp);
+
+int					ft_fdprintf(int fd, const char *restrict format, ...);
+
+int					ft_fdprintf_c(t_form *pt);
+int					ft_fdprintf_per(t_form *pt);
+int					ft_fdprintf_b(t_form *pt);
+int					ft_fdprintf_di(t_form *pt);
+int					ft_fdprintf_f(t_form *pt);
+int					ft_fdprintf_p(t_form *pt);
+int					ft_fdprintf_s(t_form *pt);
+int					ft_fdprintf_u(t_form *pt);
+int					ft_fdprintf_x(t_form *pt);
+int					ft_fdprintf_o(t_form *pt);
 
 #endif

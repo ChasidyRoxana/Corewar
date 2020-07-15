@@ -29,10 +29,10 @@ void	ft_check_prec(t_form *pt, char **s, char side)
 	}
 }
 
-int		ft_print_sp(int n, char c)
+int		ft_print_sp(t_form *pt, int n, char c)
 {
 	while (n-- > 0)
-		write(1, &c, 1);
+		write(pt->fd, &c, 1);
 	return (1);
 }
 

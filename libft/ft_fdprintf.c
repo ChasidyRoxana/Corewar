@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_fdprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: croxana <croxana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 15:40:54 by croxana           #+#    #+#             */
-/*   Updated: 2019/12/12 12:44:48 by croxana          ###   ########.fr       */
+/*   Created: 2020/07/15 17:46:23 by marvin            #+#    #+#             */
+/*   Updated: 2020/07/15 17:46:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 static int	ft_print_type(t_form *pt)
 {
 	if (pt->format[pt->i] == 'c')
-		ft_printf_c(pt);
+		ft_fdprintf_c(pt);
 	else if (pt->format[pt->i] == 's')
-		ft_printf_s(pt);
+		ft_fdprintf_s(pt);
 	else if (pt->format[pt->i] == 'p')
-		ft_printf_p(pt);
+		ft_fdprintf_p(pt);
 	else if (pt->format[pt->i] == '%')
-		ft_printf_per(pt);
+		ft_fdprintf_per(pt);
 	else if (pt->format[pt->i] == 'x' || pt->format[pt->i] == 'X')
-		ft_printf_x(pt);
+		ft_fdprintf_x(pt);
 	else if (pt->format[pt->i] == 'o')
-		ft_printf_o(pt);
+		ft_fdprintf_o(pt);
 	else if (pt->format[pt->i] == 'u' || pt->format[pt->i] == 'D')
-		ft_printf_u(pt);
+		ft_fdprintf_u(pt);
 	else if (pt->format[pt->i] == 'd' || pt->format[pt->i] == 'i')
-		ft_printf_di(pt);
+		ft_fdprintf_di(pt);
 	else if (pt->format[pt->i] == 'f' || pt->format[pt->i] == 'F')
-		ft_printf_f(pt);
+		ft_fdprintf_f(pt);
 	else if (pt->format[pt->i] == 'b')
-		ft_printf_b(pt);
+		ft_fdprintf_b(pt);
 	return (1);
 }
 
@@ -60,7 +60,6 @@ static int	ft_type_check(t_form *pt)
 
 static void	ft_form_fill(t_form *pt)
 {
-	pt->fd = 1;
 	pt->width = 0;
 	pt->precision = -1;
 	pt->plus = 0;
@@ -88,17 +87,15 @@ static int	ft_flags(t_form *pt)
 			ft_form_fill(pt);
 			ft_type_check(pt);
 		}
-		else if (pt->format[pt->i] == '{')
-			ft_printf_color(pt);
 		else
-			write(1, &(pt->format[pt->i]), 1);
+			write(pt->fd, &(pt->format[pt->i]), 1);
 		pt->i++;
 		pt->j++;
 	}
 	return (1);
 }
 
-int			ft_printf(const char *restrict format, ...)
+int			ft_fdprintf(int fd, const char *restrict format, ...)
 {
 	va_list	ptr;
 	t_form	pt;
@@ -106,6 +103,7 @@ int			ft_printf(const char *restrict format, ...)
 	va_start(ptr, format);
 	pt.format = ft_strdup(format);
 	pt.ptr = &ptr;
+	pt.fd = fd;
 	ft_flags(&pt);
 	va_end(ptr);
 	free(pt.format);

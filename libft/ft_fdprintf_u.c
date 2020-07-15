@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_u.c                                      :+:      :+:    :+:   */
+/*   ft_fdprintf_u.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: croxana <croxana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/13 13:47:12 by croxana           #+#    #+#             */
-/*   Updated: 2019/10/14 13:46:53 by croxana          ###   ########.fr       */
+/*   Created: 2020/07/15 18:20:02 by marvin            #+#    #+#             */
+/*   Updated: 2020/07/15 18:20:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static int	ft_print_str(t_form *pt, char *s)
 		else
 			ft_print_sp(pt, pt->width - n, 48);
 	}
-	write(1, s, n);
+	write(pt->fd, s, n);
 	if (pt->minus == 1)
 		ft_print_sp(pt, pt->width - n, 32);
 	return (1);
 }
 
-int			ft_printf_u(t_form *pt)
+int			ft_fdprintf_u(t_form *pt)
 {
 	unsigned long int	lu;
 	unsigned long int	lu2;

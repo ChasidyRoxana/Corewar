@@ -19,19 +19,19 @@ static int	ft_print_str(t_form *pt, char *s, unsigned long lo)
 	if ((n = ft_strlen(s)) == 0)
 		n = 1;
 	if (pt->precision == 0 && pt->hash == 0)
-		return (ft_print_sp(pt->width, 32));
+		return (ft_print_sp(pt, pt->width, 32));
 	if (pt->minus != 1)
 		if (pt->zero != 1 || (pt->zero == 1 && pt->precision != -1))
-			ft_print_sp((pt->hash == 1 && s[0] != '0' ? pt->width - n - 1 :
+			ft_print_sp(pt, (pt->hash == 1 && s[0] != '0' ? pt->width - n - 1 :
 			pt->width - n), 32);
 	if (pt->hash == 1 && s[0] != '0')
 		write(1, "0", 1);
 	if (pt->minus != 1 && pt->zero == 1 && pt->precision == -1)
-		ft_print_sp((pt->hash == 1 && lo != 0 ? pt->width - n - 1 :
+		ft_print_sp(pt, (pt->hash == 1 && lo != 0 ? pt->width - n - 1 :
 		pt->width - n), 48);
 	write(1, s, n);
 	if (pt->minus == 1)
-		ft_print_sp((pt->hash == 1 && s[0] != '0' ? pt->width - n - 1 :
+		ft_print_sp(pt, (pt->hash == 1 && s[0] != '0' ? pt->width - n - 1 :
 		pt->width - n), 32);
 	return (1);
 }
