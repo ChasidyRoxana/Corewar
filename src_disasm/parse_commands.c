@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/02 17:34:35 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/05 14:11:08 by tkarpukova       ###   ########.fr       */
+/*   Created: 2020/07/15 20:59:41 by tpepperm          #+#    #+#             */
+/*   Updated: 2020/07/15 22:06:50 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

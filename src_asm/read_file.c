@@ -3,30 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/05 13:22:05 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:16:08 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-/* фришит строку, зануляет указатель на неё и возвращает ret_nb
-*/
-// int			free_str(char **str, int ret_nb)
-// {
-// 	if (*str)
-// 	{
-// 		free(*str);
-// 		*str = NULL;
-// 	}
-// 	return (ret_nb);
-// }
-
-/* пустая строка не добавляется в список, пробелы в начале строки скипаются;
-** есть ошибка только с malloc(фришит line и выводит ошибку)
-*/
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
 	if (ft_strlen(line) == 0 || line[skip_first_spaces(line)] == '\0')
@@ -72,11 +57,6 @@ int			read_file(t_asm *asmb, char *file_name)
 			return (0);
 		}
 		nb_line++;
-		// if (gnl == 1)
-		// {
-		// 	close(fd);
-		// 	return (error_common(ERR_NO_END));
-		// }
 	}
 	close(fd);
 	if (!asmb->gnl)

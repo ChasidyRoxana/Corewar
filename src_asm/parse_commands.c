@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/03 19:52:32 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:11:18 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-/* создаёт новый элемент списка команд, заполняет его нулями, ставит *prev,
-** при ошибке возвращает 0
-*/
 int			new_command(t_asm *asmb)
 {
 	t_command	*tmp;

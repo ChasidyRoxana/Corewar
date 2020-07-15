@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   find_name_comment.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/03 18:46:22 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:17:16 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-// return (0) - ошибка, (1) - все ок
 int		check_next_line(char *line, int j, t_gnl **tmp, int length)
 {
 	int i;
@@ -42,7 +41,6 @@ int		check_next_line(char *line, int j, t_gnl **tmp, int length)
 	return (1);
 }
 
-// return (0) - ошибка, (1) - все ок
 int		create_name_comment(char *line, char *name_com, t_gnl **tmp, int length)
 {
 	int		i;
@@ -85,7 +83,7 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 		if (error == 0)
 			return ((ft_strlen(asmb->header.prog_name) == PROG_NAME_LENGTH) ?
 				0 : error_line(ERR_NAME, *tmp, -1));
-		asmb->flag_name += 1;
+			asmb->flag_name += 1;
 		return (1);
 	}
 	else if (ft_strcmp((*tmp)->line + i, COMMENT_CMD_STRING) > 0)
@@ -95,14 +93,13 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 		if (error == -1)
 			return ((ft_strlen(asmb->header.comment) == COMMENT_LENGTH) ?
 				0 : error_line(ERR_COMMENT, *tmp, -1));
-		asmb->flag_comment += 1;
+			asmb->flag_comment += 1;
 		return (1);
 	}
 	else
 		return (error_common(ERR_NOT_COMMAND));
 }
 
-// return (0) - ошибка, (1) - все ок
 int		find_name_comment(t_asm *asmb)
 {
 	t_gnl	*tmp;

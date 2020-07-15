@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/30 23:19:46 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/05 18:40:35 by tkarpukova       ###   ########.fr       */
+/*   Created: 2020/07/15 20:59:03 by tpepperm          #+#    #+#             */
+/*   Updated: 2020/07/15 22:06:45 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	free_all(t_disasm *disasm)
 **	проверяем, что у нас файл "*.cor" (то есть хотя бы
 **	один символ и расширение .cor)
 */
+
 static int	check_filename(t_disasm *disasm, char *name)
 {
 	int			length;

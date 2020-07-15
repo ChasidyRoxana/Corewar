@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdprintf_b_c_per.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:52:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/15 17:52:21 by marvin           ###   ########.fr       */
+/*   Updated: 2020/07/15 22:05:43 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,3 @@ int			ft_fdprintf_per(t_form *pt)
 		ft_print_sp(pt, pt->width - 1, ' ');
 	return (1);
 }
-

@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   write_to_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 17:40:49 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/28 15:24:41 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:15:10 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-/* Принимает номер потока, число, количество байт, которое число должно
+/*
+** Принимает номер потока, число, количество байт, которое число должно
 ** занимать.
 ** Зписывает число в массив. Деление на 256 (диапазон значений одного
 ** байта - 0...255)
 */
+
 void		write_int(int fd, unsigned int num, int byte)
 {
 	unsigned char	res[byte + 1];
@@ -33,9 +35,11 @@ void		write_int(int fd, unsigned int num, int byte)
 	write(fd, res, byte);
 }
 
-/* Записывает код операции, код аргументов (если есть),
+/*
+** Записывает код операции, код аргументов (если есть),
 ** код каждого аргумента (размер зависит от типа аргумента).
 */
+
 static void	write_commands(t_asm *asmb, int fd)
 {
 	t_command	*comm;
@@ -65,17 +69,18 @@ static void	write_commands(t_asm *asmb, int fd)
 	}
 }
 
-/* Создание файла. Запись полей header'а.
+/*
+** Создание файла. Запись полей header'а.
 ** После строк должны быть 4 нулевых байта.
 ** Запись команд.
 */
+
 int			write_to_file(t_asm *asmb)
 {
 	int		fd;
 
 	if ((fd = open(asmb->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
-	{printf("Error with create file [write_to_file 84]");
-		return (0);}
+		return (error_common(ERR_CREATE_FILE));
 	write_int(fd, asmb->header.magic, 4);
 	write(fd, asmb->header.prog_name, PROG_NAME_LENGTH);
 	write_int(fd, 0, 4);

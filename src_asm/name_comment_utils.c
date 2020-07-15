@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name_comment_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 13:33:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/27 18:50:23 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:11:13 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int		is_space(char c)
 	return (c == 32 || (c >= 9 && c <= 13));
 }
 
-// return (1) - все ок, (0) - ошибка (есть символы помимо таба и пробелов)
 int		check_end_space(char *line)
 {
 	int i;
@@ -42,9 +41,6 @@ int		check_end_space(char *line)
 		return (0);
 }
 
-/*
-** скипаем пробелы и табы в начале, возвращаем индекс после них
-*/
 int		skip_first_spaces(char *line)
 {
 	int i;

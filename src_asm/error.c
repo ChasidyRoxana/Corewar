@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/30 23:19:12 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:18:57 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ int			error_common(int error)
 		write(2, "Unexpected end of input. No new line at the end\n", 49);
 	else if (error == ERR_NO_OP)
 		write(2, "No commands in .s file\n", 24);
+	else if (error == ERR_CREATE_FILE)
+		write(2, "Couldn't create file for writing\n", 34);
 	return (0);
 }
 
-int 		count_tabs(t_gnl *gnl, int n_sym)
+int			count_tabs(t_gnl *gnl, int n_sym)
 {
 	int i;
 
@@ -54,9 +56,6 @@ int 		count_tabs(t_gnl *gnl, int n_sym)
 	return (i);
 }
 
-// проверка на переполнение
-// return (0) - есть length_error, то есть места больше нет
-// return (1) - все ок
 int			length_error(int index, int length)
 {
 	if (index >= length)
@@ -72,12 +71,14 @@ int			length_error(int index, int length)
 int			error_args(int error, t_command *comm, char *str, int n_sym)
 {
 	if (error == ERR_ARG)
-		printf("Invalid type of %d parameter for instruction '%s' ", 
+		printf("Invalid type of %d parameter for instruction '%s' ",
 			comm->num_args, OP(comm->op - 1).name);
 	else if (error == ERR_MAX_ARG)
-		printf("Too many arguments for instruction '%s' ", OP(comm->op - 1).name);
+		printf("Too many arguments for instruction '%s' ",
+		OP(comm->op - 1).name);
 	else if (error == ERR_MIN_ARG)
-		printf("Not enough arguments for instruction '%s' ", OP(comm->op - 1).name);
+		printf("Not enough arguments for instruction '%s' ",
+		OP(comm->op - 1).name);
 	else if (error == ERR_NO_ARGS)
 		printf("No arguments for instruction '%s' ", OP(comm->op - 1).name);
 	else if (error == ERR_LABEL)
@@ -86,9 +87,6 @@ int			error_args(int error, t_command *comm, char *str, int n_sym)
 	return (0);
 }
 
-/* принимает номер ошибки; лист, из которго берёт строку и её номер;
-** число, которое вернёт функция; номер символа в строке
-*/
 int			error_line(int error, t_gnl *gnl, int n_sym)
 {
 	if (error == ERR_NAME)

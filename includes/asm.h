@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/06/29 22:41:28 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:14:38 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define ERR_MIN_ARG			19
 # define ERR_NO_ARGS			20
 # define ERR_NO_OP				21
+# define ERR_CREATE_FILE		22
 
 
 # define OP(index)	g_op_tab[index] // ne ebu

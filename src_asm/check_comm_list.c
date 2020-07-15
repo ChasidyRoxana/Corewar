@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_comm_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 16:49:43 by marvin            #+#    #+#             */
-/*   Updated: 2020/06/30 18:34:43 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:20:22 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,9 @@ static int	arg_check_lab(t_command *comml, char *arg_lab)
 
 static int	set_args(t_command *comml)
 {
-	// пройтись по каждому аргументу, кроме T_REG;
-	// если метка, найти растояние до неё;
-	// разобраться с урезанием по модулю;
 	t_args	*tmpa;
 	int		arg;
-	
+
 	tmpa = comml->args;
 	while (tmpa)
 	{
@@ -93,9 +90,11 @@ static int	set_args(t_command *comml)
 			if (tmpa->arg_name && tmpa->arg_name[0] == LABEL_CHAR)
 			{
 				if ((arg = arg_check_lab(comml, &tmpa->arg_name[1])) > 0)
+				{
 					if ((arg = arg_check_lab2(comml, &tmpa->arg_name[1])) < 0)
 						return (error_args(ERR_LABEL, comml,
-							&tmpa->arg_name[1], -1));
+						&tmpa->arg_name[1], -1));
+				}
 				tmpa->arg = arg;
 			}
 			else

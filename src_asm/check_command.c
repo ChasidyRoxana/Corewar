@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/05 12:13:25 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/15 22:22:11 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void		command_size(t_asm *asmb, t_command *command)
 {
-// 	Код операции — 1 байт
-// 	Код типов аргументов (Нужен не для всех операций) — 1 байт
-// 	Аргументы
 	int		command_code;
 	int		type_arg;
 	int		args_size;
@@ -34,10 +31,8 @@ void		command_size(t_asm *asmb, t_command *command)
 			args_size += IND_SIZE;
 		else if (tmp->type == T_DIR)
 		{
-			if (OP(command->op - 1).t_dir_size == 1)
-				args_size += tmp->type;
-			else
-				args_size += 4;
+			args_size += (OP(command->op - 1).t_dir_size == 1) ?
+				tmp->type : 4;
 		}
 		tmp = tmp->next;
 	}
@@ -92,7 +87,7 @@ int			find_command(t_asm *asmb, char *line)
 	ft_memset((void*)com, 0, 6);
 	while (is_space(line[i]))
 		i++;
-	if (asmb->comm_last->label)// если у команды есть метка, будем искать её в строке
+	if (asmb->comm_last->label)
 		check_label_in_str(line, &i, asmb->comm_last->label);
 	k = i;
 	while (line[i] >= 'a' && line[i] <= 'z' && j < 6)

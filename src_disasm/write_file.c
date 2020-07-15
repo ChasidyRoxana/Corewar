@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   write_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/02 19:19:46 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/03 17:49:53 by tkarpukova       ###   ########.fr       */
+/*   Created: 2020/07/15 20:59:56 by tpepperm          #+#    #+#             */
+/*   Updated: 2020/07/15 22:06:54 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/disasm.h"
 
-static void	write_name_comment(int fd, t_disasm *disasm) 
+static void	write_name_comment(int fd, t_disasm *disasm)
 {
 	write(fd, ".name \"", 7);
 	write(fd, disasm->name, ft_strlen(disasm->name));
@@ -24,7 +24,7 @@ static void	write_name_comment(int fd, t_disasm *disasm)
 static void	write_commands(int fd, t_disasm *disasm)
 {
 	char		*num;
-	t_command 	*tmp;
+	t_command	*tmp;
 	t_arg		*tmp_arg;
 
 	tmp = disasm->ops;
@@ -53,7 +53,7 @@ int			write_to_file(t_disasm *disasm)
 	int fd;
 
 	if ((fd = open(disasm->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
-		return (error_disasm(ERR_CREATE_FILE));
+		return (error_disasm(ERR_CRT_FILE));
 	write_name_comment(fd, disasm);
 	write_commands(fd, disasm);
 	return (1);
