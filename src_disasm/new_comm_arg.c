@@ -47,7 +47,7 @@ int		new_arg(t_command *comm)
 			tmp = tmp->next;
 		if (!(tmp->next = (t_arg*)malloc(sizeof(t_arg))))
 			return (0);
-		tmp  = tmp->next;
+		tmp = tmp->next;
 		tmp->next = NULL;
 	}
 	return (1);

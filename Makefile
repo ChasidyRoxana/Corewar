@@ -38,7 +38,7 @@ SRC_LIB = $(addprefix libft/,ft_atoi.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstd
 # проверить, все ли файлы в либе
 
 RES_DISASM = main.c error.c parse_file.c parse_commands.c op.c write_file.c \
-	new_comm_arg.c start_disasm.c
+	new_comm_arg.c
 
 SRC_DISASM = $(addprefix src_disasm/,$(RES_DISASM))
 

@@ -77,21 +77,22 @@ int			game_cycle(t_vm *vm)
 	cycle = 1;
 	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
-	start_ncurses(vm);
+	if (vm->v)
+		start_ncurses(vm);
 	while (play)
 	{
-	//	визуализация, если vm->v == 1
-	//	
+		if (vm->v)
+			print_ncurses(vm);
 		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)
 			check_up(vm, &cycle, &play);
 		cycle++;
 		vm->cycle++;
-		print_ncurses(vm);
+		// print_ncurses(vm);
 	}
 	vm->cycle--;
-	print_ncurses(vm);
-	// финальная визуализация
+	if (vm->v)
+		print_ncurses(vm);
 	// print_arena(vm);
 	// printf("END\nvm->cycle: %d\n", vm->cycle);
 	return(1);

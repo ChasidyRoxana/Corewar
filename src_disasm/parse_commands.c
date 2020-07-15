@@ -12,7 +12,7 @@
 
 #include "../includes/disasm.h"
 
-static int		get_int(unsigned char code[], int *i, int byte)
+static int	get_int(unsigned char code[], int *i, int byte)
 {
 	int		result;
 	int		j;
@@ -30,81 +30,79 @@ static int		get_int(unsigned char code[], int *i, int byte)
 	return (result);
 }
 
-static int		fill_command(t_command *comm, unsigned char code[], int *i)
+static int	get_arg(unsigned char code[], int *i, int t_dir_size, t_arg *tmp)
+{
+	if (tmp->type == T_REG)
+		return (get_int(code, i, 1));
+	else if (tmp->type == T_IND)
+		return (get_int(code, i, 2));
+	else
+		return (get_int(code, i, (t_dir_size ? 2 : 4)));
+}
+
+static int	fill_args(t_command *comm, unsigned char code[], int *i)
 {
 	t_arg	*tmp;
 	int		arg_code;
 	int		j;
 
 	j = 6;
+	arg_code = get_int(code, i, 1);
+	while (j > 0 && ((arg_code >> j) & 3) != 0)
+	{
+		if (!new_arg(comm))
+			return (0);
+		tmp = comm->args;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->type = (arg_code >> j) & 3;
+		if (tmp->type == IND_CODE)
+			tmp->type = T_IND;
+		if ((OP(comm->op_code).args[3 - j / 2] & tmp->type) == 0)
+			return (0);
+		tmp->arg = get_arg(code, i, OP(comm->op_code).t_dir_size, tmp);
+		j -= 2;
+	}
+	return ((3 - j / 2 == OP(comm->op_code).nb_arg) ? 1 : 0);
+}
+
+static int	fill_command(t_command *comm, unsigned char code[], int *i)
+{
 	if (OP(comm->op_code).type_arg_code)
 	{
-		arg_code = get_int(code, i, 1);
-		// printf("  arg_code: %d\n", arg_code);
-		while (j > 0 && ((arg_code >> j) & 3) != 0)
-		{
-			if (!new_arg(comm))
-				return (0);
-			tmp = comm->args;
-			while (tmp->next)
-				tmp = tmp->next;
-			//определяем тип аргумента: 01 рег, 10 дир, 11 инд
-			tmp->type = (arg_code >> j) & 3;
-			// printf("TYPE: %d\n", tmp->type);
-			if (tmp->type == IND_CODE)
-				tmp->type = T_IND;
-			// printf("  type: %d\n", tmp->type);
-			//подходит ли тип аргумента
-			if ((OP(comm->op_code).args[3 - j / 2] & tmp->type) == 0)
-				return (0);
-			// printf("  correct type arg\n");
-			//читаем нужное количество байт
-			if (tmp->type == T_REG)
-				tmp->arg = get_int(code, i, 1);
-			else if (tmp->type == T_IND)
-				tmp->arg = get_int(code, i, 2);
-			else
-				tmp->arg = get_int(code, i,
-					(OP(comm->op_code).t_dir_size ? 2 : 4));
-			// printf("  arg: %d\n", tmp->arg);
-			j -= 2;
-		}
+		if (!fill_args(comm, code, i))
+			return (0);
 	}
 	else
 	{
-		// printf("  no arg_code\n");
 		if (!new_arg(comm))
 			return (0);
 		comm->args->type = OP(comm->op_code).args[0];
-		// printf("  type: %d\n", comm->args->type);
 		comm->args->arg = get_int(code, i,
 			(OP(comm->op_code).t_dir_size ? 2 : 4));
-		// printf("  arg: %d\n", comm->args->arg);
 	}
 	return (1);
 }
 
-int				parse_commands(t_disasm *disasm, int fd)
+int			parse_commands(t_disasm *disasm, int fd)
 {
-	unsigned char	code[disasm->prog_length + 2];
+	unsigned char	code[disasm->prog_length + 1];
 	int				n;
 	int				i;
 
 	n = read(fd, code, disasm->prog_length + 1);
-	if (n != disasm->prog_length){printf("Error prog_length\n");
-		return (0);}
+	if (n != disasm->prog_length)
+		return (error_disasm(ERR_COMMAND));
 	i = 0;
 	while (i < n)
 	{
 		if (!new_command(disasm))
-			return (0);
-		// printf("%d\n", code[i]);
+			return (error_disasm(ERR_COMMAND));
 		disasm->ops_last->op_code = get_int(code, &i, 1) - 1;
-		// printf("  op_code: %d\n", disasm->ops_last->op_code);
 		if (disasm->ops_last->op_code < 0 || disasm->ops_last->op_code > 15)
-			return (0);
+			return (error_disasm(ERR_COMMAND));
 		if (!fill_command(disasm->ops_last, code, &i))
-			return (0);
+			return (error_disasm(ERR_COMMAND));
 	}
 	return (1);
 }

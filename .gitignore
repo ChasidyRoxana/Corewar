@@ -4,6 +4,7 @@ includes/*.gch
 # Lib
 libft/*.o
 libft/*.a
+*.a
 
 *.exe
 *.out

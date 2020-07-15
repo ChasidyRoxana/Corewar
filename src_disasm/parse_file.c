@@ -12,7 +12,7 @@
 
 #include "../includes/disasm.h"
 
-static int			read_n_byte(int fd, char str[], int n_byte)
+static int	read_n_byte(int fd, char str[], int n_byte)
 {
 	int				byte_read;
 
@@ -23,12 +23,12 @@ static int			read_n_byte(int fd, char str[], int n_byte)
 	return (1);
 }
 
-static int	get_uint(int fd, int n_byte)
+static int	get_int(int fd, int n_byte)
 {
 	unsigned char	str[n_byte + 1];
 	int				result;
 	int				i;
-	
+
 	result = 0;
 	i = -1;
 	if (n_byte > 4 || !read_n_byte(fd, (char*)str, n_byte))
@@ -38,31 +38,34 @@ static int	get_uint(int fd, int n_byte)
 	return (result);
 }
 
-static int			parse_header(t_disasm *disasm, int fd)
+static int	parse_header(t_disasm *disasm, int fd)
 {
-	if (get_uint(fd, 4) != COREWAR_EXEC_MAGIC)
-		return (0);
+	if (get_int(fd, 4) != COREWAR_EXEC_MAGIC)
+		return (error_disasm(ERR_HEADER));
 	if (!read_n_byte(fd, disasm->name, PROG_NAME_LENGTH))
-		return (0);
-	get_uint(fd, 4);
-	if ((disasm->prog_length = get_uint(fd, 4)) < 0 ||
+		return (error_disasm(ERR_HEADER));
+	get_int(fd, 4);
+	if ((disasm->prog_length = get_int(fd, 4)) < 0 ||
 		disasm->prog_length > CHAMP_MAX_SIZE)
-		return (0);
+		return (error_disasm(ERR_HEADER));
 	if (!read_n_byte(fd, disasm->comment, COMMENT_LENGTH))
-		return (0);
-	get_uint(fd, 4);
+		return (error_disasm(ERR_HEADER));
+	get_int(fd, 4);
 	return (1);
 }
 
-int					parse_file(t_disasm *disasm, char *file)
+int			parse_file(t_disasm *disasm, char *file)
 {
 	int		fd;
 
 	if ((fd = open(file, O_RDONLY)) < 0)
-		return (0);
+		return (error_disasm(ERR_OPEN_FILE));
 	if (parse_header(disasm, fd) &&
 		parse_commands(disasm, fd))
+	{
+		close(fd);
 		return (1);
+	}
 	close(fd);
 	return (0);
 }

@@ -32,19 +32,40 @@ static void	free_all(t_disasm *disasm)
 	}
 }
 
-int		main(int argc, char **argv)
+/*
+**	проверяем, что у нас файл "*.cor" (то есть хотя бы
+**	один символ и расширение .cor)
+*/
+static int	check_filename(t_disasm *disasm, char *name)
+{
+	int			length;
+
+	length = ft_strlen(name);
+	if (length < 5)
+		return (error_disasm(ERR_FILE_NAME));
+	if (ft_strcmp(&name[length - 4], ".cor") == 0)
+	{
+		disasm->filename = ft_strnew(length + 2);
+		ft_strncpy(disasm->filename, "new_", 4);
+		ft_strncat(disasm->filename, name, (length - 4));
+		ft_strcat(disasm->filename, ".s");
+	}
+	else
+		return (error_disasm(ERR_FILE_NAME));
+	return (1);
+}
+
+int			main(int argc, char **argv)
 {
 	t_disasm	disasm;
 
 	ft_memset(&disasm, 0, sizeof(disasm));
 	if (argc != 2)
-	{
-		write(2, "Usage: ./disasm [file.cor]\n", 28);
-		return (1);
-	}
-	if (start_disasm(&disasm, argv[1]) &&
+		return (error_disasm(ERR_USAGE));
+	if (check_filename(&disasm, argv[1]) &&
+		parse_file(&disasm, argv[1]) &&
 		write_to_file(&disasm))
-	printf("The .s file is ready\n");
+		write(1, "The .s file is ready\n", 22);
 	free_all(&disasm);
 	return (0);
 }
