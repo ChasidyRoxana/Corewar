@@ -100,8 +100,8 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			tmp->type = T_DIR;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' || // нормальная индентация?
-		(asmb->gnl_last->line[*i] >= '0' && asmb->gnl_last->line[*i] <= '9')
-		|| asmb->gnl_last->line[*i] == '-')
+			(asmb->gnl_last->line[*i] >= 48 && asmb->gnl_last->line[*i] <= 57)
+			|| asmb->gnl_last->line[*i] == '-')
 			tmp->type = T_IND;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
