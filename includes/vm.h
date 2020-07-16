@@ -87,104 +87,113 @@ typedef struct			s_vm
 /*
 **	parse_args.c
 */
-int			parse_args(t_vm *vm, int ac, char **av);
+int						parse_args(t_vm *vm, int ac, char **av);
 
 /*
-** main.c
+**	parse_args_utils.c
 */
-void		print_arena(t_vm *vm);
+int						check_filename(char *name);
+int						check_atoi(char *av);
 
 /*
-** error.c
+**	main.c
 */
-int			error_vm(int error);
-int			error_line(int error, char *str);
+void					print_arena(t_vm *vm);
 
 /*
-** create_players.c
+**	error.c
 */
-int			check_four_bytes(t_player *player);
-int			check_player(t_player *player);
-int			fill_arena(t_vm *vm, t_player player, int color);
-int			create_player(t_vm *vm);
+int						error_vm(int error);
+int						error_line(int error, char *str);
+
+/*
+**	create_players.c
+*/
+int						check_four_bytes(t_player *player);
+int						check_player(t_player *player);
+int						fill_arena(t_vm *vm, t_player player, int color);
+int						create_player(t_vm *vm);
 
 /*
 **	game_cycle.c
 */
-int			game_cycle(t_vm *vm);
+int						game_cycle(t_vm *vm);
 
 /*
-** ncurses.c
+**	ncurses.c
 */
-void		init_ncurses();
-void		print_ncurses(t_vm *vm, int end);
+void					init_ncurses();
+void					print_ncurses(t_vm *vm, int end);
 
 /*
-** create_cursor.c
+**	create_cursor.c
 */
-int			malloc_cursor(t_vm *vm);
-int			create_cursors(t_vm *vm);
-void		print_players_ncurses(t_vm *vm, WINDOW *info);
+int						malloc_cursor(t_vm *vm);
+int						create_cursors(t_vm *vm);
+void					print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c
 */
-int			count_size_arg_code(t_vm *vm, int op, int i);
-int			count_size(t_vm *vm, int op, int i);
-void		cycles_less_zero(t_vm *vm, t_cursor *tmp);
-int			cursor_op(t_vm *vm);
+int						count_size_arg_code(t_vm *vm, int op, int i);
+int						count_size(t_vm *vm, int op, int i);
+void					cycles_less_zero(t_vm *vm, t_cursor *tmp);
+int						cursor_op(t_vm *vm);
 
 /*
-** check_ops.c
+**	check_ops.c
 */
-int			check_position(int pos);
-int			write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
-int			arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j);
-int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
-int			check_op(t_vm *vm, t_cursor *cur);
+int						check_position(int pos);
+int						write_args(t_vm *vm, t_cursor *cur, t_arg *args,
+						int num_args);
+int						arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j);
+int						write_types(t_vm *vm, t_cursor *cur, t_arg *args,
+						int num_args);
+int						check_op(t_vm *vm, t_cursor *cur);
 
 /*
 **	send_to_op.c
 */
-void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
 
 /*
 **	op_tools.c
 */
-int			get_arg(t_vm *vm, int i, int size);
-void		write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
-int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
+int						get_arg(t_vm *vm, int i, int size);
+void					write_to_memory(t_vm *vm, t_cursor *cur, int reg,
+						int address);
+int						set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 
 /*
 **	op_live_ls_st_add_sub.c
 */
-void		op_live(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_st(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_add(t_cursor *cur, t_arg *args);
-void		op_sub(t_cursor *cur, t_arg *args);
+void					op_live(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_st(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_add(t_cursor *cur, t_arg *args);
+void					op_sub(t_cursor *cur, t_arg *args);
 
 /*
 **	op_ldi_sti_lld_lldi.c
 */
-void		op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
-void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_ldi(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_sti(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_lld(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
 
 /*
 **	op_and_or_xor_zjmp.c
 */
-void		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_zjmp(t_cursor *cur, t_arg args[]);
+void					op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					op_zjmp(t_cursor *cur, t_arg args[]);
 
 /*
 **	op_fork_lfork_aff.c
 */
-void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
-void		op_aff(t_cursor *cur, t_arg args[]);
+void					op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
+void					op_aff(t_cursor *cur, t_arg args[]);
 
 #endif
