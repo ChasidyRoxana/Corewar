@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_cycle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/14 17:50:52 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 19:26:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int			game_cycle(t_vm *vm)
 	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	if (vm->v)
-		start_ncurses(vm);
+		init_ncurses(vm);
 	while (play)
 	{
 		if (vm->v)
-			print_ncurses(vm);
+			print_ncurses(vm, 0);
 		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)
 			check_up(vm, &cycle, &play);
@@ -92,7 +92,10 @@ int			game_cycle(t_vm *vm)
 	}
 	vm->cycle--;
 	if (vm->v)
-		print_ncurses(vm);
+	{
+		print_ncurses(vm, 1);
+		// endwin();
+	}
 	// print_arena(vm);
 	// printf("END\nvm->cycle: %d\n", vm->cycle);
 	return(1);

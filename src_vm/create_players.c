@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:03:40 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:18:38 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 15:26:04 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		create_player(t_vm *vm)
 	{
 		// открываем файл, записываем фд, записываем i на арене
 		if ((vm->player[j].fd = open(vm->player[j].file_name, O_RDONLY)) < 0)
-			return (error_line(ERR_OPEN_FILE, vm->player[i].file_name));
+			return (error_line(ERR_OPEN_FILE, vm->player[j].file_name));
 		vm->player[j].i = i;
 		// проверяем magic_header, размер исполняемого кода, записываем имя и коммент
 		if (!check_player(&vm->player[j]))

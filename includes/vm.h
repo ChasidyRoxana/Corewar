@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 15:51:44 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 19:26:06 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include "../libft/libft.h"
 # include "op.h"
+# include <ncurses.h>
 
 # define ERR_FILE_NAME		1
 # define ERR_MAX_PLAYERS    2
@@ -116,14 +117,14 @@ int			game_cycle(t_vm *vm);
 ** ncurses.c
 */
 void	init_ncurses();
-void	print_ncurses(t_vm *vm);
-void	start_ncurses(t_vm *vm);
+void	print_ncurses(t_vm *vm, int end);
 
 /*
 ** create_cursor.c
 */
 int		malloc_cursor(t_vm *vm);
 int		create_cursors(t_vm *vm);
+void	print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c

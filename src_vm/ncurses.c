@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ncurses.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:33:54 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 19:43:46 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void	init_ncurses()
 {
 	initscr();
-	// noecho(); вроде не влияет ни на что, но по идее отключает отображение вводимых символов
-	// инициализируем цветовые пары, чтобы позже к ним обращаться
+	noecho();
+	cbreak();
 	start_color();
 	init_pair(1, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(2, COLOR_BLACK, COLOR_YELLOW);
@@ -33,38 +33,74 @@ void	init_ncurses()
 	init_pair(12, COLOR_BLACK, COLOR_RED);
 	init_pair(13, COLOR_WHITE, COLOR_BLACK);
 	init_pair(14, COLOR_BLACK, COLOR_WHITE);
-	curs_set(0); // "убиваем" курсор
+	curs_set(0);
 }
 
-void	print_ncurses(t_vm *vm)
+void	print_players_ncurses(t_vm *vm, WINDOW *info)
 {
-	int i = 0;
+	int j;
 
+	j = 0;
+	while (j < vm->n_players)
+	{
+		wattron(info, A_BOLD);
+		wprintw(info, "Player %d: ", j + 1);
+		wattron(info, COLOR_PAIR(j * 2 + 1));
+		wprintw(info, "%s\n", vm->player[j].name);
+		wattroff(info, A_BOLD);
+		wattroff(info, COLOR_PAIR(j * 2 + 1));
+		j++;
+	}
+	wattron(info, A_BOLD);
+	wprintw(info, "\nCycles: %d\n", vm->cycle);
+	wattroff(info, A_BOLD);
+	wrefresh(info);
+}
+
+void	print_end_ncurses(t_vm *vm, WINDOW *info)
+{
+	int winner;
+
+	if (!vm->winner)
+		winner = vm->n_players - 1;
+	else
+		winner = vm->winner - 1;
+	wattron(info, A_BOLD);
+	wprintw(info, "\n*** PLAYER ***\n");
+	wattron(info, COLOR_PAIR(winner * 2 + 1));
+	wprintw(info, "%s", vm->player[winner].name);
+	wattroff(info, COLOR_PAIR(winner * 2 + 1));
+	wprintw(info, "\n***  WON  ***\n");
+	wattroff(info, A_BOLD);
+	wrefresh(info);
+}
+
+void	print_ncurses(t_vm *vm, int end)
+{
+	int i;
+	WINDOW *arena;
+	WINDOW *info;
+
+	i = 0;
+	arena = newwin(65, 191, 0, 0);
+	info = newwin(64, 84, 0, 195);
 	if (vm->v)
 	{
 		erase(); // или лучше clear ? проверить
+		end == 1 ? print_end_ncurses(vm, info) : print_players_ncurses(vm, info);
 		while (i < MEM_SIZE)
 		{
-			// printw("%d", vm->arena[i].color);
-			// printf("%d\n", vm->arena[i].color);
-			attron(COLOR_PAIR(vm->arena[i].color));
-			printw("%.2x", vm->arena[i].i);
-			attroff(COLOR_PAIR(vm->arena[i].color));
-			printw(" ");
+			wattron(arena, COLOR_PAIR(vm->arena[i].color));
+			wprintw(arena, "%.2x", vm->arena[i].i);
+			wattroff(arena, COLOR_PAIR(vm->arena[i].color));
 			i++;
-			if (i % 64 == 0)
-				printw("\n");
+			if (i % 64 != 0 || i == 0)
+				wprintw(arena, " ");
 		}
-		refresh();
-		// getch();
-		// endwin();
+		wprintw(arena, "\n");
+		wrefresh(arena);
+		// usleep(10000);
 	}
-}
-
-void	start_ncurses(t_vm *vm)
-{
-	init_ncurses();
-	if (!vm)
-		return ;
-	// print_ncurses(vm);
+	delwin(arena);
+	delwin(info);
 }
