@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:23:34 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:38:13 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,21 @@ int			parse_args(t_vm *vm, int ac, char **av);
 /*
 ** main.c
 */
-void	print_arena(t_vm *vm);
+void		print_arena(t_vm *vm);
 
 /*
 ** error.c
 */
-int     error_vm(int error);
-int     error_line(int error, char *str);
+int			error_vm(int error);
+int			error_line(int error, char *str);
 
 /*
 ** create_players.c
 */
-int		check_four_bytes(t_player *player);
-int		check_player(t_player *player);
-int		fill_arena(t_vm *vm, t_player player, int color);
-int		create_player(t_vm *vm);
+int			check_four_bytes(t_player *player);
+int			check_player(t_player *player);
+int			fill_arena(t_vm *vm, t_player player, int color);
+int			create_player(t_vm *vm);
 
 /*
 **	game_cycle.c
@@ -116,15 +116,15 @@ int			game_cycle(t_vm *vm);
 /*
 ** ncurses.c
 */
-void	init_ncurses();
-void	print_ncurses(t_vm *vm, int end);
+void		init_ncurses();
+void		print_ncurses(t_vm *vm, int end);
 
 /*
 ** create_cursor.c
 */
-int		malloc_cursor(t_vm *vm);
-int		create_cursors(t_vm *vm);
-void	print_players_ncurses(t_vm *vm, WINDOW *info);
+int			malloc_cursor(t_vm *vm);
+int			create_cursors(t_vm *vm);
+void		print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c
@@ -138,9 +138,9 @@ int			cursor_op(t_vm *vm);
 ** check_ops.c
 */
 int			check_position(int pos);
-int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
+int			write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j);
-int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
+int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			check_op(t_vm *vm, t_cursor *cur);
 
 /*
@@ -152,7 +152,7 @@ void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[]);
 **	op_tools.c
 */
 int			get_arg(t_vm *vm, int i, int size);
-void    	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
+void		write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address);
 int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 
 /*
@@ -175,7 +175,7 @@ void		op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
 /*
 **	op_and_or_xor_zjmp.c
 */
-void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
+void		op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
 void		op_zjmp(t_cursor *cur, t_arg args[]);

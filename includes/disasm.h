@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   disasm.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/05 18:41:37 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:29:29 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 typedef struct			s_arg
 {
 	int					type;
-	int 				arg;
-	struct s_arg 		*next;
+	int					arg;
+	struct s_arg		*next;
 }						t_arg;
 
 /*

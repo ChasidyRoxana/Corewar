@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 00:15:33 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:31:14 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,33 @@
 
 # define OP(index)	g_op_tab[index]
 
-typedef struct  		s_gnl
+typedef struct			s_gnl
 {
 	int					nb_line;
 	char				*line;
 	struct s_gnl		*next;
 }						t_gnl;
 
-typedef struct 			s_label
+typedef struct			s_label
 {
 	char				*line;
 	struct s_label		*next;
 }						t_label;
 
-typedef struct 			s_args
+typedef struct			s_args
 {
 	int					type; //T_REG, T_IND, T_DIR
-	int 				arg; //число, которое потом запишем в файл
+	int					arg; //число, которое потом запишем в файл
 	char				*arg_name; //как было записано в команде
-	struct s_args 		*next;
+	struct s_args		*next;
 }						t_args;
 
-typedef struct  		s_command
+typedef struct			s_command
 {
 	t_label				*label; //список названий меток для этой команды
 	int					size; //размер команды
 	unsigned char		op; //код команды
-	unsigned char		args_type; //код аргументов 
+	unsigned char		args_type; //код аргументов
 	int					num_args; //количетво аргуентов
 	t_gnl				*gnl_line; //указатель на строку гнл с этой командой
 	t_args				*args; //аргументы
@@ -122,7 +122,7 @@ int						is_separator(char c);
 int						is_args(char c);
 int						is_space(char c);
 int						check_end_space(char *line);
-int     				skip_first_spaces(char *line);
+int						skip_first_spaces(char *line);
 
 /*
 ** parse_commands.c
