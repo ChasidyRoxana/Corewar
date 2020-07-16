@@ -12,3 +12,4 @@ libft/*.a
 
 *.dSYM
 .vscode
+new_*

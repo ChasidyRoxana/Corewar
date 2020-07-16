@@ -38,7 +38,7 @@ static void	free_comm(t_asm *asmb)
 	}
 }
 
-void		free_all(t_asm *asmb)
+static void	free_all(t_asm *asmb)
 {
 	if (asmb->filename)
 		free(asmb->filename);
@@ -52,7 +52,7 @@ void		free_all(t_asm *asmb)
 	free_comm(asmb);
 }
 
-int			check_filename(char *name, t_asm *asmb)
+static int	check_filename(char *name, t_asm *asmb)
 {
 	int		i;
 	int		length;
