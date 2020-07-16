@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:32:15 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 20:09:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 21:58:09 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 			return (error_vm(ERR_MAX_PLAYERS));
 		if (!check_filename(av[*n_arg]))
 			return (0);
-		vm->player[i].file_name = ft_strdup(av[(*n_arg)++]);
-		vm->player[i].id = num;
-		vm->player[i].i = vm->n_players++;
+		vm->player[vm->n_players].file_name = ft_strdup(av[(*n_arg)++]);
+		vm->player[vm->n_players].id = num;
+		vm->player[vm->n_players].i = vm->n_players++;
 		return (1);
 	}
 }
@@ -128,8 +128,8 @@ int			parse_args(t_vm *vm, int ac, char **av)
 				return (0);
 			if (vm->n_players >= MAX_PLAYERS)
 				return (error_vm(ERR_MAX_PLAYERS));
-			vm->player[i].file_name = ft_strdup(av[n_arg++]);
-			vm->player[i].i = vm->n_players++;
+			vm->player[vm->n_players].file_name = ft_strdup(av[n_arg++]);
+			vm->player[vm->n_players].i = vm->n_players++;
 		}
 	}
 	if (!sort_players(vm))
