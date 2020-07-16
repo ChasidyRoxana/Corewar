@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live_ls_st_add_sub.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:32:34 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:04:30 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:07:12 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	op_live(t_vm *vm, t_cursor *cur, t_arg *args)
 {
 	int player;
-	
+
 	cur->live_cycle = vm->cycle;
 	vm->n_live += 1;
 	player = args[0].arg * (-1);
@@ -52,8 +52,9 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 
 	address = 0;
 	reg = args[0].arg - 1;
-	if (args[1].type == T_REG) {
-		// printf("ST: reg %d, reg %d\n", args[1].arg - 1, reg);
+	if (args[1].type == T_REG)
+	{
+	// printf("ST: reg %d, reg %d\n", args[1].arg - 1, reg);
 		cur->regs[args[1].arg - 1] = cur->regs[reg];
 	}
 	else if (args[1].type == T_IND)
@@ -70,15 +71,16 @@ void	op_add(t_cursor *cur, t_arg *args)
 	int	reg_one;
 	int	reg_two;
 	int	reg_three;
-	
+
 	reg_one = args[0].arg - 1;
 	reg_two = args[1].arg - 1;
 	reg_three = args[2].arg - 1;
 	arg = cur->regs[reg_one] + cur->regs[reg_two];
 	cur->regs[reg_three] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	// printf("ADD: reg%d = %d, reg%d = %d, reg%d = %d\n", reg_one, cur->regs[reg_one], 
-		// reg_two, cur->regs[reg_two], reg_three, cur->regs[reg_three]);
+	// printf("ADD: reg%d = %d, reg%d = %d, reg%d = %d\n", reg_one,
+	// cur->regs[reg_one], reg_two, cur->regs[reg_two], reg_three,
+	// cur->regs[reg_three]);
 }
 
 void	op_sub(t_cursor *cur, t_arg *args)
@@ -87,13 +89,14 @@ void	op_sub(t_cursor *cur, t_arg *args)
 	int	reg_one;
 	int	reg_two;
 	int	reg_three;
-	
+
 	reg_one = args[0].arg - 1;
 	reg_two = args[1].arg - 1;
 	reg_three = args[2].arg - 1;
-	arg = cur->regs[reg_one] - cur->regs[reg_two]; // можно объединить с add, отличие только в этой строке
+	arg = cur->regs[reg_one] - cur->regs[reg_two];
 	cur->regs[reg_three] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	// printf("SUB: reg%d = %d, reg%d = %d, reg%d = %d\n", reg_one, cur->regs[reg_one], 
-		// reg_two, cur->regs[reg_two], reg_three, cur->regs[reg_three]);
+	// printf("SUB: reg%d = %d, reg%d = %d, reg%d = %d\n",
+	// reg_one, cur->regs[reg_one], reg_two, cur->regs[reg_two],
+	// reg_three, cur->regs[reg_three]);
 }

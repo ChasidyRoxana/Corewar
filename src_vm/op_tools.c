@@ -1,13 +1,23 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_tools.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/16 20:07:32 by tpepperm          #+#    #+#             */
+/*   Updated: 2020/07/16 20:08:56 by tpepperm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-int			check_position(int pos)
+int		check_position(int pos)
 {
 	return (pos % MEM_SIZE);
 }
 
-int			get_arg(t_vm *vm, int i, int size)
+int		get_arg(t_vm *vm, int i, int size)
 {
 	int j;
 	int arg;
@@ -25,26 +35,29 @@ int			get_arg(t_vm *vm, int i, int size)
 	return (arg);
 }
 
-void    write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
+void	write_to_memory(t_vm *vm, t_cursor *cur, int reg, int address)
 {
-	int 			i;
+	int				i;
 	unsigned int	num;
 
-    i = 4;
-    num = cur->regs[reg];
-    while (--i >= 0)
-    {
-        vm->arena[check_position(address + i)].i = num % 256;
-		if (vm->arena[check_position(address + i)].color % 2 != 0 || 
+	i = 4;
+	num = cur->regs[reg];
+	while (--i >= 0)
+	{
+		vm->arena[check_position(address + i)].i = num % 256;
+		if (vm->arena[check_position(address + i)].color % 2 != 0 ||
 			vm->arena[check_position(address + i)].color == 0)
-        	vm->arena[check_position(address + i)].color = cur->color - 1;
+			vm->arena[check_position(address + i)].color = cur->color - 1;
 		vm->arena[check_position(address + i)].prev_color = cur->color - 1;
-        num /= 256;
-    }
+		num /= 256;
+	}
 }
 
-// возвращает значение регистра/дира/значение по инд(%IDX_MOD)
-int			set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i)
+/*
+** возвращает значение регистра/дира/значение по инд(%IDX_MOD)
+*/
+
+int		set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i)
 {
 	if (args[i].type == T_REG)
 		return (cur->regs[args[i].arg - 1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cursor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:37:15 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 19:49:27 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,20 @@ int		malloc_cursor(t_vm *vm)
 	return (1);
 }
 
-int		create_cursors(t_vm *vm) 
+int		create_cursors(t_vm *vm)
 {
 	int i;
 
 	i = 0;
 	while (i < vm->n_players)
 	{
-		// выделить память
 		if (!malloc_cursor(vm))
 			return (0);
-		vm->cur->regs[0] = vm->player[i].id * (-1); // номер игрока со знаком минус
-		vm->cur->cursor_id = i + 1; // id каретки
+		vm->cur->regs[0] = vm->player[i].id * (-1);
+		vm->cur->cursor_id = i + 1;
 		vm->cur->color = (i + 1) * 2;
 		vm->cur->cycles_left = 0;
-		vm->cur->i = vm->player[i].i; // текущая позиция каретки
-		
-		// printf
-		// printf("PLAYER: %d\nCURSOR: %d\nOP: %d\nCYCLES: %d\ni: %d\nOP SIZE: %d\n\n", vm->cur->regs[0], vm->cur->cursor_id, vm->cur->op, 
-		// vm->cur->cycles_left, vm->cur->i, vm->cur->op_size);
-		
+		vm->cur->i = vm->player[i].i;
 		i++;
 	}
 	return (1);

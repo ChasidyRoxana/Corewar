@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 19:43:46 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:02:34 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,22 @@ void	print_end_ncurses(t_vm *vm, WINDOW *info)
 
 void	print_ncurses(t_vm *vm, int end)
 {
-	int i;
-	WINDOW *arena;
-	WINDOW *info;
+	int		i;
+	WINDOW	*arena;
+	WINDOW	*info;
 
-	i = 0;
+	i = -1;
 	arena = newwin(65, 191, 0, 0);
 	info = newwin(64, 84, 0, 195);
 	if (vm->v)
 	{
 		erase(); // или лучше clear ? проверить
 		end == 1 ? print_end_ncurses(vm, info) : print_players_ncurses(vm, info);
-		while (i < MEM_SIZE)
+		while (++i < MEM_SIZE)
 		{
 			wattron(arena, COLOR_PAIR(vm->arena[i].color));
 			wprintw(arena, "%.2x", vm->arena[i].i);
 			wattroff(arena, COLOR_PAIR(vm->arena[i].color));
-			i++;
 			if (i % 64 != 0 || i == 0)
 				wprintw(arena, " ");
 		}

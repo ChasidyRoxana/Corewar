@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_and_or_xor_zjmp.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/16 20:03:25 by tpepperm          #+#    #+#             */
+/*   Updated: 2020/07/16 20:03:55 by tpepperm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-void 		op_and(t_vm *vm, t_cursor *cur, t_arg args[])
+void		op_and(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	int		result;
 	int		first_arg;
@@ -52,7 +63,5 @@ void		op_zjmp(t_cursor *cur, t_arg args[])
 		// printf("ZJMP %d\n", cur->i);
 	}
 	// else
-	// {
-		// printf("ZJMP FAILED\n");
-	// }
+	// 	printf("ZJMP FAILED\n");
 }

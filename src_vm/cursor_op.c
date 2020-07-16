@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor_op.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 16:16:07 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/14 17:22:25 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:16:06 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int			count_size_arg_code(t_vm *vm, int op, int i)
 {
 	int j;
 	int res;
-	int size; 
+	int size;
 	int arg_code;
 
 	i = i % MEM_SIZE;
 	j = 6;
 	res = 0;
-	size = 2; // 1 байт на код операции + 1 байт на код аргументов
+	size = 2;
 	arg_code = vm->arena[i].i;
 	while (j > 0 && ((arg_code >> j) & 3) != 0)
 	{
@@ -42,7 +42,7 @@ int			count_size(t_vm *vm, int op, int i)
 {
 	int	size;
 
-	size = 1; // 1 байт на код операции
+	size = 1;
 	if (OP(op - 1).type_arg_code == 0)
 	{
 		if (OP(op - 1).args[0] == T_REG)
@@ -52,15 +52,30 @@ int			count_size(t_vm *vm, int op, int i)
 		else if (OP(op - 1).args[0] == T_DIR)
 			size += (OP(op - 1).t_dir_size == 1) ? 2 : 4;
 	}
-	else 
+	else
 		size = count_size_arg_code(vm, op, i);
 	return (size);
 }
 
-	//	каретки:
-	//	1. устанавливаем код операции
-	//	2. уменьшить количество циклов до исполнения
-	//	3. выполнить операцию
+void		cycles_less_zero(t_vm *vm, t_cursor *tmp)
+{
+	tmp->op = vm->arena[tmp->i].i;
+	if (tmp->op >= 1 && tmp->op <= 16)
+	{
+		tmp->cycles_left = OP(tmp->op - 1).cycle;
+		tmp->op_size = count_size(vm, tmp->op, tmp->i + 1);
+	}
+	else
+		tmp->op_size = 1;
+}
+
+/*
+** каретки:
+** 1. устанавливаем код операции
+** 2. уменьшить количество циклов до исполнения
+** 3. выполнить операцию
+*/
+
 int			cursor_op(t_vm *vm)
 {
 	t_cursor	*tmp;
@@ -69,22 +84,13 @@ int			cursor_op(t_vm *vm)
 	while (tmp)
 	{
 		if (tmp->cycles_left <= 0)
-		{
-			tmp->op = vm->arena[tmp->i].i;
-			if (tmp->op >= 1 && tmp->op <= 16)
-			{
-				tmp->cycles_left = OP(tmp->op - 1).cycle; // смотрим циклы до исполнения по op.c в зависимости от команды
-				tmp->op_size = count_size(vm, tmp->op, tmp->i + 1); // размер операции, на которой стоит каретка
-			}
-			else
-				tmp->op_size = 1;
-		}
+			cycles_less_zero(vm, tmp);
 		tmp->cycles_left--;
 		if (tmp->cycles_left <= 0)
 		{
-			if (tmp->op >= 1 && tmp->op <= 16) 
+			if (tmp->op >= 1 && tmp->op <= 16)
 				check_op(vm, tmp);
-			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color; 
+			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color;
 			tmp->i = (tmp->i + tmp->op_size) % MEM_SIZE;
 			vm->arena[tmp->i].color = tmp->color;
 		}

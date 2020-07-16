@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:32:15 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/07 21:32:15 by marvin           ###   ########.fr       */
+/*   Updated: 2020/07/16 20:09:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,5 @@ int			parse_args(t_vm *vm, int ac, char **av)
 	}
 	if (!sort_players(vm))
 		return (0);
-	// printf("dump: %d\nn_players: %d\nvis: %d\n", vm->dump, vm->n_players, vm->v);
-	// for(int j = 0; j < vm->n_players; j++)
-	// 	printf(" PL[%d] id: %d, i: %d, filename: %s\n", j, vm->player[j].id,
-	// 		vm->player[j].i, vm->player[j].file_name);
 	return (1);
 }

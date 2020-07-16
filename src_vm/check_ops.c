@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 19:56:51 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 16:55:41 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:23:23 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,39 +40,46 @@ int			write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 	return (1);
 }
 
+int			arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j)
+{
+	int	pos;
+	int type;
+
+	type = 0;
+	pos = check_position(cur->i + 1);
+	if ((type = ((vm->arena[pos].i >> bytes) & 3)) == 0)
+		return (0);
+	if (type == IND_CODE)
+		type = T_IND;
+	if ((type & OP(cur->op - 1).args[j]) == 0)
+		return (0);
+	return (1);
+}
+
 int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 {
 	int		j;
 	int		pos;
-	int		type;
 	int		bytes;
 
 	j = -1;
-	type = 0;
 	bytes = 6;
 	pos = check_position(cur->i + 1);
 	if (OP(cur->op - 1).type_arg_code == 1)
 	{
 		while (bytes >= 0)
 		{
-			// нужные аргументы записываются, остальное проверется, что там нет никаких лишних битов
 			if (++j < num_args)
 			{
-				if ((type = ((vm->arena[pos].i >> bytes) & 3)) == 0)
+				if ((args[j].type = arg_to_type(vm, cur, bytes, j)) == 0)
 					return (0);
-				if (type == IND_CODE)
-					type = T_IND;
-				if ((type & OP(cur->op - 1).args[j]) == 0)
-					return (0);
-				args[j].type = type;
 			}
-			else
-				if (((vm->arena[pos].i >> bytes) & 3) != 0)
-					return (0);
+			else if (((vm->arena[pos].i >> bytes) & 3) != 0)
+				return (0);
 			bytes -= 2;
 		}
 	}
-	else 
+	else
 		while (++j < num_args)
 			args[j].type = OP(cur->op - 1).args[j];
 	return (1);
@@ -81,20 +88,13 @@ int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)
 int			check_op(t_vm *vm, t_cursor *cur)
 {
 	t_arg	args[OP(cur->op - 1).nb_arg];
-    int		num_args;
+	int		num_args;
 
 	num_args = OP(cur->op - 1).nb_arg;
 	if (!write_types(vm, cur, args, num_args))
 		return (0);
 	if (!write_args(vm, cur, args, num_args))
 		return (0);
-	// отправить в свою команду
 	send_to_op(vm, cur, args);
-
-	// вывод аргументов для проверки
-	// int i = -1;
-	// while (++i < num_args)
-	// 	printf("TYPE: %d ARG: %d\n", args[i].type, args[i].arg);
-	
 	return (1);
 }

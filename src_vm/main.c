@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 15:53:19 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:01:31 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ int		main(int argc, char **argv)
 
 	ft_memset(&vm, 0, sizeof(vm));
 	if (parse_args(&vm, argc, argv) &&
-		create_player(&vm) && 
+		create_player(&vm) &&
 		create_cursors(&vm))
 	{
-		// if (vm.v)
-		// 	start_ncurses(&vm);
-		// else
-			// print_arena(&vm);
-		// printf("game cycle\n");
+		if (vm.v)
+			init_ncurses();
 		game_cycle(&vm);
 	}
 	// free_all(&vm);

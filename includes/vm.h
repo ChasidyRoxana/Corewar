@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 19:26:06 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:23:34 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	print_players_ncurses(t_vm *vm, WINDOW *info);
 */
 int			count_size_arg_code(t_vm *vm, int op, int i);
 int			count_size(t_vm *vm, int op, int i);
+void		cycles_less_zero(t_vm *vm, t_cursor *tmp);
 int			cursor_op(t_vm *vm);
 
 /*
@@ -138,6 +139,7 @@ int			cursor_op(t_vm *vm);
 */
 int			check_position(int pos);
 int         write_args(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
+int			arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j);
 int         write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args);
 int			check_op(t_vm *vm, t_cursor *cur);
 

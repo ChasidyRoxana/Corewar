@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_fork_lfork_aff.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:56:07 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:04:46 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:04:17 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

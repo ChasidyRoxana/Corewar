@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi_sti_lld_lldi.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkarpukova <tkarpukova@student.42.fr>      +#+  +:+       +#+        */
+/*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:28:14 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/14 17:04:42 by tkarpukova       ###   ########.fr       */
+/*   Updated: 2020/07/16 20:04:56 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
 void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
 {
 	int reg;
-	int address; 
-	
+	int address;
+
 	reg = args[0].arg - 1;
 	address = 0;
 	address += set_arg(vm, cur, args, 1);
 	address += set_arg(vm, cur, args, 2);
 	address %= IDX_MOD;
-    address += cur->i;
-    write_to_memory(vm, cur, reg, address);
+	address += cur->i;
+	write_to_memory(vm, cur, reg, address);
 	// printf("STI: reg%d = %d, address %d\n", reg, cur->regs[reg], address);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 19:26:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:12:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	t_cursor	*tmp2;
 
 	tmp = vm->cur;
-	// printf("vm->cycle: %d, tmp->live_cycle: %d, cycle: %d\n", vm->cycle, tmp->live_cycle, *cycle);
+	// printf("vm->cycle: %d, tmp->live_cycle: %d, cycle: %d\n",
+	// vm->cycle, tmp->live_cycle, *cycle);
 	while (tmp)
 	{
 		if (vm->cycle - tmp->live_cycle >= *cycle)
@@ -43,10 +44,14 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	return (1);
 }
 
-	//	если vm->n_live >= NBR_LIVE уменьшаем vm->cycle_to_die на CYCLE_DELTA
-	//	если после проверки vm->cycle_to_die не уменьшился на CYCLE_DELTA, то vm->n_check++
-	//	если vm->n_check == MAX_CHECKS уменьшаем vm->cycle_to_die на CYCLE_DELTA
-	//	если кареток больше нет play = 0
+/*
+** если vm->n_live >= NBR_LIVE уменьшаем vm->cycle_to_die на CYCLE_DELTA
+** если после проверки vm->cycle_to_die не уменьшился на CYCLE_DELTA,
+** то vm->n_check++
+** если vm->n_check == MAX_CHECKS уменьшаем vm->cycle_to_die на CYCLE_DELTA
+** если кареток больше нет play = 0
+*/
+
 static void	check_up(t_vm *vm, int *cycle, int *game)
 {
 	check_cursor(vm, cycle);
@@ -55,7 +60,8 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 		*game = 0;
 		return ;
 	}
-	// printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",vm->n_live, vm->cycles_to_die);
+	// printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",
+	// vm->n_live, vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
@@ -63,7 +69,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-	// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
+// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
 	vm->n_live = 0;
 }
@@ -72,13 +78,11 @@ int			game_cycle(t_vm *vm)
 {
 	int	play;
 	int	cycle;
-	
+
 	play = 1;
 	cycle = 1;
 	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
-	if (vm->v)
-		init_ncurses(vm);
 	while (play)
 	{
 		if (vm->v)
@@ -88,7 +92,6 @@ int			game_cycle(t_vm *vm)
 			check_up(vm, &cycle, &play);
 		cycle++;
 		vm->cycle++;
-		// print_ncurses(vm);
 	}
 	vm->cycle--;
 	if (vm->v)
@@ -98,5 +101,5 @@ int			game_cycle(t_vm *vm)
 	}
 	// print_arena(vm);
 	// printf("END\nvm->cycle: %d\n", vm->cycle);
-	return(1);
+	return (1);
 }
