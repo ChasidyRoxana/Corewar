@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 20:59:56 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/15 22:06:54 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 21:41:33 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	write_commands(int fd, t_disasm *disasm)
 			if (tmp_arg->type != T_IND)
 				write(fd, (tmp_arg->type == T_REG ? "r" : "%"), 1);
 			write(fd, num, ft_strlen(num));
+			free(num);
 			tmp_arg = tmp_arg->next;
 		}
 		write(fd, "\n", 1);
