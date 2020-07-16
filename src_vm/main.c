@@ -12,6 +12,18 @@
 
 #include "../includes/vm.h"
 
+static void	free_all(t_vm *vm)
+{
+	t_cursor	*tmp;
+
+	while (vm->cur)
+	{
+		tmp = vm->cur;
+		vm->cur = vm->cur->next;
+		free(tmp);
+	}
+}
+
 void	print_arena(t_vm *vm)
 {
 	int i;
@@ -41,6 +53,6 @@ int		main(int argc, char **argv)
 			init_ncurses();
 		game_cycle(&vm);
 	}
-	// free_all(&vm);
+	free_all(&vm);
 	return (0);
 }

@@ -69,16 +69,27 @@ typedef struct			s_header
 	char				comment[COMMENT_LENGTH + 1];
 }						t_header;
 
+/*
+**	name		- имя команды
+**	nb_arg		- количество аргументов
+**	args[3]		- типы принимаемых аргументов
+**	op_code		- код (номер) операции
+**	cycle		- количество циклов до исполнения
+**	*description	- описание команды
+**	type_arg_code	- код типов аргументов (1 == есть, 0 == нет)
+**	t_dir_size		- размер T_DIR (1 == 2 байта, 0 == 4 байта)
+*/
+
 typedef struct			s_op
 {
-	char				*name; // имя команды
-	unsigned char		nb_arg; // количество аргументов
-	t_arg_type			args[3]; // типы принимаемых аргументов
-	unsigned char		op_code; // код (номер) операции
-	unsigned int		cycle; // количество циклов до исполнения
-	char				*description; // описание команды
-	unsigned char		type_arg_code; // код типов аргументов (1 == есть, 0 == нет)
-	unsigned char		t_dir_size; // размер T_DIR (1 == 2 байта, 0 == 4 байта)
+	char				*name;
+	unsigned char		nb_arg;
+	t_arg_type			args[3];
+	unsigned char		op_code;
+	unsigned int		cycle;
+	char				*description;
+	unsigned char		type_arg_code;
+	unsigned char		t_dir_size;
 }						t_op;
 
 extern t_op				g_op_tab[17];
