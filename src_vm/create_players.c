@@ -38,7 +38,7 @@ int		check_player(t_player *player)
 	read(player->fd, buf, 4);
 	if ((player->champ_size = check_four_bytes(player)) < 0 ||
 		player->champ_size > CHAMP_MAX_SIZE)
-		return (error_vm(ERR_MAX_SIZE));
+		return (error_champ_size(player->champ_size));
 	if (!read(player->fd, player->comment, COMMENT_LENGTH))
 		return (error_vm(ERR_COMMENT));
 	read(player->fd, buf, 4);

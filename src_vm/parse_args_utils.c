@@ -27,9 +27,9 @@ int		check_filename(char *name)
 
 int		check_atoi(char *av)
 {
-	int		i;
-	long	num;
-	int		flag;
+	int			i;
+	long long	num;
+	int			flag;
 
 	i = 0;
 	num = 0;
@@ -42,10 +42,10 @@ int		check_atoi(char *av)
 		i++;
 	if (av[i] > '9' || av[i] < '0')
 		return (0);
-	while (av[i] && av[i] >= '0' && av[i] <= '9' && num < (long)21474836480)
+	while (av[i] && av[i] >= 48 && av[i] <= 57 && num < (long long)2147483648)
 		num = num * 10 + (av[i++] - '0');
-	if (av[i] != '\0' || (num > (long)2147483647 && flag == 1) ||
-		(num > (long)2147483648 && flag == -1))
+	if (av[i] != '\0' || (num > (long long)2147483647 && flag == 1) ||
+		(num > (long long)2147483648 && flag == -1))
 		return (0);
 	return (1);
 }

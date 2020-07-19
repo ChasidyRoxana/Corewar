@@ -18,8 +18,8 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	t_cursor	*tmp2;
 
 	tmp = vm->cur;
-	printf("vm->cycle: %d - tmp->live_cycle: %d = %d, cycle: %d\n",
-	vm->cycle, tmp->live_cycle, vm->cycle - tmp->live_cycle, *cycle);
+	// printf("vm->cycle: %d - tmp->live_cycle: %d = %d, cycle: %d\n",
+	// vm->cycle, tmp->live_cycle, vm->cycle - tmp->live_cycle, *cycle);
 	while (tmp)
 	{
 		if (vm->cycle - tmp->live_cycle >= *cycle)
@@ -110,6 +110,6 @@ int			game_cycle(t_vm *vm)
 		print_arena(vm);
 	else
 		declare_winner(vm);
-	printf("END\nvm->cycle: %d\n", vm->cycle);
+	printf("~~~END!   vm->cycle: %d\n", vm->cycle);
 	return (1);
 }
