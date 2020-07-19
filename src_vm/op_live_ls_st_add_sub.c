@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:32:34 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:07:12 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:43:56 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 	reg = args[0].arg - 1;
 	if (args[1].type == T_REG)
 	{
-	// printf("ST: reg %d, reg %d\n", args[1].arg - 1, reg);
+		// printf("ST: reg %d, reg %d\n", args[1].arg - 1, reg);
 		cur->regs[args[1].arg - 1] = cur->regs[reg];
 	}
 	else if (args[1].type == T_IND)

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:38:13 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:17:37 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void					op_lldi(t_vm *vm, t_cursor *cur, t_arg *args);
 void					op_and(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_or(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_xor(t_vm *vm, t_cursor *cur, t_arg args[]);
-void					op_zjmp(t_cursor *cur, t_arg args[]);
+void					op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
 
 /*
 **	op_fork_lfork_aff.c

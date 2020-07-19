@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 22:01:35 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 15:18:29 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,29 @@ void	print_arena(t_vm *vm)
 	int i;
 
 	i = 0;
-	printf("\033[1J\033[;H");
 	while (i < MEM_SIZE)
 	{
+		if (i % 64 == 0)
+			printf("0x%04x : ", i);
 		printf("%.2x ", vm->arena[i].i);
 		i++;
 		if (i % 64 == 0)
 			printf("\n");
 	}
-	usleep(50000);
+}
+
+void	introduce_players(t_vm *vm)
+{
+	int i;
+
+	i = 0;
+	printf("Introducing contestants...\n");
+	while (i < vm->n_players)
+	{
+		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, 
+		vm->player[i].champ_size, vm->player[i].name, vm->player[i].comment);
+		i++;
+	}
 }
 
 int		main(int argc, char **argv)
@@ -51,6 +65,7 @@ int		main(int argc, char **argv)
 	{
 		if (vm.v)
 			init_ncurses();
+		introduce_players(&vm);
 		game_cycle(&vm);
 	}
 	free_all(&vm);

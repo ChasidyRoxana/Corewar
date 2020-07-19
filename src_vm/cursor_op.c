@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 16:16:07 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 20:16:06 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 13:49:03 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			cursor_op(t_vm *vm)
 			if (tmp->op >= 1 && tmp->op <= 16)
 				check_op(vm, tmp);
 			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color;
-			tmp->i = (tmp->i + tmp->op_size) % MEM_SIZE;
+			tmp->i = check_position(tmp->i + tmp->op_size);
 			vm->arena[tmp->i].color = tmp->color;
 		}
 		tmp = tmp->next;

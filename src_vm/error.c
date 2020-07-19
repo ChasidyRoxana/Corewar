@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:45:43 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 19:58:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:03:39 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		error_vm(int error)
 	else if (error == ERR_MAX_PLAYERS)
 		write(2, "Too many champions\n", 20);
 	else if (error == ERR_FLAG)
-		write(2, "Error with flags?\nUsage: ...", 29);
+		write(2, "Error with flags?\nUsage: ...\n", 30);
 	else if (error == ERR_MAGIC_HEADER)
 		write(2, "Wrong magic header\n", 20);
 	else if (error == ERR_NAME)

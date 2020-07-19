@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 20:03:25 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/16 20:03:55 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:43:25 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
 	// printf("XOR: reg%d = %d\n", args[2].arg - 1, result);
 }
 
-void		op_zjmp(t_cursor *cur, t_arg args[])
+void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	if (cur->carry)
 	{
-		cur->i = check_position(args[0].arg);
+		vm->arena[cur->i].color = vm->arena[cur->i].prev_color;
+		cur->i = check_position(cur->i + (args[0].arg % IDX_MOD));
 		cur->op_size = 0;
-		// printf("ZJMP %d\n", cur->i);
+		// printf("ZJMP %d cur->i: %d\n", args[0].arg, cur->i);
 	}
 	// else
-	// 	printf("ZJMP FAILED\n");
+		// printf("ZJMP FAILED\n");
 }

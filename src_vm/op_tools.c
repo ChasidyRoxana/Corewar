@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 20:07:32 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/16 20:08:56 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:10:57 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		check_position(int pos)
 {
+	if (pos < 0)
+		return (MEM_SIZE + (pos % MEM_SIZE));
 	return (pos % MEM_SIZE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 15:30:15 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 19:49:27 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 12:17:31 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		create_cursors(t_vm *vm)
 		vm->cur->i = vm->player[i].i;
 		i++;
 	}
+	vm->winner = vm->cur->cursor_id;
 	return (1);
 }

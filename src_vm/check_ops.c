@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 19:56:51 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:23:23 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 13:35:19 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			arg_to_type(t_vm *vm, t_cursor *cur, int bytes, int j)
 		type = T_IND;
 	if ((type & OP(cur->op - 1).args[j]) == 0)
 		return (0);
-	return (1);
+	return (type);
 }
 
 int			write_types(t_vm *vm, t_cursor *cur, t_arg *args, int num_args)

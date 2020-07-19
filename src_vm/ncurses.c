@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 21:50:51 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:58:16 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ void	print_players_ncurses(t_vm *vm, WINDOW *info)
 		wattron(info, A_BOLD);
 		wprintw(info, "Player %d: ", j + 1);
 		wattron(info, COLOR_PAIR(j * 2 + 1));
-		wprintw(info, "%s\n", vm->player[j].name);
+		wprintw(info, "%s\n\n", vm->player[j].name);
 		wattroff(info, A_BOLD);
 		wattroff(info, COLOR_PAIR(j * 2 + 1));
 		j++;
 	}
 	wattron(info, A_BOLD);
 	wprintw(info, "\nCycles: %d\n", vm->cycle);
+	wprintw(info, "\nCycles to die: %d\n", vm->cycles_to_die);
+	wprintw(info, "\nNumber of checks: %d\n", vm->n_check);
 	wattroff(info, A_BOLD);
 	wrefresh(info);
 }
@@ -61,10 +63,7 @@ void	print_end_ncurses(t_vm *vm, WINDOW *info)
 {
 	int winner;
 
-	if (!vm->winner)
-		winner = vm->n_players - 1;
-	else
-		winner = vm->winner - 1;
+	winner = vm->winner - 1;
 	wattron(info, A_BOLD);
 	wprintw(info, "\n*** PLAYER ***\n");
 	wattron(info, COLOR_PAIR(winner * 2 + 1));
@@ -94,12 +93,12 @@ void	print_ncurses(t_vm *vm, int end)
 			wprintw(arena, "%.2x", vm->arena[i].i);
 			wattroff(arena, COLOR_PAIR(vm->arena[i].color));
 			i++;
-			if (i % 64 != 0 || i == 0)
+			if (i % 64 != 0)
 				wprintw(arena, " ");
 		}
 		wprintw(arena, "\n");
 		wrefresh(arena);
-		// usleep(10000);
+		usleep(20000);
 	}
 	delwin(arena);
 	delwin(info);

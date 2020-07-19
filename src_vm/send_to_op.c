@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 15:35:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 20:09:47 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 14:44:01 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	send_to_op2(t_vm *vm, t_cursor *cur, t_arg args[])
 
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-// printf("cur %d: %s\n", cur->cursor_id, OP(cur->op - 1).name);
-// printf("cur %d:", cur->cursor_id);
+	// printf("cur %d: %s\n", cur->cursor_id, OP(cur->op - 1).name);
+	// printf("cur %d:", cur->cursor_id);
 	if (cur->op == 1)
 		op_live(vm, cur, args);
 	else if (cur->op == 2)
@@ -51,7 +51,7 @@ void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 	else if (cur->op == 8)
 		op_xor(vm, cur, args);
 	else if (cur->op == 9)
-		op_zjmp(cur, args);
+		op_zjmp(vm, cur, args);
 	else
 		send_to_op2(vm, cur, args);
 }

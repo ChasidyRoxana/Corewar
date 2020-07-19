@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 20:12:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/19 15:18:45 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	t_cursor	*tmp2;
 
 	tmp = vm->cur;
-	// printf("vm->cycle: %d, tmp->live_cycle: %d, cycle: %d\n",
-	// vm->cycle, tmp->live_cycle, *cycle);
+	printf("vm->cycle: %d - tmp->live_cycle: %d = %d, cycle: %d\n",
+	vm->cycle, tmp->live_cycle, vm->cycle - tmp->live_cycle, *cycle);
 	while (tmp)
 	{
 		if (vm->cycle - tmp->live_cycle >= *cycle)
@@ -69,9 +69,15 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
+	// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
 	*cycle = 0;
 	vm->n_live = 0;
+}
+
+void	declare_winner(t_vm *vm)
+{
+	printf("Contestant %d, \"%s\", has won !\n", 
+		vm->winner, vm->player[vm->winner - 1].name);
 }
 
 int			game_cycle(t_vm *vm)
@@ -81,9 +87,10 @@ int			game_cycle(t_vm *vm)
 
 	play = 1;
 	cycle = 1;
+	vm->n_check = 1;
 	vm->cycle = 1;
 	vm->cycles_to_die = CYCLE_TO_DIE;
-	while (play)
+	while (play || (vm->dump != 0 && vm->cycle <= vm->dump))
 	{
 		if (vm->v)
 			print_ncurses(vm, 0);
@@ -94,12 +101,15 @@ int			game_cycle(t_vm *vm)
 		vm->cycle++;
 	}
 	vm->cycle--;
-	if (vm->v)
+	if (vm->v && !vm->dump)
 	{
 		print_ncurses(vm, 1);
 		// endwin();
 	}
-	// print_arena(vm);
-	// printf("END\nvm->cycle: %d\n", vm->cycle);
+	if (vm->dump)
+		print_arena(vm);
+	else
+		declare_winner(vm);
+	printf("END\nvm->cycle: %d\n", vm->cycle);
 	return (1);
 }

@@ -1,5 +1,4 @@
-.name "zork
-      .lll" #tutu
+.name "zork.lll" #tutu
 .comment "just a basic living prog"
 
      l1: #comment
@@ -8,6 +7,6 @@
 	and	r1, %:l1, r1
 ld :live, r1
 live: 
-     live	%-21454768967346896796438768
+     live	%-21
 	zjmp %:live
-     
+     aff r1
