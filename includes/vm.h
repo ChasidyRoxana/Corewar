@@ -17,7 +17,7 @@
 
 # include "../libft/libft.h"
 # include "op.h"
-# include <ncurses.h>
+// # include <ncurses.h>
 
 # define ERR_FILE_NAME		1
 # define ERR_MAX_PLAYERS    2
@@ -94,8 +94,9 @@ typedef struct			s_arena
 **	n_live		- количество live за последний период
 **	n_check		- количество проверок
 **	winner		- победитель
-**	v			- флаг визуализации
 **	dump		- флаг -dump
+**	v			- флаг визуализации
+**	d			- флаг дебага
 */
 typedef struct			s_vm
 {
@@ -108,8 +109,9 @@ typedef struct			s_vm
 	int					n_live;
 	int					n_check;
 	int					winner;
-	int					v;
 	int					dump;
+	int					v;
+	int					d;
 }						t_vm;
 
 /*
@@ -159,7 +161,7 @@ void					print_ncurses(t_vm *vm, int end);
 */
 int						malloc_cursor(t_vm *vm);
 int						create_cursors(t_vm *vm);
-void					print_players_ncurses(t_vm *vm, WINDOW *info);
+// void					print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c
@@ -199,8 +201,8 @@ int						set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 void					op_live(t_vm *vm, t_cursor *cur, t_arg *args);
 void					op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
 void					op_st(t_vm *vm, t_cursor *cur, t_arg *args);
-void					op_add(t_cursor *cur, t_arg *args);
-void					op_sub(t_cursor *cur, t_arg *args);
+void					op_add(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_sub(t_vm *vm, t_cursor *cur, t_arg *args);
 
 /*
 **	op_ldi_sti_lld_lldi.c
@@ -223,6 +225,6 @@ void					op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
 */
 void					op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
-void					op_aff(t_cursor *cur, t_arg args[]);
+void					op_aff(t_vm *vm, t_cursor *cur, t_arg args[]);
 
 #endif

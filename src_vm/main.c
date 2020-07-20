@@ -32,11 +32,11 @@ void	print_arena(t_vm *vm)
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)
-			printf("0x%04x : ", i);
-		printf("%.2x ", vm->arena[i].i);
+			ft_printf("0x%04x : ", i);
+		ft_printf("%.2x ", vm->arena[i].i);
 		i++;
 		if (i % 64 == 0)
-			printf("\n");
+			ft_printf("\n");
 	}
 }
 
@@ -45,10 +45,10 @@ void	introduce_players(t_vm *vm)
 	int i;
 
 	i = 0;
-	printf("Introducing contestants...\n");
+	ft_printf("Introducing contestants...\n");
 	while (i < vm->n_players)
 	{
-		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, 
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, 
 		vm->player[i].champ_size, vm->player[i].name, vm->player[i].comment);
 		i++;
 	}
@@ -59,12 +59,15 @@ int		main(int argc, char **argv)
 	t_vm	vm;
 
 	ft_memset(&vm, 0, sizeof(vm));
+	vm.n_check = 1;
+	vm.cycle = 1;
+	vm.cycles_to_die = CYCLE_TO_DIE;
 	if (parse_args(&vm, argc, argv) &&
 		create_player(&vm) &&
 		create_cursors(&vm))
 	{
-		if (vm.v)
-			init_ncurses();
+		// if (vm.v && !vm.dump && !vm.d)
+		// 	init_ncurses();
 		introduce_players(&vm);
 		game_cycle(&vm);
 	}

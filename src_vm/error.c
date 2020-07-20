@@ -26,7 +26,10 @@ int		error_vm(int error)
 	else if (error == ERR_MAX_PLAYERS)
 		ft_fdprintf(2, "Too many champions\n");
 	else if (error == ERR_FLAG)
-		ft_fdprintf(2, "Error with flags?\nUsage: ...\n");
+		ft_fdprintf(2, "Error with flags?\nUsage: ./corewar [-v -d "
+		"-dump N] [[-n N] [filename].cor] ...\n"
+		"-v: visual\n-d: debug\n"
+		"-n N:...\n-dump N: ...\n");
 	else if (error == ERR_MAGIC_HEADER)
 		ft_fdprintf(2, "Wrong magic header\n");
 	else if (error == ERR_NAME)

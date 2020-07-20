@@ -78,7 +78,7 @@ int			main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		write(2, "Usage: ./asm [file.s]\n", 23);
+		ft_fdprintf(2, "Usage: ./asm [file.s]\n");
 		return (1);
 	}
 	ft_memset(&asmb, 0, sizeof(asmb));
@@ -87,7 +87,7 @@ int			main(int argc, char **argv)
 		find_name_comment(&asmb) &&
 		parse_commands(&asmb) &&
 		write_to_file(&asmb))
-		printf("The champion is ready\n");
+		ft_printf("The champion is ready\n");
 	free_all(&asmb);
 	return (0);
 }

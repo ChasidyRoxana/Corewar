@@ -12,15 +12,6 @@
 
 #include "../includes/disasm.h"
 
-static void	write_name_comment(int fd, t_disasm *disasm)
-{
-	write(fd, ".name \"", 7);
-	write(fd, disasm->name, ft_strlen(disasm->name));
-	write(fd, "\"\n.comment \"", 12);
-	write(fd, disasm->comment, ft_strlen(disasm->comment));
-	write(fd, "\"\n\n", 3);
-}
-
 static void	write_commands(int fd, t_disasm *disasm)
 {
 	char		*num;
@@ -31,20 +22,19 @@ static void	write_commands(int fd, t_disasm *disasm)
 	while (tmp)
 	{
 		tmp_arg = tmp->args;
-		write(fd, OP(tmp->op_code).name, ft_strlen(OP(tmp->op_code).name));
-		write(fd, " ", 1);
+		ft_fdprintf(fd, "%s ", OP(tmp->op_code).name);
 		while (tmp_arg)
 		{
 			if (tmp_arg != tmp->args)
-				write(fd, ", ", 2);
+				ft_fdprintf(fd, ", ");
 			num = ft_itoa(tmp_arg->arg);
 			if (tmp_arg->type != T_IND)
-				write(fd, (tmp_arg->type == T_REG ? "r" : "%"), 1);
-			write(fd, num, ft_strlen(num));
+				ft_fdprintf(fd, "%c", (tmp_arg->type == T_REG ? "r" : "%"));
+			ft_fdprintf(fd, "%s", num);
 			free(num);
 			tmp_arg = tmp_arg->next;
 		}
-		write(fd, "\n", 1);
+		ft_fdprintf(fd, "\n");
 		tmp = tmp->next;
 	}
 }
@@ -55,7 +45,8 @@ int			write_to_file(t_disasm *disasm)
 
 	if ((fd = open(disasm->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
 		return (error_disasm(ERR_CRT_FILE));
-	write_name_comment(fd, disasm);
+	ft_fdprintf(fd, ".name \"%s\"\n", disasm->name);
+	ft_fdprintf(fd, ".comment \"%s\"\n\n", disasm->comment);
 	write_commands(fd, disasm);
 	return (1);
 }

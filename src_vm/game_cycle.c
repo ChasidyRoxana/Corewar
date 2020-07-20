@@ -18,8 +18,6 @@ static int	check_cursor(t_vm *vm, int *cycle)
 	t_cursor	*tmp2;
 
 	tmp = vm->cur;
-	// printf("vm->cycle: %d - tmp->live_cycle: %d = %d, cycle: %d\n",
-	// vm->cycle, tmp->live_cycle, vm->cycle - tmp->live_cycle, *cycle);
 	while (tmp)
 	{
 		if (vm->cycle - tmp->live_cycle >= *cycle)
@@ -56,12 +54,10 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 {
 	check_cursor(vm, cycle);
 	if (!vm->cur)
-	{
 		*game = 0;
-		return ;
-	}
-	// printf("=====\nvm->n_live: %d, vm->cycles_to_die %d -> ",
-	// vm->n_live, vm->cycles_to_die);
+	if (vm->d)
+		ft_printf("~ Checkup ~ live: %d, checks: %d, cycles_to_die %d -> ",
+		vm->n_live, vm->n_check, vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
@@ -69,14 +65,15 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-	// printf("%d, vm->n_check: %d\n=====\n", vm->cycles_to_die, vm->n_check);
+	if (vm->d)
+		ft_printf("%d%s ~\n", vm->cycles_to_die, (*game ? "" : " game over"));
 	*cycle = 0;
 	vm->n_live = 0;
 }
 
 void	declare_winner(t_vm *vm)
 {
-	printf("Contestant %d, \"%s\", has won !\n", 
+	ft_printf("Contestant %d, \"%s\", has won !\n", 
 		vm->winner, vm->player[vm->winner - 1].name);
 }
 
@@ -87,13 +84,10 @@ int			game_cycle(t_vm *vm)
 
 	play = 1;
 	cycle = 1;
-	vm->n_check = 1;
-	vm->cycle = 1;
-	vm->cycles_to_die = CYCLE_TO_DIE;
 	while (play || (vm->dump != 0 && vm->cycle <= vm->dump))
 	{
-		if (vm->v)
-			print_ncurses(vm, 0);
+		// if (vm->v && !vm->dump && !vm->d)
+		// 	print_ncurses(vm, 0);
 		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)
 			check_up(vm, &cycle, &play);
@@ -101,15 +95,19 @@ int			game_cycle(t_vm *vm)
 		vm->cycle++;
 	}
 	vm->cycle--;
-	if (vm->v && !vm->dump)
-	{
-		print_ncurses(vm, 1);
-		// endwin();
-	}
+
+	/* весь этот финальный вывод можно в отдельную функцию вынести */
+	// if (vm->v && !vm->dump && !vm->d)
+	// {
+	// 	print_ncurses(vm, 1);
+	// 	// endwin();
+	// }
 	if (vm->dump)
 		print_arena(vm);
 	else
 		declare_winner(vm);
-	printf("~~~END!   vm->cycle: %d\n", vm->cycle);
+	if (vm->d)
+		ft_printf("~~~END!  Cycle: %d\n", vm->cycle);
+	/* */
 	return (1);
 }

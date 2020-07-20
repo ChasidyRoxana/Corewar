@@ -90,7 +90,8 @@ static int	sort_players(t_vm *vm)
 
 static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 {
-	if (!ft_strcmp(av[*n_arg], "-v") && vm->v)
+	if ((!ft_strcmp(av[*n_arg], "-v") && vm->v) ||
+		(!ft_strcmp(av[*n_arg], "-d") && vm->d))
 		return (0);
 	else if (!ft_strcmp(av[*n_arg], "-dump"))
 	{
@@ -102,9 +103,12 @@ static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 		if (!flag_n(vm, ac, av, n_arg))
 			return (0);
 	}
-	else if (!ft_strcmp(av[*n_arg], "-v"))
+	else if (!ft_strcmp(av[*n_arg], "-v") || !ft_strcmp(av[*n_arg], "-d"))
 	{
-		vm->v = 1;
+		if (!ft_strcmp(av[*n_arg], "-v"))
+			vm->v = 1;
+		else
+			vm->d = 1;
 		(*n_arg)++;
 	}
 	else

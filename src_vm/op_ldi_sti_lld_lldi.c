@@ -24,7 +24,9 @@ void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
 	address %= IDX_MOD;
 	address += cur->i;
 	cur->regs[reg] = get_arg(vm, check_position(address), 4);
-	// printf("LDI: reg%d = %d, address %d\n", reg, cur->regs[reg], address);
+	if (vm->d)
+		ft_printf("LDI: address %d, reg%d = %d\n", address, reg,
+		cur->regs[reg]);
 }
 
 void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
@@ -39,7 +41,9 @@ void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
 	address %= IDX_MOD;
 	address += cur->i;
 	write_to_memory(vm, cur, reg, check_position(address));
-	// printf("STI: reg%d = %d, address %d\n", reg, cur->regs[reg], address);
+	if (vm->d)
+		ft_printf("STI: address %d, reg%d = %d\n", address, reg,
+		cur->regs[reg]);
 }
 
 void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)
@@ -55,12 +59,13 @@ void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)
 		arg = args[0].arg;
 	else if (args[0].arg == T_IND)
 	{
-		address = check_position(cur->i + args[0].arg); // отличается с ld только этой строкой
+		address = check_position(cur->i + args[0].arg);
 		arg = get_arg(vm, address, 4);
 	}
 	cur->regs[reg] = arg;
 	cur->carry = (arg == 0) ? 1 : 0; // нннада? в ld есть, чекнуть по сабджекту
-	// printf("LLD: reg%d = %d\n", reg, arg);
+	if (vm->d)
+		ft_printf("LLD: reg%d = %d\n", reg, arg);
 }
 
 void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
@@ -73,5 +78,7 @@ void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
 	address += set_arg(vm, cur, args, 0);
 	address += set_arg(vm, cur, args, 1);
 	cur->regs[reg] = get_arg(vm, check_position(address), 4);
-	// printf("LLDI: reg%d = %d, address %d\n", reg, cur->regs[reg], address);
+	if (vm->d)
+		ft_printf("LLDI: address %d, reg%d = %d\n", address, reg,
+		cur->regs[reg]);
 }
