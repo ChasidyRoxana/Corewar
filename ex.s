@@ -9,4 +9,3 @@ ld :live, r1
 live: 
      live	%-21
 	zjmp %:live
-     aff r1
