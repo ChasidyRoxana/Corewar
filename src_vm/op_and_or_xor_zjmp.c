@@ -23,7 +23,9 @@ void		op_and(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg & second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
-	// printf("AND: reg%d = %d\n", args[2].arg - 1, result);
+	if (vm->d)
+		ft_printf("AND: %d & %d -> reg%d = %d\n", first_arg, second_arg,
+		args[2].arg - 1, result);
 }
 
 void		op_or(t_vm *vm, t_cursor *cur, t_arg args[])
@@ -37,7 +39,9 @@ void		op_or(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg | second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
-	// printf("OR: reg%d = %d\n", args[2].arg - 1, result);
+	if (vm->d)
+		ft_printf("OR: %d | %d -> reg%d = %d\n", first_arg, second_arg,
+		args[2].arg - 1, result);
 }
 
 void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
@@ -51,7 +55,9 @@ void		op_xor(t_vm *vm, t_cursor *cur, t_arg args[])
 	result = first_arg ^ second_arg;
 	cur->regs[args[2].arg - 1] = result;
 	cur->carry = (result == 0 ? 1 : 0);
-	// printf("XOR: reg%d = %d\n", args[2].arg - 1, result);
+	if (vm->d)
+		ft_printf("XOR: %d ^ %d -> reg%d = %d\n", first_arg, second_arg,
+		args[2].arg - 1, result);
 }
 
 void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
@@ -61,8 +67,9 @@ void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
 		vm->arena[cur->i].color = vm->arena[cur->i].prev_color;
 		cur->i = check_position(cur->i + (args[0].arg % IDX_MOD));
 		cur->op_size = 0;
-		// printf("ZJMP %d cur->i: %d\n", args[0].arg, cur->i);
+		if (vm->d)
+			ft_printf("ZJMP: arg %d -> %d\n", args[0].arg, cur->i);
 	}
-	// else
-		// printf("ZJMP FAILED\n");
+	else if (vm->d)
+		printf("ZJMP: FAILED\n");
 }

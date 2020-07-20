@@ -37,17 +37,22 @@ void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i = check_position(vm->cur->i + args[0].arg % IDX_MOD);
-	// printf("FORK %d\n", vm->cur->i);
+	if (vm->d)
+		ft_printf("FORK: %d\n", vm->cur->i);
 }
 
 void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i = check_position(vm->cur->i + args[0].arg);
-	// printf("LFORK %d\n", vm->cur->i);
+	if (vm->d)
+		ft_printf("LFORK: %d\n", vm->cur->i);
 }
 
-void		op_aff(t_cursor *cur, t_arg args[])
+void		op_aff(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-	printf("%c", (char)cur->regs[args[0].arg - 1]);
+	if (vm->d)
+		ft_printf("AFF: reg%d = %d\n", args[0].arg - 1,
+		cur->regs[args[0].arg - 1]);
+	ft_printf("%c", (char)cur->regs[args[0].arg - 1]);
 }

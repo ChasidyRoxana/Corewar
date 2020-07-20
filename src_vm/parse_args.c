@@ -16,6 +16,7 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 {
 	int		num;
 
+	num = 0;
 	if (*n_arg + 2 >= ac)
 		return (error_vm(ERR_FLAG));
 	else
@@ -33,7 +34,8 @@ static int	flag_n(t_vm *vm, int ac, char **av, int *n_arg)
 			return (0);
 		vm->player[vm->n_players].file_name = ft_strdup(av[(*n_arg)++]);
 		vm->player[vm->n_players].id = num;
-		vm->player[vm->n_players].i = vm->n_players++;
+		vm->player[vm->n_players].i = vm->n_players;
+		vm->n_players += 1;
 		return (1);
 	}
 }
@@ -66,8 +68,8 @@ static int	sort_players(t_vm *vm)
 	while (++i < vm->n_players)
 	{
 		if (vm->player[i].id > vm->n_players)
-			return (error_vm(ERR_FLAG));
-		if (vm->player[i].id != 0)
+			vm->player[i].id = 0;
+		if (vm->player[i].id != 0 && vm->player[i].i >= 0)
 		{
 			if (vm->player[vm->player[i].id - 1].id == vm->player[i].id &&
 				vm->player[vm->player[i].id - 1].i != vm->player[i].i)
@@ -75,6 +77,8 @@ static int	sort_players(t_vm *vm)
 			tmp = vm->player[vm->player[i].id - 1];
 			vm->player[vm->player[i].id - 1] = vm->player[i];
 			vm->player[i] = tmp;
+			vm->player[i].i = -1;
+			i = -1;
 		}
 	}
 	i = -1;
@@ -86,7 +90,8 @@ static int	sort_players(t_vm *vm)
 
 static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 {
-	if (!ft_strcmp(av[*n_arg], "-v") && vm->v)
+	if ((!ft_strcmp(av[*n_arg], "-v") && vm->v) ||
+		(!ft_strcmp(av[*n_arg], "-d") && vm->d))
 		return (0);
 	else if (!ft_strcmp(av[*n_arg], "-dump"))
 	{
@@ -98,9 +103,12 @@ static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 		if (!flag_n(vm, ac, av, n_arg))
 			return (0);
 	}
-	else if (!ft_strcmp(av[*n_arg], "-v"))
+	else if (!ft_strcmp(av[*n_arg], "-v") || !ft_strcmp(av[*n_arg], "-d"))
 	{
-		vm->v = 1;
+		if (!ft_strcmp(av[*n_arg], "-v"))
+			vm->v = 1;
+		else
+			vm->d = 1;
 		(*n_arg)++;
 	}
 	else
@@ -129,10 +137,9 @@ int			parse_args(t_vm *vm, int ac, char **av)
 			if (vm->n_players >= MAX_PLAYERS)
 				return (error_vm(ERR_MAX_PLAYERS));
 			vm->player[vm->n_players].file_name = ft_strdup(av[n_arg++]);
-			vm->player[vm->n_players].i = vm->n_players++;
+			vm->player[vm->n_players].i = vm->n_players;
+			vm->n_players += 1;
 		}
 	}
-	if (!sort_players(vm))
-		return (0);
-	return (1);
+	return (!sort_players(vm) ? 0 : 1);
 }

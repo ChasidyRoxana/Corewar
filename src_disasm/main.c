@@ -66,7 +66,7 @@ int			main(int argc, char **argv)
 	if (check_filename(&disasm, argv[1]) &&
 		parse_file(&disasm, argv[1]) &&
 		write_to_file(&disasm))
-		write(1, "The .s file is ready\n", 22);
+		ft_printf("The .s file is ready\n");
 	free_all(&disasm);
 	return (0);
 }

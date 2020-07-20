@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/19 14:17:37 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:38:13 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # include "../libft/libft.h"
 # include "op.h"
-# include <ncurses.h>
+// # include <ncurses.h>
 
 # define ERR_FILE_NAME		1
 # define ERR_MAX_PLAYERS    2
@@ -26,18 +26,24 @@
 # define ERR_MAGIC_HEADER	5
 # define ERR_NAME			6
 # define ERR_COMMENT		7
-# define ERR_MAX_SIZE		8
-# define ERR_CHAMP_SIZE		9
-# define ERR_MALLOC			10
-# define OP(index)			g_op_tab[index] // ne ebu
+# define ERR_CHAMP_SIZE		8
+# define ERR_MALLOC			9
+# define OP(index)			g_op_tab[index]
 
+/*
+**	*file_name	- название файла
+**	id			- номер игрока
+**	fd			- поток для чтения файла
+**	champ_size	- размер исполняемого кода
+**	i			- позиция игрока на арене
+*/
 typedef struct			s_player
 {
 	char				*file_name;
-	int					id; // номер игрока
+	int					id;
 	int					fd;
 	int					champ_size;
-	int					i; // позиция игрока на арене
+	int					i;
 	char				name[PROG_NAME_LENGTH + 1];
 	char				comment[COMMENT_LENGTH + 1];
 }						t_player;
@@ -48,16 +54,26 @@ typedef struct			s_arg
 	int					type;
 }						t_arg;
 
+/*
+**	regs[]		- регистры
+**	cursor_id	- уникальный номер каретки
+**	live_cycle	- номер цикла, в котором последний раз выполнялась команда live
+**	op			- код операции, на которой стоит каретка
+**	cycles_left	- кол-во циклов, оставшихся до исполнения текущей операции
+**	i			- текущая позиция каретки на арене
+**	op_size		- размер операции, на которой стоит каретка
+**	color		- цвет каретки
+*/
 typedef struct			s_cursor
 {
-	int					regs[REG_NUMBER]; // регистры
-	int					cursor_id; // уникальный номер каретки
+	int					regs[REG_NUMBER];
+	int					cursor_id;
 	int					carry;
-	int					live_cycle; // номер цикла, в котором последний раз выполнялась команда live
-	int					op; // код операции, на которой стоит каретка
-	int					cycles_left; // кол-во операций, оставшихся до исполнения операции на которой стоит каретка
-	int					i; // текущая позиция каретки
-	int					op_size; // размер операции, на которой стоит каретка
+	int					live_cycle;
+	int					op;
+	int					cycles_left;
+	int					i;
+	int					op_size;
 	int					color;
 	struct s_cursor		*next;
 }						t_cursor;
@@ -69,19 +85,33 @@ typedef struct			s_arena
 	int					prev_color;
 }						t_arena;
 
+/*
+**	player[]	- массив чемпионов
+**	n_players	- количество чемпионов
+**	*cur		- список кареток
+**	cycle		- номер цикла
+**	cycles_to_die - циклов в периоде до проверки
+**	n_live		- количество live за последний период
+**	n_check		- количество проверок
+**	winner		- победитель
+**	dump		- флаг -dump
+**	v			- флаг визуализации
+**	d			- флаг дебага
+*/
 typedef struct			s_vm
 {
-	t_arena				arena[MEM_SIZE + 1]; // арена
-	int					winner;
-	int					cycle; // номер цикла
-	int					v; // флаг визуализации
-	int					dump; // флаг -dump
-	int					cycles_to_die; // циклов в периоде до проверки
-	int					n_live; // количество live за последний период
-	int					n_check; // количество проверок
+	t_arena				arena[MEM_SIZE + 1];
 	int					n_players;
-	t_player			player[MAX_PLAYERS]; // массив чемпионов
+	t_player			player[MAX_PLAYERS];
 	t_cursor			*cur;
+	int					cycle;
+	int					cycles_to_die;
+	int					n_live;
+	int					n_check;
+	int					winner;
+	int					dump;
+	int					v;
+	int					d;
 }						t_vm;
 
 /*
@@ -105,6 +135,7 @@ void					print_arena(t_vm *vm);
 */
 int						error_vm(int error);
 int						error_line(int error, char *str);
+int						error_champ_size(int size);
 
 /*
 **	create_players.c
@@ -130,7 +161,7 @@ void					print_ncurses(t_vm *vm, int end);
 */
 int						malloc_cursor(t_vm *vm);
 int						create_cursors(t_vm *vm);
-void					print_players_ncurses(t_vm *vm, WINDOW *info);
+// void					print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c
@@ -170,8 +201,8 @@ int						set_arg(t_vm *vm, t_cursor *cur, t_arg args[], int i);
 void					op_live(t_vm *vm, t_cursor *cur, t_arg *args);
 void					op_ld(t_vm *vm, t_cursor *cur, t_arg *args);
 void					op_st(t_vm *vm, t_cursor *cur, t_arg *args);
-void					op_add(t_cursor *cur, t_arg *args);
-void					op_sub(t_cursor *cur, t_arg *args);
+void					op_add(t_vm *vm, t_cursor *cur, t_arg *args);
+void					op_sub(t_vm *vm, t_cursor *cur, t_arg *args);
 
 /*
 **	op_ldi_sti_lld_lldi.c
@@ -194,6 +225,6 @@ void					op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
 */
 void					op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
-void					op_aff(t_cursor *cur, t_arg args[]);
+void					op_aff(t_vm *vm, t_cursor *cur, t_arg args[]);
 
 #endif

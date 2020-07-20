@@ -27,13 +27,13 @@ static void	send_to_op2(t_vm *vm, t_cursor *cur, t_arg args[])
 	else if (cur->op == 15)
 		op_lfork(vm, cur, args);
 	else if (cur->op == 16)
-		op_aff(cur, args);
+		op_aff(vm, cur, args);
 }
 
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-	// printf("cur %d: %s\n", cur->cursor_id, OP(cur->op - 1).name);
-	// printf("cur %d:", cur->cursor_id);
+	if (vm->d)
+		ft_printf("Cursor %d: ", cur->cursor_id);
 	if (cur->op == 1)
 		op_live(vm, cur, args);
 	else if (cur->op == 2)
@@ -41,9 +41,9 @@ void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 	else if (cur->op == 3)
 		op_st(vm, cur, args);
 	else if (cur->op == 4)
-		op_add(cur, args);
+		op_add(vm, cur, args);
 	else if (cur->op == 5)
-		op_sub(cur, args);
+		op_sub(vm, cur, args);
 	else if (cur->op == 6)
 		op_and(vm, cur, args);
 	else if (cur->op == 7)
