@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/07/16 20:33:24 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:35:10 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct			s_header
 **	type_arg_code	- код типов аргументов (1 == есть, 0 == нет)
 **	t_dir_size		- размер T_DIR (1 == 2 байта, 0 == 4 байта)
 */
-
 typedef struct			s_op
 {
 	char				*name;

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:28:14 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/19 14:43:36 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:27:17 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)
 		arg = get_arg(vm, address, 4);
 	}
 	cur->regs[reg] = arg;
-	cur->carry = (arg == 0) ? 1 : 0; // нннада? в ld есть, чекнуть по сабджекту
+	cur->carry = (arg == 0) ? 1 : 0;
 	if (vm->d)
 		ft_printf("LLD: reg%d = %d\n", reg, arg);
 }
 
 void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
 {
+	int arg;
 	int reg;
 	int address;
 
@@ -77,7 +78,9 @@ void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
 	address = cur->i;
 	address += set_arg(vm, cur, args, 0);
 	address += set_arg(vm, cur, args, 1);
-	cur->regs[reg] = get_arg(vm, check_position(address), 4);
+	arg = get_arg(vm, check_position(address), 4);
+	cur->regs[reg] = arg;
+	cur->carry = (arg == 0) ? 1 : 0;
 	if (vm->d)
 		ft_printf("LLDI: address %d, reg%d = %d\n", address, reg,
 		cur->regs[reg]);

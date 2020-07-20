@@ -6,18 +6,16 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:38:13 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 22:25:35 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include <stdio.h> // удалить в конце
-
 # include "../libft/libft.h"
 # include "op.h"
-// # include <ncurses.h>
+# include <ncurses.h>
 
 # define ERR_FILE_NAME		1
 # define ERR_MAX_PLAYERS    2
@@ -148,20 +146,22 @@ int						create_player(t_vm *vm);
 /*
 **	game_cycle.c
 */
+void					finish_game(t_vm *vm);
 int						game_cycle(t_vm *vm);
 
 /*
 **	ncurses.c
 */
-void					init_ncurses();
-void					print_ncurses(t_vm *vm, int end);
+void					init_ncurses(void);
+void					print_ncurses(t_vm *vm, int end, int i);
+void					print_end_ncurses(t_vm *vm, WINDOW *info);
+void					print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	create_cursor.c
 */
 int						malloc_cursor(t_vm *vm);
 int						create_cursors(t_vm *vm);
-// void					print_players_ncurses(t_vm *vm, WINDOW *info);
 
 /*
 **	cursor_op.c
@@ -226,5 +226,12 @@ void					op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_fork(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_lfork(t_vm *vm, t_cursor *cur, t_arg args[]);
 void					op_aff(t_vm *vm, t_cursor *cur, t_arg args[]);
+
+/*
+** print_corewar.c
+*/
+void					introduce_players(t_vm *vm);
+void					print_arena(t_vm *vm);
+void					declare_winner(t_vm *vm);
 
 #endif

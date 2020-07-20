@@ -6,14 +6,13 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/19 14:58:16 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 22:32:47 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ncurses.h>
 #include "../includes/vm.h"
 
-void	init_ncurses()
+void	init_ncurses(void)
 {
 	initscr();
 	noecho();
@@ -65,7 +64,7 @@ void	print_end_ncurses(t_vm *vm, WINDOW *info)
 
 	winner = vm->winner - 1;
 	wattron(info, A_BOLD);
-	wprintw(info, "\n*** PLAYER ***\n");
+	wprintw(info, "\n*** PLAYER %d ***\n", vm->winner);
 	wattron(info, COLOR_PAIR(winner * 2 + 1));
 	wprintw(info, "%s", vm->player[winner].name);
 	wattroff(info, COLOR_PAIR(winner * 2 + 1));
@@ -74,19 +73,18 @@ void	print_end_ncurses(t_vm *vm, WINDOW *info)
 	wrefresh(info);
 }
 
-void	print_ncurses(t_vm *vm, int end)
+void	print_ncurses(t_vm *vm, int end, int i)
 {
-	int		i;
 	WINDOW	*arena;
 	WINDOW	*info;
 
-	i = 0;
 	arena = newwin(65, 191, 0, 0);
 	info = newwin(64, 84, 0, 195);
 	if (vm->v)
 	{
-		erase(); // или лучше clear ? проверить
-		end == 1 ? print_end_ncurses(vm, info) : print_players_ncurses(vm, info);
+		erase();
+		end == 1 ? print_end_ncurses(vm, info) :
+			print_players_ncurses(vm, info);
 		while (i < MEM_SIZE)
 		{
 			wattron(arena, COLOR_PAIR(vm->arena[i].color));

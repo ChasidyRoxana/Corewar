@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 14:42:31 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:23:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			(*i)++;
 			tmp->type = T_DIR;
 		}
-		else if (asmb->gnl_last->line[*i] == ':' || // нормальная индентация?
+		else if (asmb->gnl_last->line[*i] == ':' ||
 			(asmb->gnl_last->line[*i] >= 48 && asmb->gnl_last->line[*i] <= 57)
 			|| asmb->gnl_last->line[*i] == '-')
 			tmp->type = T_IND;

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/19 15:18:45 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 22:26:18 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	check_cursor(t_vm *vm, int *cycle)
 					tmp2 = tmp2->next;
 				tmp2->next = tmp->next;
 			}
-			// printf("delete %d cursor\n", tmp->cursor_id);
 			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color;
 			free(tmp);
 			tmp = vm->cur;
@@ -71,10 +70,16 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	vm->n_live = 0;
 }
 
-void	declare_winner(t_vm *vm)
+void		finish_game(t_vm *vm)
 {
-	ft_printf("Contestant %d, \"%s\", has won !\n", 
-		vm->winner, vm->player[vm->winner - 1].name);
+	if (vm->v && !vm->dump && !vm->d)
+		print_ncurses(vm, 1, 0);
+	if (vm->dump)
+		print_arena(vm);
+	else if (!vm->v)
+		declare_winner(vm);
+	if (vm->d)
+		ft_printf("~~~END!  Cycle: %d\n", vm->cycle);
 }
 
 int			game_cycle(t_vm *vm)
@@ -86,8 +91,8 @@ int			game_cycle(t_vm *vm)
 	cycle = 1;
 	while (play || (vm->dump != 0 && vm->cycle <= vm->dump))
 	{
-		// if (vm->v && !vm->dump && !vm->d)
-		// 	print_ncurses(vm, 0);
+		if (vm->v && !vm->dump && !vm->d)
+			print_ncurses(vm, 0, 0);
 		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)
 			check_up(vm, &cycle, &play);
@@ -95,19 +100,6 @@ int			game_cycle(t_vm *vm)
 		vm->cycle++;
 	}
 	vm->cycle--;
-
-	/* весь этот финальный вывод можно в отдельную функцию вынести */
-	// if (vm->v && !vm->dump && !vm->d)
-	// {
-	// 	print_ncurses(vm, 1);
-	// 	// endwin();
-	// }
-	if (vm->dump)
-		print_arena(vm);
-	else
-		declare_winner(vm);
-	if (vm->d)
-		ft_printf("~~~END!  Cycle: %d\n", vm->cycle);
-	/* */
+	finish_game(vm);
 	return (1);
 }

@@ -6,14 +6,12 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:31:14 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:35:56 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
-
-# include <stdio.h> // удалить в конце
 
 # include "../libft/libft.h"
 # include "op.h"
@@ -56,23 +54,37 @@ typedef struct			s_label
 	struct s_label		*next;
 }						t_label;
 
+/*
+** type 	- T_REG, T_IND, T_DIR
+** arg 		- число, которое потом запишем в файл
+** arg_name - как было записано в команде
+*/
 typedef struct			s_args
 {
-	int					type; //T_REG, T_IND, T_DIR
-	int					arg; //число, которое потом запишем в файл
-	char				*arg_name; //как было записано в команде
+	int					type;
+	int					arg;
+	char				*arg_name;
 	struct s_args		*next;
 }						t_args;
 
+/*
+** label 		- список названий меток для этой команды
+** size 		- размер команды
+** op 			- код команды
+** args_type 	- код аргументов
+** num_args 	- количетво аргуентов
+** gnl_line 	- указатель на строку гнл с этой командой
+** args 		- аргументы
+*/
 typedef struct			s_command
 {
-	t_label				*label; //список названий меток для этой команды
-	int					size; //размер команды
-	unsigned char		op; //код команды
-	unsigned char		args_type; //код аргументов
-	int					num_args; //количетво аргуентов
-	t_gnl				*gnl_line; //указатель на строку гнл с этой командой
-	t_args				*args; //аргументы
+	t_label				*label;
+	int					size;
+	unsigned char		op;
+	unsigned char		args_type;
+	int					num_args;
+	t_gnl				*gnl_line;
+	t_args				*args;
 	struct s_command	*prev;
 	struct s_command	*next;
 }						t_command;
@@ -85,8 +97,8 @@ typedef struct			s_asm
 	t_command			*comm_last;
 	t_header			header;
 	char				*filename;
-	int					flag_name;//
-	int					flag_comment;//
+	int					flag_name;
+	int					flag_comment;
 }						t_asm;
 
 /*

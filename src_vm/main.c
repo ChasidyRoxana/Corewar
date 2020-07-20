@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:28:20 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/19 15:18:29 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/20 20:24:03 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,7 @@ static void	free_all(t_vm *vm)
 	}
 }
 
-void	print_arena(t_vm *vm)
-{
-	int i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-			ft_printf("0x%04x : ", i);
-		ft_printf("%.2x ", vm->arena[i].i);
-		i++;
-		if (i % 64 == 0)
-			ft_printf("\n");
-	}
-}
-
-void	introduce_players(t_vm *vm)
-{
-	int i;
-
-	i = 0;
-	ft_printf("Introducing contestants...\n");
-	while (i < vm->n_players)
-	{
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, 
-		vm->player[i].champ_size, vm->player[i].name, vm->player[i].comment);
-		i++;
-	}
-}
-
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_vm	vm;
 
@@ -66,8 +36,8 @@ int		main(int argc, char **argv)
 		create_player(&vm) &&
 		create_cursors(&vm))
 	{
-		// if (vm.v && !vm.dump && !vm.d)
-		// 	init_ncurses();
+		if (vm.v && !vm.dump && !vm.d)
+			init_ncurses();
 		introduce_players(&vm);
 		game_cycle(&vm);
 	}
