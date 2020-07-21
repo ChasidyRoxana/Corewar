@@ -35,6 +35,7 @@ static void	free_comm(t_asm *asmb)
 			free(tmp_arg->arg_name);
 			free(tmp_arg);
 		}
+		free(asmb->comm_last);
 	}
 }
 
