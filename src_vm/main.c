@@ -15,7 +15,11 @@
 static void	free_all(t_vm *vm)
 {
 	t_cursor	*tmp;
+	int			i;
 
+	i = 0;
+	while (i < vm->n_players)
+		free(vm->player[i++].file_name);
 	while (vm->cur)
 	{
 		tmp = vm->cur;
