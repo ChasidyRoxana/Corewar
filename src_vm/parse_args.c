@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:32:15 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/16 21:58:09 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:52:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 		(*n_arg)++;
 	}
 	else
-		return (0);
+		return (error_vm(ERR_FLAG));
 	return (1);
 }
 
@@ -141,5 +141,7 @@ int			parse_args(t_vm *vm, int ac, char **av)
 			vm->n_players += 1;
 		}
 	}
+	if (vm->n_players == 0) // КОСТЫЛЬ
+		return (error_vm(ERR_FLAG)); //
 	return (!sort_players(vm) ? 0 : 1);
 }

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/20 20:35:56 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:30:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct			s_label
 /*
 ** type 	- T_REG, T_IND, T_DIR
 ** arg 		- число, которое потом запишем в файл
-** arg_name - как было записано в команде
+** *arg_name - как было записано в команде
 */
 typedef struct			s_args
 {
@@ -68,13 +68,13 @@ typedef struct			s_args
 }						t_args;
 
 /*
-** label 		- список названий меток для этой команды
+** *label 		- список названий меток для этой команды
 ** size 		- размер команды
 ** op 			- код команды
 ** args_type 	- код аргументов
 ** num_args 	- количетво аргуентов
-** gnl_line 	- указатель на строку гнл с этой командой
-** args 		- аргументы
+** *gnl_line 	- указатель на строку гнл с этой командой
+** *args 		- аргументы
 */
 typedef struct			s_command
 {
@@ -174,6 +174,7 @@ int						is_numeric(char c);
 int						check_numeric(t_asm *asmb, int *err, int *i, int *last);
 int						parse_args(t_asm *asmb, t_args *tmp, int *i,
 						int index_op);
+int						check_atoi(char *av);
 
 /*
 ** check_comm_list.c

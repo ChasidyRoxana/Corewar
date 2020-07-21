@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 16:03:40 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 19:51:51 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:43:18 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		check_player(t_player *player)
 	if (!read(player->fd, player->name, PROG_NAME_LENGTH))
 		return (error_vm(ERR_NAME));
 	read(player->fd, buf, 4);
-	if ((player->champ_size = check_four_bytes(player)) < 0 ||
+	if ((player->champ_size = check_four_bytes(player)) < 1 ||
 		player->champ_size > CHAMP_MAX_SIZE)
-		return (error_champ_size(player->champ_size));
+		return (error_champ_size(player));
 	if (!read(player->fd, player->comment, COMMENT_LENGTH))
 		return (error_vm(ERR_COMMENT));
 	read(player->fd, buf, 4);

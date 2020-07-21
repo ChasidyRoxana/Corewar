@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 12:21:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/20 22:25:35 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:13:41 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void					print_arena(t_vm *vm);
 */
 int						error_vm(int error);
 int						error_line(int error, char *str);
-int						error_champ_size(int size);
+int						error_champ_size(t_player *player);
 
 /*
 **	create_players.c

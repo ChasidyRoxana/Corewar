@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/15 22:18:57 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:27:13 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int			length_error(int index, int length)
 int			error_args(int error, t_command *comm, char *str, int n_sym)
 {
 	if (error == ERR_ARG)
-		ft_fdprintf(2, "Invalid type of %d parameter for instruction '%s' ",
-			comm->num_args, OP(comm->op - 1).name);
+		ft_fdprintf(2, "Invalid type of parameter %d for instruction '%s' ",
+			comm->num_args + 1, OP(comm->op - 1).name);
 	else if (error == ERR_MAX_ARG)
 		ft_fdprintf(2, "Too many arguments for instruction '%s' ",
 		OP(comm->op - 1).name);

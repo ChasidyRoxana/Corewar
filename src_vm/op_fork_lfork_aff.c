@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:56:07 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/19 14:43:29 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:28:42 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	create_new_cursor(t_vm *vm, t_cursor *cur)
 void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
-	vm->cur->i = check_position(vm->cur->i + args[0].arg % IDX_MOD);
+	vm->cur->i = check_position(vm->cur->i + (args[0].arg % IDX_MOD));
 	if (vm->d)
 		ft_printf("FORK: %d\n", vm->cur->i);
 }

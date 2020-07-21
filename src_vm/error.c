@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:45:43 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 22:03:39 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 22:35:50 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int		error_vm(int error)
 	else if (error == ERR_MAX_PLAYERS)
 		ft_fdprintf(2, "Too many champions\n");
 	else if (error == ERR_FLAG)
-		ft_fdprintf(2, "Error with flags?\nUsage: ./corewar [-v -d "
+		ft_fdprintf(2, "Error with flags\nUsage: ./corewar [-v -d "
 		"-dump N] [[-n N] [filename].cor] ...\n"
 		"-v: visual\n-d: debug\n"
-		"-n N:...\n-dump N: ...\n");
+		"-n N: number of player\n-dump N: number of cycles\n");
 	else if (error == ERR_MAGIC_HEADER)
 		ft_fdprintf(2, "Wrong magic header\n");
 	else if (error == ERR_NAME)
@@ -43,12 +43,12 @@ int		error_vm(int error)
 	return (0);
 }
 
-int		error_champ_size(int size)
+int		error_champ_size(t_player *player)
 {
-	if (size < 1)
+	if (player->champ_size < 1)
 		ft_fdprintf(2, "The champion size is too small\n");
-	else if (size > CHAMP_MAX_SIZE)
-		ft_fdprintf(2, "The champion size is too big. %d > %d "
-		"CHAMP_MAX_SIZE\n", size, CHAMP_MAX_SIZE);
+	else if (player->champ_size > CHAMP_MAX_SIZE)
+		ft_fdprintf(2, "The champion \"%s\" size is too big. %d > %d "
+		"CHAMP_MAX_SIZE\n", player->name, player->champ_size, CHAMP_MAX_SIZE);
 	return (0);
 }

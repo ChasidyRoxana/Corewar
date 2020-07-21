@@ -2,8 +2,8 @@
 .comment    "This city needs me"
 
 loop:
-        sti r1, %:live, %1
+        sti r4,%:live,%1
 live:
         live %0
-        ld %0, r2
+        ld %0, r4
         zjmp %:loop

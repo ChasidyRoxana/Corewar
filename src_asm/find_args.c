@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/20 20:23:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/21 23:44:59 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	last = *i;
 	if (!check_numeric(asmb, &err, i, &last))
 		return (0);
-	if (last == *i || !(is_separator(asmb->gnl_last->line[*i])) || err == 0)
+	if (last == *i || (!is_separator(asmb->gnl_last->line[*i]) && 
+		asmb->gnl_last->line[*i] != COMMENT_CHAR && 
+		asmb->gnl_last->line[*i] != COMMENT_CHAR_2) || err == 0)
 		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
 		return (error_common(ERR_MALLOC));
@@ -88,8 +90,10 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		tmp->type = T_REG;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
+		// скопировать чек-атои и увести в ошибку
 		tmp->arg = ft_atoi(tmp->arg_name);
-		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER))
+		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER) ||
+			!(check_atoi(tmp->arg_name)))
 			return (error_line(ERR_REG, asmb->gnl_last, (*i)));
 	}
 	else
