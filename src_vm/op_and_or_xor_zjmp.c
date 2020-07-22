@@ -71,5 +71,5 @@ void		op_zjmp(t_vm *vm, t_cursor *cur, t_arg args[])
 			ft_printf("ZJMP: arg %d -> %d\n", args[0].arg, cur->i);
 	}
 	else if (vm->d)
-		printf("ZJMP: FAILED\n");
+		ft_printf("ZJMP: FAILED\n");
 }

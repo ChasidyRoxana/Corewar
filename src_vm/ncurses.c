@@ -35,7 +35,7 @@ void	init_ncurses(void)
 	curs_set(0);
 }
 
-void	print_players_ncurses(t_vm *vm, WINDOW *info)
+static void	print_players_ncurses(t_vm *vm, WINDOW *info)
 {
 	int j;
 
@@ -58,7 +58,7 @@ void	print_players_ncurses(t_vm *vm, WINDOW *info)
 	wrefresh(info);
 }
 
-void	print_end_ncurses(t_vm *vm, WINDOW *info)
+static void	print_end_ncurses(t_vm *vm, WINDOW *info)
 {
 	int winner;
 

@@ -45,15 +45,15 @@ static int	flag_dump(t_vm *vm, int ac, char **av, int *n_arg)
 	int		num;
 
 	if (*n_arg + 2 >= ac || vm->dump != 0)
-		return (error_vm(ERR_FLAG));
+		return (0);
 	else
 	{
 		(*n_arg)++;
 		if (!check_atoi(av[*n_arg]))
-			return (error_vm(ERR_FLAG));
+			return (0);
 		num = ft_atoi(av[(*n_arg)++]);
 		if (num < 1)
-			return (error_vm(ERR_FLAG));
+			return (0);
 		vm->dump = num;
 		return (1);
 	}
@@ -73,7 +73,7 @@ static int	sort_players(t_vm *vm)
 		{
 			if (vm->player[vm->player[i].id - 1].id == vm->player[i].id &&
 				vm->player[vm->player[i].id - 1].i != vm->player[i].i)
-				return (error_vm(ERR_FLAG));
+				return (0);
 			tmp = vm->player[vm->player[i].id - 1];
 			vm->player[vm->player[i].id - 1] = vm->player[i];
 			vm->player[i] = tmp;
@@ -85,18 +85,18 @@ static int	sort_players(t_vm *vm)
 	while (++i < vm->n_players)
 		if (vm->player[i].id == 0)
 			vm->player[i].id = i + 1;
-	return (1);
+	return (vm->n_players == 0 ? 0 : 1);
 }
 
 static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 {
 	if ((!ft_strcmp(av[*n_arg], "-v") && vm->v) ||
 		(!ft_strcmp(av[*n_arg], "-d") && vm->d))
-		return (0);
+		return (error_vm(ERR_FLAG));
 	else if (!ft_strcmp(av[*n_arg], "-dump"))
 	{
 		if (!flag_dump(vm, ac, av, n_arg))
-			return (0);
+			return (error_vm(ERR_FLAG));
 	}
 	else if (!ft_strcmp(av[*n_arg], "-n"))
 	{
@@ -141,7 +141,5 @@ int			parse_args(t_vm *vm, int ac, char **av)
 			vm->n_players += 1;
 		}
 	}
-	if (vm->n_players == 0) // КОСТЫЛЬ
-		return (error_vm(ERR_FLAG)); //
-	return (!sort_players(vm) ? 0 : 1);
+	return (!sort_players(vm) ? error_vm(ERR_FLAG) : 1);
 }

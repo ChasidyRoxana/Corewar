@@ -154,8 +154,9 @@ int						game_cycle(t_vm *vm);
 */
 void					init_ncurses(void);
 void					print_ncurses(t_vm *vm, int end, int i);
-void					print_end_ncurses(t_vm *vm, WINDOW *info);
-void					print_players_ncurses(t_vm *vm, WINDOW *info);
+// void					print_end_ncurses(t_vm *vm, WINDOW *info);
+// void					print_players_ncurses(t_vm *vm, WINDOW *info);
+// сделала их статиками или они нужны публичые?
 
 /*
 **	create_cursor.c

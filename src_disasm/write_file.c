@@ -29,7 +29,7 @@ static void	write_commands(int fd, t_disasm *disasm)
 				ft_fdprintf(fd, ", ");
 			num = ft_itoa(tmp_arg->arg);
 			if (tmp_arg->type != T_IND)
-				ft_fdprintf(fd, "%c", (tmp_arg->type == T_REG ? "r" : "%"));
+				ft_fdprintf(fd, "%c", (tmp_arg->type == T_REG ? 'r' : '%'));
 			ft_fdprintf(fd, "%s", num);
 			free(num);
 			tmp_arg = tmp_arg->next;
