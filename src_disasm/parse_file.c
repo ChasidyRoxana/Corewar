@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 20:59:49 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/22 20:47:44 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:03:17 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	parse_header(t_disasm *disasm, int fd)
 	get_int(fd, 4);
 	if ((disasm->prog_length = get_int(fd, 4)) < 0 ||
 		disasm->prog_length > CHAMP_MAX_SIZE)
-		return (error_disasm(ERR_HEADER));
+		return (error_disasm(ERR_CHAMP_SIZE));
 	if (!read_n_byte(fd, disasm->comment, COMMENT_LENGTH))
 		return (error_disasm(ERR_HEADER));
 	get_int(fd, 4);

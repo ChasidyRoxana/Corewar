@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 20:59:03 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/16 21:42:52 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:06:44 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static int	check_filename(t_disasm *disasm, char *name)
 	if (ft_strcmp(&name[length - 4], ".cor") == 0)
 	{
 		disasm->filename = ft_strnew(length + 2);
-		ft_strncpy(disasm->filename, "new_", 4);
 		ft_strncat(disasm->filename, name, (length - 4));
-		ft_strcat(disasm->filename, ".s");
+		ft_strcat(disasm->filename, "_new.s");
 	}
 	else
 		return (error_disasm(ERR_FILE_NAME));
@@ -66,7 +65,7 @@ int			main(int argc, char **argv)
 	if (check_filename(&disasm, argv[1]) &&
 		parse_file(&disasm, argv[1]) &&
 		write_to_file(&disasm))
-		ft_printf("The .s file is ready\n");
+		ft_printf("The %s file is ready\n", disasm.filename);
 	free_all(&disasm);
 	return (0);
 }

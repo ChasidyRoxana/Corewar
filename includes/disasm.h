@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 23:22:42 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/16 20:29:29 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:03:45 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define ERR_HEADER		4
 # define ERR_COMMAND	5
 # define ERR_CRT_FILE	6
+# define ERR_CHAMP_SIZE	7
 # define OP(index)		g_op_tab[index]
 
 /*
