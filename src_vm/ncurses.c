@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/20 22:32:47 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:28:42 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	print_players_ncurses(t_vm *vm, WINDOW *info)
 	}
 	wattron(info, A_BOLD);
 	wprintw(info, "\nCycles: %d\n", vm->cycle);
+	wprintw(info, "\nNumber of lives in period: %d\n", vm->n_live);
 	wprintw(info, "\nCycles to die: %d\n", vm->cycles_to_die);
 	wprintw(info, "\nNumber of checks: %d\n", vm->n_check);
 	wattroff(info, A_BOLD);

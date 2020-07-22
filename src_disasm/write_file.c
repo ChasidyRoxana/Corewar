@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 20:59:56 by tpepperm          #+#    #+#             */
-/*   Updated: 2020/07/21 23:18:40 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 20:50:12 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int			write_to_file(t_disasm *disasm)
 {
 	int fd;
 
+	ft_printf("%s\n", disasm->filename);
 	if ((fd = open(disasm->filename, O_CREAT | O_TRUNC | O_RDWR, 755)) == -1)
 		return (error_disasm(ERR_CRT_FILE));
 	ft_fdprintf(fd, ".name \"%s\"\n", disasm->name);

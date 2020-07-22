@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/21 23:44:59 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:00:39 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 		tmp->type = T_REG;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);
-		// скопировать чек-атои и увести в ошибку
 		tmp->arg = ft_atoi(tmp->arg_name);
 		if (!(tmp->arg >= 1 && tmp->arg <= REG_NUMBER) ||
 			!(check_atoi(tmp->arg_name)))

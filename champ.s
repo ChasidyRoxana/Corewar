@@ -8,7 +8,7 @@ yellow:
 st r1, r4
 
 live: 
-live %0
+live %:0
 ldi r1, %:live, r3
 ld 5,r5     
 #blue: live %0

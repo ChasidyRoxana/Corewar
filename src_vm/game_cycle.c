@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/20 22:26:18 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:53:42 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			game_cycle(t_vm *vm)
 
 	play = 1;
 	cycle = 1;
-	while (play || (vm->dump != 0 && vm->cycle <= vm->dump))
+	while (play)
 	{
 		if (vm->v && !vm->dump && !vm->d)
 			print_ncurses(vm, 0, 0);
@@ -98,6 +98,8 @@ int			game_cycle(t_vm *vm)
 			check_up(vm, &cycle, &play);
 		cycle++;
 		vm->cycle++;
+		if (vm->dump != 0 && vm->cycle > vm->dump)
+			play = 0;
 	}
 	vm->cycle--;
 	finish_game(vm);
