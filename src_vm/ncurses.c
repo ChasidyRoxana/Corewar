@@ -6,13 +6,13 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/22 21:28:42 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 23:19:28 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-void	init_ncurses(void)
+void		init_ncurses(void)
 {
 	initscr();
 	noecho();
@@ -74,7 +74,7 @@ static void	print_end_ncurses(t_vm *vm, WINDOW *info)
 	wrefresh(info);
 }
 
-void	print_ncurses(t_vm *vm, int end, int i)
+void		print_ncurses(t_vm *vm, int end, int i)
 {
 	WINDOW	*arena;
 	WINDOW	*info;

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/22 21:00:39 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 23:10:15 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	last = *i;
 	if (!check_numeric(asmb, &err, i, &last))
 		return (0);
-	if (last == *i || (!is_separator(asmb->gnl_last->line[*i]) && 
-		asmb->gnl_last->line[*i] != COMMENT_CHAR && 
+	if (last == *i || (!is_separator(asmb->gnl_last->line[*i]) &&
+		asmb->gnl_last->line[*i] != COMMENT_CHAR &&
 		asmb->gnl_last->line[*i] != COMMENT_CHAR_2) || err == 0)
 		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
@@ -103,8 +103,7 @@ int			proceed_args(t_asm *asmb, t_args *tmp, int *i, int index_op)
 			tmp->type = T_DIR;
 		}
 		else if (asmb->gnl_last->line[*i] == ':' ||
-			(asmb->gnl_last->line[*i] >= 48 && asmb->gnl_last->line[*i] <= 57)
-			|| asmb->gnl_last->line[*i] == '-')
+		is_numeric(asmb->gnl_last->line[*i]) || asmb->gnl_last->line[*i] == '-')
 			tmp->type = T_IND;
 		if (!write_arg(asmb, tmp, i, index_op))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 20:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/22 21:23:07 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/22 23:01:24 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ int			error_args(int error, t_command *comm, char *str, int n_sym)
 
 int			error_line(int error, t_gnl *gnl, int n_sym)
 {
-	int i;
-	
-	i = -1;
 	if (error == ERR_NAME)
 		ft_fdprintf(2, "Error in name of the champeon in line: ", 40);
 	else if (error == ERR_COMMENT)
@@ -95,9 +92,6 @@ int			error_line(int error, t_gnl *gnl, int n_sym)
 		if (n_sym >= 0)
 			ft_fdprintf(2, " at symbol [%d]", (n_sym + 1));
 		ft_fdprintf(2, ":\n%s\n", gnl->line);
-		// while(++i < n_sym)
-		// 	ft_fdprintf(2, "%c", is_space(gnl->line[i]) ? gnl->line[i] : ' ');
-		// ft_fdprintf(2, "^\n");
 	}
 	return (0);
 }
