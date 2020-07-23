@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/15 23:51:44 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:52:37 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		check_next_line(char *line, int j, t_gnl **tmp, int length)
 		if (!check_end_space(&(*tmp)->line[i + 1]))
 			return (0);
 	}
-	else if (*tmp == NULL)
-		return (0);
 	else
 	{
+		if (!(*tmp)->next)
+			return (0);
 		*tmp = (*tmp)->next;
 		if (!check_next_line(line, j, tmp, length))
 			return (0);
@@ -81,15 +81,17 @@ int		check_name_comment(t_gnl **tmp, int i, t_asm *asmb, int length)
 		if (error == 0)
 			return ((ft_strlen(asmb->header.prog_name) == PROG_NAME_LENGTH) ?
 				0 : error_line(ERR_NAME, *tmp, -1));
+		else
 			asmb->flag_name += 1;
 	}
 	else
 	{
 		error = create_namecom((*tmp)->line + i + ft_strlen(COMMENT_CMD_STRING),
 				asmb->header.comment, tmp, COMMENT_LENGTH);
-		if (error == -1)
+		if (error == 0)
 			return ((ft_strlen(asmb->header.comment) == COMMENT_LENGTH) ?
 				0 : error_line(ERR_COMMENT, *tmp, -1));
+		else
 			asmb->flag_comment += 1;
 	}
 	return (1);
@@ -111,27 +113,27 @@ int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 
 int		find_name_comment(t_asm *asmb)
 {
-	t_gnl	*tmp;
 	int		i;
+	t_gnl	*tmp;
 
 	tmp = asmb->gnl;
 	while (tmp)
 	{
-		if (asmb->flag_name == 1 && asmb->flag_comment == 1)
-		{
-			asmb->gnl_last = tmp;
-			return (1);
-		}
 		i = skip_first_spaces(tmp->line);
 		if (tmp->line[i] && tmp->line[i] == '.')
 		{
 			if (!proceed_name_comment(&tmp, i, asmb))
 				return (0);
+			if (asmb->flag_name == 1 && asmb->flag_comment == 1)
+			{
+				asmb->gnl_last = tmp;
+				return (1);
+			}
 		}
-		else if (tmp->line[i] && tmp->line[i] != COMMENT_CHAR
-			&& tmp->line[i] != COMMENT_CHAR_2)
-			return (error_line(ERR_SYNTAX, tmp, i));
-		tmp = tmp->next;
+		else if (tmp->line[i] && !is_comment(tmp->line[i]))
+			return (is_found(asmb) ? error_common(ERR_NO_NAME_COMMENT) :
+			error_line(ERR_SYNTAX, tmp, i));
+			tmp = tmp->next;
 	}
 	if (asmb->flag_name != 1 || asmb->flag_comment != 1)
 		return (error_common(ERR_NO_NAME_COMMENT));

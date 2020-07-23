@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:51:29 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/21 23:30:24 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:30:39 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int			main(int argc, char **argv)
 	if (check_filename(argv[1], &asmb) &&
 		read_file(&asmb, argv[1]) &&
 		find_name_comment(&asmb) &&
+		delete_empty_lines(&asmb) &&
 		parse_commands(&asmb) &&
 		write_to_file(&asmb))
 		ft_printf("The champion is ready\n");

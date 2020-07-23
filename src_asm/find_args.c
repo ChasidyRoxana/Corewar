@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:21:30 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/22 23:10:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:48:20 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int			write_arg(t_asm *asmb, t_args *tmp, int *i, int index_op)
 	if (!check_numeric(asmb, &err, i, &last))
 		return (0);
 	if (last == *i || (!is_separator(asmb->gnl_last->line[*i]) &&
-		asmb->gnl_last->line[*i] != COMMENT_CHAR &&
-		asmb->gnl_last->line[*i] != COMMENT_CHAR_2) || err == 0)
+		!is_comment(asmb->gnl_last->line[*i])) || err == 0)
 		return (error_line(ERR_LEXICAL, asmb->gnl_last, (*i)));
 	if (!(tmp->arg_name = ft_strnew(*i - last)))
 		return (error_common(ERR_MALLOC));
@@ -66,8 +65,7 @@ int			double_check_args(t_asm *asmb, int *i)
 		(*i)++;
 	if (!asmb->gnl_last->line[*i])
 		return (1);
-	if (asmb->gnl_last->line[*i] == COMMENT_CHAR
-		|| asmb->gnl_last->line[*i] == COMMENT_CHAR_2)
+	if (is_comment(asmb->gnl_last->line[*i]))
 		return (1);
 	else if (asmb->gnl_last->line[*i] == SEPARATOR_CHAR)
 	{

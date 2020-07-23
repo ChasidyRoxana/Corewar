@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/21 22:30:15 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:45:38 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int						skip_first_spaces(char *line);
 */
 int						new_command(t_asm *asmb);
 int						parse_commands(t_asm *asmb);
+int						delete_empty_lines(t_asm *asmb);
 
 /*
 ** find_label.c
@@ -155,6 +156,8 @@ int						find_label(t_asm *asmb);
 int						check_op_name(char *com);
 int						find_command(t_asm *asmb, char *line);
 int						check_command(t_asm *asmb);
+int						is_comment(char c);
+int						is_found(t_asm *asmb);
 
 /*
 ** find_args.c

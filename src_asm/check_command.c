@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 13:25:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/15 23:39:20 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:46:14 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int			check_command(t_asm *asmb)
 
 	line = asmb->gnl_last->line;
 	i = skip_first_spaces(line);
-	if (line[i] == '\0' || line[i] == COMMENT_CHAR || line[i] == COMMENT_CHAR_2)
+	if (line[i] == '\0' || is_comment(line[i]))
 		return (1);
 	if (!new_command(asmb))
 		return (0);

@@ -6,11 +6,21 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:09:02 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/15 23:40:38 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:45:24 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
+
+int		is_comment(char c)
+{
+	return (c == COMMENT_CHAR || c == COMMENT_CHAR_2);
+}
+
+int		is_found(t_asm *asmb)
+{
+	return (asmb->flag_name || asmb->flag_comment);
+}
 
 int		malloc_label(t_command *command)
 {

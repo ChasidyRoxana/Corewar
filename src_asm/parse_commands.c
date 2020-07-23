@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 15:02:42 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/21 23:33:40 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:44:07 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,31 @@ int			parse_commands(t_asm *asmb)
 		return (error_common(ERR_NO_OP));
 	if (!check_comm_list(asmb))
 		return (0);
+	return (1);
+}
+
+int			delete_empty_lines(t_asm *asmb)
+{
+	t_gnl	*tmp;
+	t_gnl	*tmp_prev;
+	t_gnl	*tmp_free;
+
+	tmp_prev = asmb->gnl_last;
+	while (tmp_prev->next)
+	{
+		tmp = tmp_prev->next;
+		while (tmp && (ft_strlen(tmp->line) == 0 ||
+			tmp->line[skip_first_spaces(tmp->line)] == '\0'))
+		{
+			tmp_free = tmp;
+			tmp = tmp->next;
+			free(tmp_free);
+		}
+		tmp_prev->next = tmp;
+		if (tmp_prev->next)
+			tmp_prev = tmp_prev->next;
+	}
+	// ставим gnl_last на строку после коммента
+	asmb->gnl_last = asmb->gnl_last->next;
 	return (1);
 }

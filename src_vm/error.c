@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 21:45:43 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/21 22:35:50 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 00:51:08 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		error_vm(int error)
 		"-d / -d 1: debug / show final number of cycles\n"
 		"-n N: number of player(1 <= N <= 4)\n"
 		"-dump N: at the end of N cycles, dump the memory and quit the game");
-		//-dump N: number of cycles\n");
 	else if (error == ERR_MAGIC_HEADER)
 		ft_fdprintf(2, "Wrong magic header\n");
 	else if (error == ERR_NAME)
