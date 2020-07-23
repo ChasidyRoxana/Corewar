@@ -32,7 +32,7 @@ static void	send_to_op2(t_vm *vm, t_cursor *cur, t_arg args[])
 
 void		send_to_op(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("Cursor %d: ", cur->cursor_id);
 	if (cur->op == 1)
 		op_live(vm, cur, args);

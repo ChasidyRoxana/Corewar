@@ -19,7 +19,7 @@ void	op_live(t_vm *vm, t_cursor *cur, t_arg *args)
 	cur->live_cycle = vm->cycle;
 	vm->n_live += 1;
 	player = args[0].arg * (-1);
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LIVE: %d\n", player);
 	if (player > 0 && player <= vm->n_players)
 		vm->winner = player;
@@ -41,7 +41,7 @@ void	op_ld(t_vm *vm, t_cursor *cur, t_arg *args)
 		address = check_position(cur->i + (args[0].arg % IDX_MOD));
 		arg = get_arg(vm, address, 4);
 	}
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LD: reg %d, arg %d, address %d\n", reg, arg, address);
 	cur->regs[reg] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
@@ -57,14 +57,14 @@ void	op_st(t_vm *vm, t_cursor *cur, t_arg *args)
 	if (args[1].type == T_REG)
 	{
 		cur->regs[args[1].arg - 1] = cur->regs[reg];
-		if (vm->d)
+		if (vm->d == 2)
 			ft_printf("ST: reg %d -> reg %d\n", reg, args[1].arg - 1);
 	}
 	else if (args[1].type == T_IND)
 	{
 		address = check_position(cur->i + (args[1].arg % IDX_MOD));
 		write_to_memory(vm, cur, reg, address);
-		if (vm->d)
+		if (vm->d == 2)
 			ft_printf("ST: reg %d -> address %d\n", reg, address);
 	}
 }
@@ -82,7 +82,7 @@ void	op_add(t_vm *vm, t_cursor *cur, t_arg *args)
 	arg = cur->regs[reg_one] + cur->regs[reg_two];
 	cur->regs[reg_three] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("ADD: reg%d = %d, reg%d = %d, reg%d = %d\n", reg_one,
 		cur->regs[reg_one], reg_two, cur->regs[reg_two], reg_three,
 		cur->regs[reg_three]);
@@ -101,7 +101,7 @@ void	op_sub(t_vm *vm, t_cursor *cur, t_arg *args)
 	arg = cur->regs[reg_one] - cur->regs[reg_two];
 	cur->regs[reg_three] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("SUB: reg%d = %d, reg%d = %d, reg%d = %d\n",
 		reg_one, cur->regs[reg_one], reg_two, cur->regs[reg_two],
 		reg_three, cur->regs[reg_three]);

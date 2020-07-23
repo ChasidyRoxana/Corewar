@@ -45,15 +45,15 @@ static int	flag_dump(t_vm *vm, int ac, char **av, int *n_arg)
 	int		num;
 
 	if (*n_arg + 2 >= ac || vm->dump != 0)
-		return (0);
+		return (error_vm(ERR_FLAG));
 	else
 	{
 		(*n_arg)++;
 		if (!check_atoi(av[*n_arg]))
-			return (0);
+			return (error_vm(ERR_FLAG));
 		num = ft_atoi(av[(*n_arg)++]);
 		if (num < 1)
-			return (0);
+			return (error_vm(ERR_FLAG));
 		vm->dump = num;
 		return (1);
 	}
@@ -94,25 +94,24 @@ static int	parse_flags(t_vm *vm, int ac, char **av, int *n_arg)
 		(!ft_strcmp(av[*n_arg], "-d") && vm->d))
 		return (error_vm(ERR_FLAG));
 	else if (!ft_strcmp(av[*n_arg], "-dump"))
-	{
-		if (!flag_dump(vm, ac, av, n_arg))
-			return (error_vm(ERR_FLAG));
-	}
+		return (flag_dump(vm, ac, av, n_arg));
 	else if (!ft_strcmp(av[*n_arg], "-n"))
+		return (flag_n(vm, ac, av, n_arg));
+	else if (!ft_strcmp(av[*n_arg], "-v"))
 	{
-		if (!flag_n(vm, ac, av, n_arg))
-			return (0);
+		vm->v = 1;
+		if (*n_arg + 1 < ac && check_atoi(av[*n_arg + 1]))
+			vm->v_cycle = ft_atoi(av[++(*n_arg)]);
 	}
-	else if (!ft_strcmp(av[*n_arg], "-v") || !ft_strcmp(av[*n_arg], "-d"))
+	else if (!ft_strcmp(av[*n_arg], "-d"))
 	{
-		if (!ft_strcmp(av[*n_arg], "-v"))
-			vm->v = 1;
-		else
-			vm->d = 1;
-		(*n_arg)++;
+		vm->d = 2;
+		if (*n_arg + 1 < ac && check_atoi(av[*n_arg + 1]))
+			vm->d = (!ft_strcmp(av[++(*n_arg)], "1") ? 1 : 2);
 	}
 	else
 		return (error_vm(ERR_FLAG));
+	(*n_arg)++;
 	return (1);
 }
 

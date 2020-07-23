@@ -24,7 +24,7 @@ void	op_ldi(t_vm *vm, t_cursor *cur, t_arg *args)
 	address %= IDX_MOD;
 	address += cur->i;
 	cur->regs[reg] = get_arg(vm, check_position(address), 4);
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LDI: address %d, reg%d = %d\n", address, reg,
 		cur->regs[reg]);
 }
@@ -41,7 +41,7 @@ void	op_sti(t_vm *vm, t_cursor *cur, t_arg *args)
 	address %= IDX_MOD;
 	address += cur->i;
 	write_to_memory(vm, cur, reg, check_position(address));
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("STI: address %d, reg%d = %d\n", address, reg,
 		cur->regs[reg]);
 }
@@ -64,7 +64,7 @@ void	op_lld(t_vm *vm, t_cursor *cur, t_arg *args)
 	}
 	cur->regs[reg] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LLD: reg%d = %d\n", reg, arg);
 }
 
@@ -81,7 +81,7 @@ void	op_lldi(t_vm *vm, t_cursor *cur, t_arg *args)
 	arg = get_arg(vm, check_position(address), 4);
 	cur->regs[reg] = arg;
 	cur->carry = (arg == 0) ? 1 : 0;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LLDI: address %d, reg%d = %d\n", address, reg,
 		cur->regs[reg]);
 }

@@ -54,7 +54,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	check_cursor(vm, cycle);
 	if (!vm->cur)
 		*game = 0;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("~ Checkup ~ live: %d, checks: %d, cycles_to_die %d -> ",
 		vm->n_live, vm->n_check, vm->cycles_to_die);
 	if (vm->n_live >= NBR_LIVE || vm->n_check == MAX_CHECKS)
@@ -64,7 +64,7 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 	}
 	else
 		vm->n_check++;
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("%d%s ~\n", vm->cycles_to_die, (*game ? "" : " game over"));
 	*cycle = 0;
 	vm->n_live = 0;
@@ -72,11 +72,11 @@ static void	check_up(t_vm *vm, int *cycle, int *game)
 
 void		finish_game(t_vm *vm)
 {
-	if (vm->v && !vm->dump && !vm->d)
+	if (vm->v && !vm->dump && vm->d == 0)
 		print_ncurses(vm, 1, 0);
 	if (vm->dump)
 		print_arena(vm);
-	else if (!vm->v)
+	else if (!vm->v || (vm->v && vm->cycle < vm->v_cycle))
 		declare_winner(vm);
 	if (vm->d)
 		ft_printf("~~~END!  Cycle: %d\n", vm->cycle);
@@ -91,7 +91,7 @@ int			game_cycle(t_vm *vm)
 	cycle = 1;
 	while (play)
 	{
-		if (vm->v && !vm->dump && !vm->d)
+		if (vm->v && vm->cycle >= vm->v_cycle && !vm->dump && vm->d == 0)
 			print_ncurses(vm, 0, 0);
 		cursor_op(vm);
 		if (cycle == vm->cycles_to_die || vm->cycles_to_die <= 0)

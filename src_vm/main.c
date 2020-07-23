@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 		create_player(&vm) &&
 		create_cursors(&vm))
 	{
-		if (vm.v && !vm.dump && !vm.d)
+		if (vm.v && !vm.dump && vm.d == 0)
 			init_ncurses();
 		introduce_players(&vm);
 		game_cycle(&vm);

@@ -94,7 +94,8 @@ typedef struct			s_arena
 **	winner		- победитель
 **	dump		- флаг -dump
 **	v			- флаг визуализации
-**	d			- флаг дебага
+**	v_cycle		- цикл, с которого запускается визуализация
+**	d			- флаг дебага (2 выводит всё, 1 - финальное количество циклов)
 */
 typedef struct			s_vm
 {
@@ -109,6 +110,7 @@ typedef struct			s_vm
 	int					winner;
 	int					dump;
 	int					v;
+	int					v_cycle;
 	int					d;
 }						t_vm;
 
@@ -154,10 +156,6 @@ int						game_cycle(t_vm *vm);
 */
 void					init_ncurses(void);
 void					print_ncurses(t_vm *vm, int end, int i);
-// void					print_end_ncurses(t_vm *vm, WINDOW *info);
-// void					print_players_ncurses(t_vm *vm, WINDOW *info);
-// сделала их статиками или они нужны публичые?
-
 /*
 **	create_cursor.c
 */

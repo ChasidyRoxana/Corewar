@@ -37,7 +37,7 @@ void		op_fork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i = check_position(vm->cur->i + (args[0].arg % IDX_MOD));
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("FORK: %d\n", vm->cur->i);
 }
 
@@ -45,13 +45,13 @@ void		op_lfork(t_vm *vm, t_cursor *cur, t_arg args[])
 {
 	create_new_cursor(vm, cur);
 	vm->cur->i = check_position(vm->cur->i + args[0].arg);
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("LFORK: %d\n", vm->cur->i);
 }
 
 void		op_aff(t_vm *vm, t_cursor *cur, t_arg args[])
 {
-	if (vm->d)
+	if (vm->d == 2)
 		ft_printf("AFF: reg%d = %d\n", args[0].arg - 1,
 		cur->regs[args[0].arg - 1]);
 	ft_printf("%c", (char)cur->regs[args[0].arg - 1]);
