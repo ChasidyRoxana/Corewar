@@ -67,13 +67,13 @@ int			delete_empty_lines(t_asm *asmb)
 		{
 			tmp_free = tmp;
 			tmp = tmp->next;
+			free(tmp_free->line);
 			free(tmp_free);
 		}
 		tmp_prev->next = tmp;
 		if (tmp_prev->next)
 			tmp_prev = tmp_prev->next;
 	}
-	// ставим gnl_last на строку после коммента
 	asmb->gnl_last = asmb->gnl_last->next;
 	return (1);
 }

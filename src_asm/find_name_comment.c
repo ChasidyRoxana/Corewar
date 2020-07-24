@@ -99,11 +99,8 @@ int		check_name_comment(t_gnl **tmp, int i, t_asm *asmb, int length)
 
 int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 {
-	int error;
-
-	error = 0;
 	asmb->header.magic = COREWAR_EXEC_MAGIC;
-	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)
+	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)//почему больше?
 		return (check_name_comment(tmp, i, asmb, PROG_NAME_LENGTH));
 	else if (ft_strcmp((*tmp)->line + i, COMMENT_CMD_STRING) > 0)
 		return (check_name_comment(tmp, i, asmb, COMMENT_LENGTH));
@@ -133,7 +130,7 @@ int		find_name_comment(t_asm *asmb)
 		else if (tmp->line[i] && !is_comment(tmp->line[i]))
 			return (is_found(asmb) ? error_common(ERR_NO_NAME_COMMENT) :
 			error_line(ERR_SYNTAX, tmp, i));
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	if (asmb->flag_name != 1 || asmb->flag_comment != 1)
 		return (error_common(ERR_NO_NAME_COMMENT));

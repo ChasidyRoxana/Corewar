@@ -18,7 +18,10 @@ static int	read_n_byte(int fd, char str[], int n_byte)
 
 	byte_read = read(fd, str, n_byte);
 	if (byte_read != n_byte)
+	{
+		ft_printf("%d != %d\n", byte_read, n_byte);
 		return (0);
+	}
 	str[byte_read] = '\0';
 	return (1);
 }
@@ -41,15 +44,24 @@ static int	get_int(int fd, int n_byte)
 static int	parse_header(t_disasm *disasm, int fd)
 {
 	if (get_int(fd, 4) != COREWAR_EXEC_MAGIC)
+	{
+		ft_printf("exec\n");
 		return (error_disasm(ERR_HEADER));
+	}
 	if (!read_n_byte(fd, disasm->name, PROG_NAME_LENGTH))
+	{
+		ft_printf("name\n");
 		return (error_disasm(ERR_HEADER));
+	}
 	get_int(fd, 4);
 	if ((disasm->prog_length = get_int(fd, 4)) < 0 ||
 		disasm->prog_length > CHAMP_MAX_SIZE)
 		return (error_disasm(ERR_CHAMP_SIZE));
 	if (!read_n_byte(fd, disasm->comment, COMMENT_LENGTH))
+	{
+		ft_printf("comm\n");
 		return (error_disasm(ERR_HEADER));
+	}
 	get_int(fd, 4);
 	return (1);
 }
