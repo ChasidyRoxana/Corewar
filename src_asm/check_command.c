@@ -103,12 +103,7 @@ int			find_command(t_asm *asmb, char *line)
 
 int			check_command(t_asm *asmb)
 {
-	int		i;
-	char	*line;
-
-	line = asmb->gnl_last->line;
-	i = skip_first_spaces(line);
-	if (line[i] == '\0' || is_comment(line[i]))
+	if (check_end_space(asmb->gnl_last->line))
 		return (1);
 	if (!new_command(asmb))
 		return (0);
