@@ -1,8 +1,6 @@
 .name "Piglet (~* (o o) *~)"
 .comment "
 
-
-
         Hru
     hru    hru
         hru

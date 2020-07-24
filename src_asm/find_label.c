@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:09:02 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/24 00:45:24 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 18:46:25 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ int		is_comment(char c)
 	return (c == COMMENT_CHAR || c == COMMENT_CHAR_2);
 }
 
-int		is_found(t_asm *asmb)
+int		is_found(t_asm *asmb, t_gnl *tmp, int i)
 {
-	return (asmb->flag_name || asmb->flag_comment);
+	if (asmb->flag_name || asmb->flag_comment)
+		return (error_common(ERR_NO_NAME_COMMENT));
+	else
+		return (error_line(ERR_SYNTAX, tmp, i));
 }
 
 int		malloc_label(t_command *command)

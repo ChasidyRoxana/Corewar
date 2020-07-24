@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:44:27 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/22 23:19:28 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:27:11 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		print_ncurses(t_vm *vm, int end, int i)
 		}
 		wprintw(arena, "\n");
 		wrefresh(arena);
-		usleep(20000);
+		usleep(12000);
 	}
 	delwin(arena);
 	delwin(info);

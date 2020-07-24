@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:13:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/23 23:03:51 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 18:47:43 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 static int	gnl_add_line(t_asm *asmb, int nb_line, char *line)
 {
-	// if (ft_strlen(line) == 0 || line[skip_first_spaces(line)] == '\0')
-	// {
-	// 	free(line);
-	// 	return (1);
-	// }
 	if (asmb->gnl == NULL)
 	{
 		if (!(asmb->gnl = (t_gnl*)malloc(sizeof(t_gnl))))

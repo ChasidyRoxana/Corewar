@@ -1,6 +1,4 @@
-    .name "Hello hel # hellothere Hello hel # hellothere Hello  
-    .hellothereHello hel # hellothere
-    lo" #hello
+    .name "" #hello
     .comment "Prive
 t....."
 

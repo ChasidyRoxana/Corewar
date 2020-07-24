@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 00:14:11 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/24 00:52:37 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 18:47:28 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		check_name_comment(t_gnl **tmp, int i, t_asm *asmb, int length)
 int		proceed_name_comment(t_gnl **tmp, int i, t_asm *asmb)
 {
 	asmb->header.magic = COREWAR_EXEC_MAGIC;
-	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)//почему больше?
+	if (ft_strcmp((*tmp)->line + i, NAME_CMD_STRING) > 0)
 		return (check_name_comment(tmp, i, asmb, PROG_NAME_LENGTH));
 	else if (ft_strcmp((*tmp)->line + i, COMMENT_CMD_STRING) > 0)
 		return (check_name_comment(tmp, i, asmb, COMMENT_LENGTH));
@@ -128,8 +128,7 @@ int		find_name_comment(t_asm *asmb)
 			}
 		}
 		else if (tmp->line[i] && !is_comment(tmp->line[i]))
-			return (is_found(asmb) ? error_common(ERR_NO_NAME_COMMENT) :
-			error_line(ERR_SYNTAX, tmp, i));
+			return (is_found(asmb, tmp, i));
 		tmp = tmp->next;
 	}
 	if (asmb->flag_name != 1 || asmb->flag_comment != 1)

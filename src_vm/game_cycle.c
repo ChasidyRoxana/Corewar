@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/22 21:53:42 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 19:21:43 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		finish_game(t_vm *vm)
 		print_ncurses(vm, 1, 0);
 	if (vm->dump)
 		print_arena(vm);
-	else if (!vm->v || (vm->v && vm->cycle < vm->v_cycle))
+	else if (!vm->v || vm->d)
 		declare_winner(vm);
 	if (vm->d)
 		ft_printf("~~~END!  Cycle: %d\n", vm->cycle);

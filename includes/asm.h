@@ -6,7 +6,7 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:27:56 by tkarpukova        #+#    #+#             */
-/*   Updated: 2020/07/24 00:45:38 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 18:47:01 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int						delete_empty_lines(t_asm *asmb);
 int						malloc_label(t_command *command);
 int						create_label(t_asm *asmb, t_gnl *tmp, int *i);
 int						find_label(t_asm *asmb);
+int						is_comment(char c);
+int						is_found(t_asm *asmb, t_gnl *tmp, int i);
 
 /*
 ** check_command.c
@@ -156,8 +158,6 @@ int						find_label(t_asm *asmb);
 int						check_op_name(char *com);
 int						find_command(t_asm *asmb, char *line);
 int						check_command(t_asm *asmb);
-int						is_comment(char c);
-int						is_found(t_asm *asmb);
 
 /*
 ** find_args.c
