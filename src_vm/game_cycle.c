@@ -6,11 +6,28 @@
 /*   By: tpepperm <tpepperm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 17:52:33 by marvin            #+#    #+#             */
-/*   Updated: 2020/07/24 19:21:43 by tpepperm         ###   ########.fr       */
+/*   Updated: 2020/07/24 20:31:11 by tpepperm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
+
+static void	change_color(t_vm *vm, int i)
+{
+	t_cursor *tmp;
+
+	tmp = vm->cur;
+	vm->arena[i].color = vm->arena[i].prev_color;
+	while (tmp)
+	{
+		if (tmp->i == i)
+		{
+			vm->arena[i].color = tmp->color;
+			return ;
+		}
+		tmp = tmp->next;
+	}
+}
 
 static int	check_cursor(t_vm *vm, int *cycle)
 {
@@ -31,7 +48,7 @@ static int	check_cursor(t_vm *vm, int *cycle)
 					tmp2 = tmp2->next;
 				tmp2->next = tmp->next;
 			}
-			vm->arena[tmp->i].color = vm->arena[tmp->i].prev_color;
+			change_color(vm, tmp->i);
 			free(tmp);
 			tmp = vm->cur;
 		}
