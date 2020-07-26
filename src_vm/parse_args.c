@@ -74,10 +74,10 @@ static int	sort_players(t_vm *vm)
 			if (vm->player[vm->player[i].id - 1].id == vm->player[i].id &&
 				vm->player[vm->player[i].id - 1].i != vm->player[i].i)
 				return (0);
+			vm->player[i].i = -1;
 			tmp = vm->player[vm->player[i].id - 1];
 			vm->player[vm->player[i].id - 1] = vm->player[i];
 			vm->player[i] = tmp;
-			vm->player[i].i = -1;
 			i = -1;
 		}
 	}
